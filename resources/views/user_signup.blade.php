@@ -1,6 +1,6 @@
 @include('layouts.header')
     <main class="form-signin w-100 mx-auto">
-        <form name="signup" method="post" action="{{ route('user.store') }}">
+        <form name="signup" method="post" action="" autocomplete="off">
             @csrf
             <h1 style="color:#c98e49;text-align: left;" class="h3 mb-3 fw-normal">Free Signup</h1>
 
