@@ -1,6 +1,6 @@
 @include('layouts.header')
     <main class="form-signin w-100 mx-auto">
-        <form name="signup" method="post" action="" autocomplete="off">
+        <form name="signup" method="post" action="{{ route('user.postRegister') }}" autocomplete="off">
             @csrf
             <h1 style="color:#c98e49;text-align: left;" class="h3 mb-3 fw-normal">Free Signup</h1>
 
@@ -68,17 +68,17 @@
             </div>
             <div class="form-floating">
                 <input style="background-color: transparent;border: none;color:#ffffff" type="password"
-                    class="form-control" id="cpassword" name="cpassword">
+                    class="form-control" id="password" name="cpassword">
                 <label for="floatingPassword" style="color: #636161;">
                     Confirm Password
                 </label>
-                @if ($errors->has('cpassword'))
+                {{-- @if ($errors->has('cpassword'))
                 <span class="text-danger">{{ $errors->first('cpassword') }}</span>
-                @endif
+                @endif --}}
             </div>
             <div class="form-check py-2">
-                <input class="form-check-input" type="checkbox" id="marketing" name="marketing" value="" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault" style="text-align: left!important;font-size: 12px;">
+                <input class="form-check-input" type="checkbox" id="marketing" name="marketing" value="1">
+                <label class="form-check-label" for="marketing" style="text-align: left!important;font-size: 12px;">
                     <span class="text-white">Marketing</span>
                 </label>
                 @if ($errors->has('marketing'))
@@ -86,9 +86,9 @@
                 @endif
             </div>
             <div class="form-check py-2">
-                <input class="form-check-input" type="checkbox" id="privacy" name="privacy" value="" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault" style="text-align: left!important;font-size: 12px;">
-                    <span class="text-white">Terms of Use</span>
+                <input class="form-check-input" type="checkbox" id="privacy" name="privacy" value="1">
+                <label class="form-check-label" for="privacy" style="text-align: left!important;font-size: 12px;">
+                    <span class="text-white" >Terms of Use</span>
                 </label>
                 @if ($errors->has('privacy'))
                 <span class="text-danger">{{ $errors->first('privacy') }}</span>

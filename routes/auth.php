@@ -9,13 +9,24 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+
+use App\Http\Controllers\UserController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
+    
+    // Route::get('register', [UserController::class, 'index'])->name('user.register');
+    // Route::post('register', [UserController::class, 'store'])->name('user.postRegister');
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::post('register', [RegisteredUserController::class, 'store'])->name('user.postRegister');
+
+    Route::get('otpForm/{id?}', [RegisteredUserController::class, 'otpForm'])->name('user.otpForm');
+    Route::post('otpForm', [RegisteredUserController::class, 'verifyOtp'])->name('user.verifyOtp');
+    Route::get('emailForm/{id?}', [RegisteredUserController::class, 'emailForm'])->name('user.emailForm');
+    Route::post('emailForm', [RegisteredUserController::class, 'verifyEmailOtp'])->name('user.verifyEmailOtp');
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
