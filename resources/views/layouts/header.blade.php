@@ -77,10 +77,11 @@
     <header style="background-color: #14151b;" class="p-1">
         <nav class="navbar navbar-dark bg-dark fixed-top">
             <div class="container-fluid">
-                <a class="d-none d-lg-block" data-bs-toggle="offcanvas" href="#offcanvasResponsive" role="button"
+                <a style="text-decoration: none;" class="d-none d-lg-block" data-bs-toggle="offcanvas" href="#offcanvasResponsive" role="button"
                     aria-controls="offcanvasResponsive">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                        <img src="{{ URL::asset('assets/images/image_2023_03_21T13_45_50_816Z.png') }}" style="width: 150px;" />
+                        {{-- <img src="{{ URL::asset('assets/images/image_2023_03_21T13_45_50_816Z.png') }}" style="width: 150px;" /> --}}
+                        <h1 style="color: #c98e49;">Hostess</h1>
                     </div>
                 </a>
                 <a class="navbar-toggler d-lg-none" data-bs-toggle="offcanvas" href="#offcanvasResponsive" role="button"
@@ -90,23 +91,31 @@
                 <div class="offcanvas-lg offcanvas-start bg-dark" tabindex="-1" id="offcanvasResponsive"
                     aria-labelledby="offcanvasResponsiveLabel">
                     <div class="offcanvas-header">
-                        <img src="{{ URL::asset('assets/images/image_2023_03_21T13_45_50_816Z.png') }}" style="width: 150px;" />
+                        {{-- <img src="{{ URL::asset('assets/images/image_2023_03_21T13_45_50_816Z.png') }}" style="width: 150px;" /> --}}
+                        <h1 style="color: #c98e49;">Hostess</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
                             data-bs-target="#offcanvasResponsive" aria-label="Close" style="background-color: #ffffff;"></button>
                     </div>
                     <div class="offcanvas-body">
                         <ul style="margin: auto;"
                             class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 d-block d-lg-inline-flex">
-                            <li><a href="#" class="nav-link px-4">Explore</a></li>
+                            {{-- <li><a href="#" class="nav-link px-4">Explore</a></li>
                             <li><a href="#" class="nav-link px-4">Plans</a></li>
-                            <li><a href="#" class="nav-link px-4">Upload</a></li>
+                            <li><a href="#" class="nav-link px-4">Upload</a></li> --}}
                         </ul>
                     </div>
                 </div>
-                <div class="text-end">
-                    <a href="{{ route('login') }}" style="color: #dbdbdc;" class="">Login |</a>
-                    <a href="{{ route('register') }}" style="color: #dbdbdc;" class="">Register</a>
-                </div>
+                @if(Auth::id() != null || Auth::id() != '')
+                    <div class="text-end">
+                        <span style="color: #dbdbdc;" class="">Welcome, {{Auth::user()->name}} |</span>
+                        <a href="{{ route('user.logout') }}" style="color: #dbdbdc;" class="">Logout</a>
+                    </div>
+                @else
+                    <div class="text-end">
+                        <a href="{{ route('login') }}" style="color: #dbdbdc;" class="">Login |</a>
+                        <a href="{{ route('register') }}" style="color: #dbdbdc;" class="">Register</a>
+                    </div>
+                @endif
             </div>
         </nav>
     </header>

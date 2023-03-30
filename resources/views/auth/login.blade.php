@@ -29,6 +29,7 @@
                 <label for="floatingPassword" style="color: #636161;">
                     Password
                 </label>
+                <input type="hidden" name="role" value="user">
                 @if ($errors->has('password'))
                 <span class="text-danger">{{ $errors->first('password') }}</span>
                 @endif

@@ -14,6 +14,41 @@ class UserController extends Controller
     {
         return view('profile');
     }
+
+    public function update(User $user, Request $request)
+    {   
+        $request->only([
+            'aboutme',
+            'birthdate',
+            'city',
+            'gender',
+            'profilepic'
+        ]);
+
+        if ($request->file('profilepic') != null) 
+        {
+            $file      = $request->file('profilepic');
+            $fileName = rand(11111, 99999) . time() . '.' . $file->extension();
+            $name = $file->move(base_path('public/upload/user/profile/'), $fileName);
+
+            $user->update([
+                'profilepic' => $fileName,
+                'status'     => 'Pending'
+            ]);
+        }
+
+        $user->update([
+            'aboutme'   => $request->aboutme,
+            'birthdate' => $request->birthdate,
+            'city'      => $request->city,
+            'gender'    => $request->gender,
+            'updated_at'=> now()
+        ]);
+
+        Session::flash('success', 'Profile updated successfully'); 
+        return redirect()->back();
+    }
+
     // public function index()
     // {
     //     $prefix = MobilePrefix::select('prefix')->get();
