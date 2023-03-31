@@ -2,7 +2,7 @@
 @section('title', 'Users | Hostess')
 
 @section('content')
-<section class="toolbar" id="kt_toolbar">
+<div class="toolbar" id="kt_toolbar">
     <!--begin::Container-->
     <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
         <!--begin::Page title-->
@@ -19,16 +19,32 @@
             <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
                 <!--begin::Item-->
                 <li class="breadcrumb-item text-muted">
-                    <a href="{{ route('admin.users') }}" class="text-muted text-hover-primary">Users</a>
+                    <a href="{{route('admin.dashboard')}}" class="text-muted text-hover-primary">Dashboard</a>
                 </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-dark">Users</li>
                 <!--end::Item-->
             </ul>
             <!--end::Breadcrumb-->
         </div>
         <!--end::Page title-->
+        <!--begin::Actions-->
+        <div class="d-flex align-items-center py-1">
+            <!--begin::Button-->
+            {{-- <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app"
+                id="kt_toolbar_primary_button">Create</a> --}}
+            <!--end::Button-->
+        </div>
+        <!--end::Actions-->
     </div>
     <!--end::Container-->
-</section>
+</div>
 
 <section class="post d-flex flex-column-fluid" id="kt_post">
     <!--begin::Container-->
@@ -539,12 +555,12 @@
                             
                             <th width="2%">#</th>
                             <th width="10%">Image</th>
-                            <th width="15%">Name</th>
-                            <th width="19%">Email</th>
+                            <th width="13%">Name</th>
+                            <th width="15%">Email</th>
                             <th width="20%">Mobile</th>
                             <th width="10%">City</th>
                             <th width="5%">Gender</th>
-                            <th width="4%">Status</th>
+                            <th width="10%">Status</th>
                             <th width="15%">Actions</th>
                         </tr>
                         <!--end::Table row-->
@@ -573,118 +589,78 @@
                             <td><a href="tel:{{@$item->mobileno}}">{{ @$item->mobileno}}</a></td>
                             <td>{{ @$item->city }}</a></td>
                             <td>{{ @$item->gender }}</a></td>
-                            
-                            {{-- <td><div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                                                    <a href="#">
-                                                        <div class="symbol-label">
-                                                            <img src="{{ URL::asset('upload/' . $item['image']) }}"
-                            alt="profile pic" class="w-100">
+                            <td>
+                                <select onchange="changeStatus('{{@$item->id}}', this)" name="status" class="form-control status">
+                                    <option value="Active" @if(@$item->status == 'Active') selected @endif>Active</option>
+                                    <option value="Pending" @if(@$item->status == 'Pending') selected @endif>Pending</option>
+                                    <option value="Approval" @if(@$item->status == 'Approval') selected @endif>Approval</option>
+                                    <option value="Suspended" @if(@$item->status == 'Suspended') selected @endif>Suspended</option>
+                                    <option value="Banned" @if(@$item->status == 'Banned') selected @endif>Banned</option>
+                                    
+                                </select>
+                            </td>
+                            <td><a href="{{ route('admin.addUser', ['id' => @$item->id]) }}"><i class="fa fa-edit fa-lg text-primary" style="font-size:24px;" title="Edit"></i></a>
+                                <a href="javascript::void(0)" onclick="deleteUser('{{@$item->id}}')"><i class="fa fa-trash-o text-danger" style="font-size:24px;" title="Delete"></i></a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-            </a>
         </div>
-        </td> --}}
-        {{-- <td>{{$item['firstname']}}</td> --}}
-        {{-- <td>{{$item['lastname']}}</td> --}}
-        <td>
-            <select name="status" data-control="select2"
-                class="form-select form-select-solid form-select-lg fw-bold select2-hidden-accessible"
-                tabindex="-1" aria-hidden="true">
-                <option value="Pending" >Pending</option>
-                <option value="Active">Active</option>
-            </select>
-        </td>
-        <td><a href="#"><i class="fa fa-pencil" style="font-size:24px;color:blue"></i></a>
-            <a href="javascript::void(0)" onclick="deleteUser('{{@$item->id}}')"><i class="fa fa-trash-o"
-                    style="font-size:24px;color:red"></i></a>
-        </td>
-        </tr>
-        @endforeach
-        {{-- <tr>
-                                                <!--begin::Checkbox-->
-                                                <td>
-                                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                                        <input class="form-check-input" type="checkbox" value="1" />
-                                                    </div>
-                                                </td>
-                                                <!--end::Checkbox-->
-                                                <!--begin::User=-->
-                                                <td class="d-flex align-items-center">
-                                                    <!--begin:: Avatar -->
-                                                    <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                                                        <a href="../../demo1/dist/apps/user-management/users/view.html">
-                                                            <div class="symbol-label">
-                                                                <img src="assets/media/avatars/150-1.jpg" alt="Emma Smith" class="w-100" />
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                    <!--end::Avatar-->
-                                                    <!--begin::User details-->
-                                                    <div class="d-flex flex-column">
-                                                        <a href="../../demo1/dist/apps/user-management/users/view.html" class="text-gray-800 text-hover-primary mb-1">Emma Smith</a>
-                                                        <span>e.smith@kpmg.com.au</span>
-                                                    </div>
-                                                    <!--begin::User details-->
-                                                </td>
-                                                <!--end::User=-->
-                                                <!--begin::Role=-->
-                                                <td>Administrator</td>
-                                                <!--end::Role=-->
-                                                <!--begin::Last login=-->
-                                                <td>
-                                                    <div class="badge badge-light fw-bolder">Yesterday</div>
-                                                </td>
-                                                <!--end::Last login=-->
-                                                <!--begin::Two step=-->
-                                                <td></td>
-                                                <!--end::Two step=-->
-                                                <!--begin::Joined-->
-                                                <td>24 Jun 2021, 10:30 am</td>
-                                                <!--begin::Joined-->
-                                                <!--begin::Action=-->
-                                                <td class="text-end">
-                                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                                    <span class="svg-icon svg-icon-5 m-0">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                            <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                        </svg>
-                                                    </span>
-                                                    <!--end::Svg Icon--></a>
-                                                    <!--begin::Menu-->
-                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
-                                                        <!--begin::Menu item-->
-                                                        <div class="menu-item px-3">
-                                                            <a href="../../demo1/dist/apps/user-management/users/view.html" class="menu-link px-3">Edit</a>
-                                                        </div>
-                                                        <!--end::Menu item-->
-                                                        <!--begin::Menu item-->
-                                                        <div class="menu-item px-3">
-                                                            <a href="#" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
-                                                        </div>
-                                                        <!--end::Menu item-->
-                                                    </div>
-                                                    <!--end::Menu-->
-                                                </td>
-                                                <!--end::Action=-->
-                                            </tr> --}}
-        <!--end::Table row-->
-        <!--begin::Table row-->
-
-        </tbody>
-        <!--end::Table body-->
-        </table>
-        <!--end::Table-->
     </div>
-    <!--end::Card body-->
-    </div>
-    <!--end::Card-->
-    </div>
-    <!--end::Container-->
 </section>
 @endsection
 
 @section('footer')
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 <script>
+    function changeStatus(id, thiss) {
+            
+            var status  = $(thiss).closest("tr").find('.status option:selected').val();
+                swal({
+                    title: "Warning!",
+                    text: "Are you sure? You want to update status of user",
+                    icon: "warning",
+                    buttons: ['No,cancel it','Yes'],
+                    }).then(function(isConfirm) {
+                    if (isConfirm) {
+                    $.ajaxSetup({
+                    headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: "{{ url('admin/changeStatus') }}",
+                    type: "POST",
+                    data: {
+                    id: id,
+                    'status': status,
+                    '_token': '{{ csrf_token() }}',
+                    },
+                    success: function(result) {
+                    var data = JSON.parse(result);
+                    if (data.success) {
+                    swal({
+                        title: "Success!",
+                        text: "User status updated successfully :)",
+                        icon: "success",
+                        buttons: 'OK'
+                    }).then(function(isConfirm) {
+                        if (isConfirm) {
+                            location.reload();
+                        }
+                    });
+                }
+                },
+                error: function(xhr, status, error) {}
+                });
+                }
+                });
+            
+            }
+
     function deleteUser(id) {
         swal({
             title: "Warning!",

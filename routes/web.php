@@ -56,8 +56,10 @@ Route::group(['prefix' => 'admin'], function () {
 
 
         Route::get('users', [AdminUserController::class, 'index'])->name('admin.users');
+        Route::post('changeStatus', [AdminUserController::class, 'changeStatusUser'])->name('admin.changeStatusUser');
         Route::post('delete_user', [AdminUserController::class, 'destroy'])->name('delete_contact');  
-
+        Route::get('addUser/{id?}', [AdminUserController::class, 'create'])->name('admin.addUser');
+        Route::post('save_user', [AdminUserController::class, 'store'])->name('save_user');
         Route::get('dashboard', [AdminUserController::class, 'dashboard'])->name('admin.dashboard');        
         
         Route::get('logout', function ()

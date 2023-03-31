@@ -36,7 +36,7 @@ License: For each use you must have a valid license purchased only from above li
 		<link href="{{URL::asset('assets/admin/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<!--end::Global Stylesheets Bundle-->
-
+		<meta name="csrf-token" content="{{ csrf_token() }}" />
         @yield('header')
 	</head>
 	<!--end::Head-->
@@ -100,7 +100,7 @@ License: For each use you must have a valid license purchased only from above li
 									</a>
 								</div>
 								<div class="menu-item">
-									<a class="menu-link @if(Request::segment(2) == 'users') active @endif" href="{{route('admin.users')}}">
+									<a class="menu-link @if(Request::segment(2) == 'users' || Request::segment(2) == 'addUser') active @endif" href="{{route('admin.users')}}">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
 											<span class="svg-icon svg-icon-2">
@@ -1729,7 +1729,7 @@ License: For each use you must have a valid license purchased only from above li
 											</div>
 
 											<div class="menu-item me-lg-1">
-												<a class="menu-link py-3 @if(Request::segment(2) == 'users') active @endif" href="{{route('admin.users')}}">
+												<a class="menu-link py-3 @if(Request::segment(2) == 'users' || Request::segment(2) == 'addUser') active @endif" href="{{route('admin.users')}}">
 													<span class="menu-title">Users</span>
 												</a>
 											</div>
