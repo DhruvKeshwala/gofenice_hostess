@@ -5,7 +5,7 @@
             <h1 style="color:#c98e49;text-align: left;" class="h3 mb-3 fw-normal">Free Signup</h1>
 
             <div class="form-floating">
-                <input style="background-color: transparent;border: none;color:#ffffff" type="text"
+                <input style="" type="text"
                     class="form-control" id="name" name="name" placeholder="name@example.com" value="{{ old('name')}}">
                 <label for="floatingInput" style="color: #636161;">Name</label>
                 @if ($errors->has('name'))
@@ -13,7 +13,7 @@
                 @endif
             </div>
             <div class="form-floating">
-                <input style="background-color: transparent;border: none;color:#ffffff" type="text"
+                <input style="" type="text"
                     class="form-control" id="surname" name="surname" placeholder="Surname" value="{{ old('surname')}}">
                 <label for="floatingPassword" style="color: #636161;">
                     Surname
@@ -27,7 +27,7 @@
                     <div class="col-md-2">
                         <label for="floatingInput" style="color: #636161;">Phone</label>
                         @if(@$prefix != null || $prefix != '')
-                            <select class="form-control" name="mobilenoprefix" id="mobilenoprefix" style="background-color: transparent;border: none;color:#ffffff">
+                            <select class="form-control" name="mobilenoprefix" id="mobilenoprefix" style="">
                                 @foreach($prefix as $item)
                                     <option value="{{@$item->prefix}}" style="background-color:#636161;">+{{@$item->prefix}}</option>
                                 @endforeach
@@ -38,7 +38,7 @@
                     
                     <div class="col-md-10">
                         
-                        <input style="background-color: transparent;border: none;color:#ffffff" type="text"
+                        <input style="" type="text"
                             class="form-control" id="mobileno" name="mobileno" placeholder="Phone" value="{{ old('mobileno')}}">
                         {{-- <label for="floatingInput" style="color: #636161;">Phone</label> --}}
                         
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="form-floating">
-                <input style="background-color: transparent;border: none;color:#ffffff" type="text"
+                <input style="" type="text"
                     class="form-control" id="email" name="email" placeholder="test@example.com" value="{{ old('email')}}">
                 <label for="floatingPassword" style="color: #636161;">
                     Email
@@ -59,7 +59,7 @@
                 @endif
             </div>
             <div class="form-floating">
-                <input style="background-color: transparent;border: none;color:#ffffff" type="password"
+                <input style="" type="password"
                     class="form-control" id="password" name="password">
                 <label for="floatingInput" style="color: #636161;">Password</label>
                 @if ($errors->has('password'))
@@ -67,7 +67,7 @@
                 @endif
             </div>
             <div class="form-floating">
-                <input style="background-color: transparent;border: none;color:#ffffff" type="password"
+                <input style="" type="password"
                     class="form-control" id="password" name="cpassword">
                 <label for="floatingPassword" style="color: #636161;">
                     Confirm Password

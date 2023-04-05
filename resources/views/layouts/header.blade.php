@@ -66,22 +66,46 @@
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
         }
+        body,.bg-dark {
+        background-color: #F8F8FA!important;
+        }
+        .form-signin{
+        background-color: #FFFFFF!important;
+        }
+        
+        
     </style>
 
 
     <!-- Custom styles for this template -->
     <link href="{{ URL::asset('sign-in.css') }}" rel="stylesheet">
+    <style>
+        @media (min-width: 991.98px)
+        {
+            .offcanvas-body ul li a {
+                color: #000000 !important;
+            }
+        }
+.form-floating>.form-control{
+height:40px!important;
+padding-top: 0px !important;
+padding-bottom: 0px !important;
+}
+.form-floating {
+    padding-top:15px!important;
+}
+    </style>
 </head>
 
 <body>
-    <header style="background-color: #14151b;" class="p-1">
-        <nav class="navbar navbar-dark bg-dark fixed-top">
+    <header class="p-1">
+        <nav class="navbar navbar-dark bg-dark fixed-top" style="background-color:#FFFFFF!important;padding: 0px !important;">
             <div class="container-fluid">
                 <a style="text-decoration: none;" class="d-none d-lg-block" data-bs-toggle="offcanvas" href="#offcanvasResponsive" role="button"
                     aria-controls="offcanvasResponsive">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                        {{-- <img src="{{ URL::asset('assets/images/image_2023_03_21T13_45_50_816Z.png') }}" style="width: 150px;" /> --}}
-                        <h1 style="color: #c98e49;">Hostess</h1>
+                        <img src="{{ URL::asset('upload/wostess.png') }}" style="width: 200px;" /> 
+                        <!-- <h1 style="color: #c98e49;">Hostess</h1> -->
                     </div>
                 </a>
                 <a class="navbar-toggler d-lg-none" data-bs-toggle="offcanvas" href="#offcanvasResponsive" role="button"
@@ -99,21 +123,21 @@
                     <div class="offcanvas-body">
                         <ul style="margin: auto;"
                             class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 d-block d-lg-inline-flex">
-                            {{-- <li><a href="#" class="nav-link px-4">Explore</a></li>
+                            <li><a href="#" class="nav-link px-4">Explore</a></li>
                             <li><a href="#" class="nav-link px-4">Plans</a></li>
-                            <li><a href="#" class="nav-link px-4">Upload</a></li> --}}
+                            <li><a href="#" class="nav-link px-4">Upload</a></li> 
                         </ul>
                     </div>
                 </div>
                 @if(Auth::id() != null || Auth::id() != '')
                     <div class="text-end">
-                        <span style="color: #dbdbdc;" class="">Welcome, {{Auth::user()->name}} |</span>
-                        <a href="{{ route('user.logout') }}" style="color: #dbdbdc;" class="">Logout</a>
+                        <span style="color: #000000;" class="">Welcome, {{Auth::user()->name}} |</span>
+                        <a href="{{ route('user.logout') }}" style="color: #000000;" class="">Logout</a>
                     </div>
                 @else
                     <div class="text-end">
-                        <a href="{{ route('login') }}" style="color: #dbdbdc;" class="">Login |</a>
-                        <a href="{{ route('register') }}" style="color: #dbdbdc;" class="">Register</a>
+                        <a href="{{ route('login') }}" style="color: #000000;" class="">Login |</a>
+                        <a href="{{ route('register') }}" style="color: #000000;" class="">Register</a>
                     </div>
                 @endif
             </div>
