@@ -136,7 +136,7 @@ padding-bottom: 0px !important;
                         <a href="{{ route('user.logout') }}" style="color: #000000;" class="">Logout</a>
                     </div>
                 @else
-                    <div class="text-end">
+                    <div class="text-end" style="padding-right:50px;">
                         <a href="{{ route('login') }}" style="color: #ED4B60; font-size: 14px;font-weight:bold!important;text-decoration: none;" class="">Login </a>
 
                         <img src="{{url('assets/images/header.png')}}"  width="60px" height="60px" alt="Image"/>
