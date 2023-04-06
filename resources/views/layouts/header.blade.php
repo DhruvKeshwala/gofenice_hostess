@@ -67,10 +67,10 @@
             -webkit-overflow-scrolling: touch;
         }
         body,.bg-dark {
-        background-color: #F8F8FA!important;
+        background-color: #F8F8FA !important;
         }
         .form-signin{
-        background-color: #FFFFFF!important;
+        background-color: #FFFFFF !important;
         }
         
         
