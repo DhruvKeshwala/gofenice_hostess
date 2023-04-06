@@ -102,9 +102,9 @@
                 <span class="text-danger">{{ $errors->first('privacy') }}</span>
                 @endif
             </div>
-            <button type="submit" style="background-color: #ED4B60;border-radius:30px;" class="w-100 btn mt-2" name="submit"><b>Sign
+            <button type="submit" style="background-color: #ED4B60;border-radius:30px;color:#ffffff!important;" class="w-100 btn mt-2" name="submit"><b>Sign
                     up</b></button>
-            <p style="color: #636161;" class="mt-5 mb-3">Already have an account?&nbsp;<a href="{{ route('login') }}"
+            <p style="color: #636161;text-align:center;" class="mt-2 mb-3">Already have an account?&nbsp;<a href="{{ route('login') }}"
                     style="color: #ED4B60;">Sign
                     in</a></p>
         </form>

@@ -67,6 +67,7 @@
             -webkit-overflow-scrolling: touch;
         }
         body,.bg-dark {
+        font-family: 'Poppins';
         background-color: #F8F8FA !important;
         }
         .form-signin{
@@ -123,9 +124,9 @@ padding-bottom: 0px !important;
                     <div class="offcanvas-body">
                         <ul style="margin: auto;"
                             class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 d-block d-lg-inline-flex">
-                            <li><a href="#" class="nav-link px-4">Explore</a></li>
-                            <li><a href="#" class="nav-link px-4">Plans</a></li>
-                            <li><a href="#" class="nav-link px-4">Upload</a></li> 
+                            <li><a href="#" class="nav-link px-4" style="font-weight:bold!important;font-size: 18px;">Explore</a></li>
+                            <li><a href="#" class="nav-link px-4" style="font-weight:bold!important;font-size: 18px;">Plans</a></li>
+                            <li><a href="#" class="nav-link px-4" style="font-weight:bold!important;font-size: 18px;">Upload</a></li> 
                         </ul>
                     </div>
                 </div>
@@ -136,8 +137,12 @@ padding-bottom: 0px !important;
                     </div>
                 @else
                     <div class="text-end">
-                        <a href="{{ route('login') }}" style="color: #000000;" class="">Login |</a>
-                        <a href="{{ route('register') }}" style="color: #000000;" class="">Register</a>
+                        <a href="{{ route('login') }}" style="color: #ED4B60; font-size: 14px;font-weight:bold!important;text-decoration: none;" class="">Login </a>
+
+                        <img src="{{url('assets/images/header.png')}}"  width="60px" height="60px" alt="Image"/>
+
+                        <button type="button" class="btn btn-dark"><a href="{{ route('register') }}" style="color: white;font-size: 14px;text-decoration: none;" class="">Sign up free</a></button>  
+                        {{-- <a href="{{ route('register') }}" style="color: #000000;" class="">Sign up free</a> --}}
                     </div>
                 @endif
             </div>
