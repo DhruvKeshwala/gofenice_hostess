@@ -22,8 +22,10 @@ Route::middleware('guest')->group(function () {
                 ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store'])->name('user.postRegister');
+     Route::post('registerStep2', [RegisteredUserController::class, 'registerStep2'])->name('user.registerStep2');
 
     Route::get('otpForm/{id?}', [RegisteredUserController::class, 'otpForm'])->name('user.otpForm');
+    Route::get('step2Form/{id?}', [RegisteredUserController::class, 'step2Form'])->name('user.step2Form');
     Route::post('otpForm', [RegisteredUserController::class, 'verifyOtp'])->name('user.verifyOtp');
     Route::get('emailForm/{id?}', [RegisteredUserController::class, 'emailForm'])->name('user.emailForm');
     Route::post('emailForm', [RegisteredUserController::class, 'verifyEmailOtp'])->name('user.verifyEmailOtp');

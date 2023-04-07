@@ -37,6 +37,7 @@ return new class extends Migration
             $table->string('email_verification_code')->nullable();
             $table->string('mobile_verification_code')->nullable();
             $table->string('password')->nullable();
+            $table->enum('user_type', ['user', 'hostess']);
             $table->rememberToken();
             $table->timestamps();
         });

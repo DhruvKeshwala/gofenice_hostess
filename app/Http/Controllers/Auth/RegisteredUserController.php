@@ -106,9 +106,56 @@ class RegisteredUserController extends Controller
             $userDetails['email_verification_code'] = '0000'; //otp email
             $userDetails['role'] = 'user';
             $userDetails['status'] = 'Active';
+            if($request->user_type == 'hostess')
+            {
+                $userDetails['birthdate'] = $request->birthday_year."-".$request->birthday_month."-".$request->birthday_day;
+            }
+            $userDetails['user_type'] = $request->user_type;
             $result = User::create($userDetails);
             Session::flash('success', 'OTP has been sent on your number +' .  $userDetails['mobilenoprefix'] . $userDetails['mobileno']); 
-            return redirect()->to('otpForm/'.$result->id);
+            if($request->user_type == 'hostess'){
+                return redirect()->to('step2Form/'.$result->id);
+            }
+            else{
+                return redirect()->to('otpForm/'.$result->id);
+            }
+        }
+        Session::flash('success', 'Something went wrong!!'); 
+        return redirect()->back();
+    }
+
+    public function registerStep2(Request $request)
+    {
+        $validated = $request->validate([
+            'city' => 'required',
+            'services' => 'required',
+            
+        ],
+        [
+            'city.required' => 'City is required',
+            'services.required' => 'Services is required',
+            
+        ]);
+        
+        if($request)
+        {
+            $services    = implode(",",$request->services);
+            $city = $request->city;
+            $userId = $request->userId;
+            $result = User::where('id',$userId)->update(['services'=>$services,'city'=>$city]);
+            if ($request->file('profilepic') != null) 
+            {
+                $file      = $request->file('profilepic');
+                $fileName = rand(11111, 99999) . time() . '.' . $file->extension();
+                $name = $file->move(base_path('public/upload/user/profile/'), $fileName);
+
+                User::where('id',$userId)->update([
+                    'profilepic' => $fileName
+                ]);
+            }
+            $user = User::where('id', $userId)->first();
+            Session::flash('success', 'OTP has been sent on your number +' .  $user->mobilenoprefix . $user->mobileno); 
+            return redirect()->to('otpForm/'.$userId);
         }
         Session::flash('success', 'Something went wrong!!'); 
         return redirect()->back();
@@ -118,6 +165,10 @@ class RegisteredUserController extends Controller
     {
         $user = User::where('id', $id)->first();
         return view('otpForm', compact('user'));
+    }
+    public function step2Form($id){
+        $user = User::where('id', $id)->first();
+        return view('step2Form', compact('user'));
     }
 
     public function verifyOtp(Request $request)
