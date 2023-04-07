@@ -105,6 +105,7 @@ class RegisteredUserController extends Controller
             $userDetails['mobile_verification_code'] = '0000'; //otp phone
             $userDetails['email_verification_code'] = '0000'; //otp email
             $userDetails['role'] = 'user';
+            $userDetails['status'] = 'Active';
             $result = User::create($userDetails);
             Session::flash('success', 'OTP has been sent on your number +' .  $userDetails['mobilenoprefix'] . $userDetails['mobileno']); 
             return redirect()->to('otpForm/'.$result->id);

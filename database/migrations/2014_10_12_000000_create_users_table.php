@@ -23,7 +23,8 @@ return new class extends Migration
 
             $table->boolean('privacy')->nullable();
             $table->boolean('marketing')->nullable();
-            $table->string('status',30)->nullable();
+            $table->enum('status', ['Active', 'Pending', 'Approval', 'Suspended', 'Banned']);
+            $table->longText('services')->nullable();
 
             $table->text('aboutme')->nullable();
             $table->date('birthdate')->nullable();

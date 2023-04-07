@@ -1,4 +1,37 @@
 @include('layouts.header')
+<style>
+    .container-fluid:before,
+    .navbar:before,
+    .navbar:after,
+    .container-fluid:after {
+        display: unset !important;
+        content: none !important;
+    }
+
+    main {
+        margin-top: 50px;
+    }
+
+    .card__img {
+        width: 150px;
+        border-radius: 50%;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .card__border {
+        width: 150px;
+        height: 150px;
+        border: 5px solid hsl(29deg 84.21% 58.12%);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        margin: 0 auto 0.75rem;
+    }
+</style>
 <main class="form-signin w-100 mx-auto">
     <form name="signup" method="post" action="{{ route('user.postRegister') }}" autocomplete="off">
         @csrf
@@ -8,7 +41,6 @@
             <span for="floatingInput" style="color: #636161;">Name</span>
             <input style="" type="text" class="form-control" id="name" name="name"
                 mailto:placeholder="name@example.com" value="{{ old('name') }}">
-
             @if ($errors->has('name'))
                 <span class="text-danger">{{ $errors->first('name') }}</span>
             @endif
@@ -34,7 +66,6 @@
                                     +{{ @$item->prefix }}</option>
                             @endforeach
                         </select>
-
                     @endif
                 </div>
 
@@ -54,15 +85,12 @@
             <span for="floatingPassword" style="color: #636161;">
                 Email
             </span>
-            <input style="" type="text" class="form-control" id="email" name="email"
-                mailto:placeholder="test@example.com" value="{{ old('email') }}">
-
+            <input style="" type="text" class="form-control" id="email" name="email" placeholder="test@example.com" value="{{ old('email') }}">
+            <input type="hidden" class="form-control" id="user_type" name="user_type" value="{{ old('user_type') }}">
             @if ($errors->has('email'))
                 <span class="text-danger">{{ $errors->first('email') }}</span>
             @endif
         </div>
-
-
         <div class="form-floating" id="hidebirthdate">
             <span for="floatingPassword" style="color: #636161;">
                 Birthdate
@@ -74,45 +102,16 @@
                         Day
                     </span>
                     <select aria-label="Day" name="birthday_day" id="day" title="Day" class="form-control">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
-                        <option value="21">21</option>
-                        <option value="22">22</option>
-                        <option value="23">23</option>
-                        <option value="24">24</option>
-                        <option value="25">25</option>
-                        <option value="26">26</option>
-                        <option value="27">27</option>
-                        <option value="28">28</option>
-                        <option value="29">29</option>
-                        <option value="30">30</option>
-                        <option value="31">31</option>
+                        @for ($i = 1; $i <= 31; $i++)
+                            <option value="{{ $i }}">{{ $i }}</option>
+                        @endfor
                     </select>
                 </div>
                 <div class="col-md-3">
                     <span style="color: #636161;">
                         Month
                     </span>
-                    <select aria-label="Month" name="birthday_month" id="month" title="Month"
-                        class="form-control">
+                    <select aria-label="Month" name="birthday_month" id="month" title="Month" class="form-control">
                         <option value="1">Jan</option>
                         <option value="2">Feb</option>
                         <option value="3">Mar</option>
@@ -133,7 +132,7 @@
                     </span>
                     <select aria-label="Year" name="birthday_year" id="year" title="Year"
                         class="form-control">
-                        <option value="2023" selected="1">2023</option>
+                        <option value="2023" selected>2023</option>
                         <option value="2022">2022</option>
                         <option value="2021">2021</option>
                         <option value="2020">2020</option>
@@ -327,58 +326,32 @@
             </div>
             <div class="modal-body" id="selectcard">
                 <div class="col-md-6" style="text-align:center;">
-                    <div onclick="changeStyle()" class="">
+                    <div onclick="changeStyle('user');checkUserType('user');" class="">
                         <img src="https://t4.ftcdn.net/jpg/04/50/60/51/360_F_450605101_Rc8xz4hnMtuePmpZA1i6RZMwREwcqaZI.jpg"
                             alt="card image" class="card__img" />
                     </div>
-
-                    <h4 class="card__name" whoIs="user" >User</h4>
+                    <h4 class="card__name" whoIs="user">User</h4>
                 </div>
                 <div class="col-md-6" style="text-align:center;">
-                    <div class="">
+                    <div class="" onclick="checkUserType('hostess');">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYodX4PS5R7aKD07Tli-JcxLDvuKv5PZOFZHpuihWbTu63e-riirBBrvu8IqOJz7XjaSQ&usqp=CAU"
                             alt="card image" class="card__img" />
                     </div>
-
                     <h4 class="card__name" whoIs="hostess">Hostess</h4>
                 </div>
-                
             </div>
-            {{-- <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div> --}}
         </div>
-
     </div>
 </div>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script>
-    $("#chooseregmodal").modal('show');
-</script>
-<style>
-    .card__img {
-        width: 150px;
-        border-radius: 50%;
-    }
-
-    img {
-        max-width: 100%;
-        height: auto;
-    }
-
-    .card__border {
-        width: 150px;
-        height: 150px;
-        border: 5px solid hsl(29deg 84.21% 58.12%);
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        margin: 0 auto 0.75rem;
-    }
-</style>
-<script>
+    // $("#chooseregmodal").modal('show');
+    $('#chooseregmodal').modal({
+        // backdrop: 'static',
+        // keyboard: false
+    }, 'show');
     $('#selectcard img').click(function() {
         $('img').not($(this)).css({
             'border': 'none'
@@ -388,12 +361,17 @@
         });
         var whoIs = $(this).closest('.col-md-6').find("h4").attr('whoIs');
         $("#whoIs").val(whoIs);
-        
+
     });
 
-    function changeStyle(){
+    function changeStyle() {
         var element = document.getElementById("hidebirthdate");
         element.style.display = "none";
+    }
+
+    function checkUserType(params) {
+        $("#user_type").val(params);
+        $("#chooseregmodal").modal('hide');
     }
 </script>
 </body>

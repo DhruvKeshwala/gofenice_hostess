@@ -42,6 +42,7 @@ class UserController extends Controller
             'birthdate' => $request->birthdate,
             'city'      => $request->city,
             'gender'    => $request->gender,
+            'status'    => 'Pending',
             'updated_at'=> now()
         ]);
 

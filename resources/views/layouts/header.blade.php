@@ -11,10 +11,8 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
     <!--Bootstrap CSS-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -66,51 +64,51 @@
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
         }
-        body,.bg-dark {
-        font-family: 'Poppins';
-        background-color: #F8F8FA !important;
-        }
-        .form-signin{
-        background-color: #FFFFFF !important;
-        }
-        
-        
-    </style>
 
+        body,
+        .bg-dark {
+            font-family: 'Poppins';
+            background-color: #F8F8FA !important;
+        }
 
-    <!-- Custom styles for this template -->
-    <link href="{{ URL::asset('sign-in.css') }}" rel="stylesheet">
-    <style>
-        @media (min-width: 991.98px)
-        {
+        .form-signin {
+            background-color: #FFFFFF !important;
+        }
+
+        @media (min-width: 991.98px) {
             .offcanvas-body ul li a {
                 color: #000000 !important;
             }
         }
-.form-floating>.form-control{
-height:40px!important;
-padding-top: 0px !important;
-padding-bottom: 0px !important;
-}
-.form-floating {
-    padding-top:15px!important;
-}
+
+        .form-floating>.form-control {
+            height: 40px !important;
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+        }
+
+        .form-floating {
+            padding-top: 15px !important;
+        }
     </style>
+    <!-- Custom styles for this template -->
+    <link href="{{ URL::asset('sign-in.css') }}" rel="stylesheet">
 </head>
 
 <body>
     <header class="p-1">
-        <nav class="navbar navbar-dark bg-dark fixed-top" style="background-color:#FFFFFF!important;padding: 0px !important;">
+        <nav class="navbar navbar-dark bg-dark fixed-top"
+            style="background-color:#FFFFFF!important;padding: 0px !important;">
             <div class="container-fluid">
-                <a style="text-decoration: none;" class="d-none d-lg-block" data-bs-toggle="offcanvas" href="#offcanvasResponsive" role="button"
-                    aria-controls="offcanvasResponsive">
+                <a style="text-decoration: none;" class="d-none d-lg-block" data-bs-toggle="offcanvas"
+                    href="#offcanvasResponsive" role="button" aria-controls="offcanvasResponsive">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                        <img src="{{ URL::asset('upload/wostess.png') }}" style="width: 200px;" /> 
+                        <img src="{{ URL::asset('upload/wostess.png') }}" style="width: 200px;" />
                         <!-- <h1 style="color: #c98e49;">Hostess</h1> -->
                     </div>
                 </a>
-                <a class="navbar-toggler d-lg-none" data-bs-toggle="offcanvas" href="#offcanvasResponsive" role="button"
-                    aria-controls="offcanvasResponsive">
+                <a class="navbar-toggler d-lg-none" data-bs-toggle="offcanvas" href="#offcanvasResponsive"
+                    role="button" aria-controls="offcanvasResponsive">
                     <span class="navbar-toggler-icon"></span>
                 </a>
                 <div class="offcanvas-lg offcanvas-start bg-dark" tabindex="-1" id="offcanvasResponsive"
@@ -119,29 +117,37 @@ padding-bottom: 0px !important;
                         {{-- <img src="{{ URL::asset('assets/images/image_2023_03_21T13_45_50_816Z.png') }}" style="width: 150px;" /> --}}
                         <h1 style="color: #c98e49;">Hostess</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                            data-bs-target="#offcanvasResponsive" aria-label="Close" style="background-color: #ffffff;"></button>
+                            data-bs-target="#offcanvasResponsive" aria-label="Close"
+                            style="background-color: #ffffff;"></button>
                     </div>
                     <div class="offcanvas-body">
                         <ul style="margin: auto;"
                             class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 d-block d-lg-inline-flex">
-                            <li><a href="#" class="nav-link px-4" style="font-weight:bold!important;font-size: 18px;">Explore</a></li>
-                            <li><a href="#" class="nav-link px-4" style="font-weight:bold!important;font-size: 18px;">Plans</a></li>
-                            <li><a href="#" class="nav-link px-4" style="font-weight:bold!important;font-size: 18px;">Upload</a></li> 
+                            <li><a href="#" class="nav-link px-4"
+                                    style="font-weight:bold!important;font-size: 18px;">Explore</a></li>
+                            <li><a href="#" class="nav-link px-4"
+                                    style="font-weight:bold!important;font-size: 18px;">Plans</a></li>
+                            <li><a href="#" class="nav-link px-4"
+                                    style="font-weight:bold!important;font-size: 18px;">Upload</a></li>
                         </ul>
                     </div>
                 </div>
-                @if(Auth::id() != null || Auth::id() != '')
+                @if (Auth::id() != null || Auth::id() != '')
                     <div class="text-end">
-                        <span style="color: #000000;" class="">Welcome, {{Auth::user()->name}} |</span>
+                        <span style="color: #000000;" class="">Welcome, {{ Auth::user()->name }} |</span>
                         <a href="{{ route('user.logout') }}" style="color: #000000;" class="">Logout</a>
                     </div>
                 @else
-                    <div class="text-end" style="padding-right:50px;">
-                        <a href="{{ route('login') }}" style="color: #ED4B60; font-size: 14px;font-weight:bold!important;text-decoration: none;" class="">Login </a>
+                    <div class="text-end">
+                        <a href="{{ route('login') }}"
+                            style="color: #ED4B60; font-size: 14px;font-weight:bold!important;text-decoration: none;"
+                            class="">Login </a>
 
-                        <img src="{{url('assets/images/header.png')}}"  width="60px" height="60px" alt="Image"/>
+                        <img src="{{ url('assets/images/header.png') }}" width="60px" height="60px" alt="Image" />
 
-                        <button type="button" class="btn btn-dark"><a href="{{ route('register') }}" style="color: white;font-size: 14px;text-decoration: none;" class="">Sign up free</a></button>  
+                        <button type="button" class="btn btn-dark"><a href="{{ route('register') }}"
+                                style="color: white;font-size: 14px;text-decoration: none;" class="">Sign up
+                                free</a></button>
                         {{-- <a href="{{ route('register') }}" style="color: #000000;" class="">Sign up free</a> --}}
                     </div>
                 @endif

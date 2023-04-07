@@ -15,18 +15,16 @@
             onchange="previewFile()" />
         <label for="avatar" style="cursor:pointer">
             @if (Auth::user()->profilepic != null || Auth::user()->profilepic != '')
-                <div
-                    style="background-color: black;border-radius: 50%;height: 150px;
+                <div style="background-color: black;border-radius: 50%;height: 150px;
                 width: 150px;margin: auto;">
                     <img src="{{ URL::asset('/upload/user/profile/' . Auth::user()->profilepic) }}"
                         style="height:150px;width:150px;border-radius: 50%;padding:0px;" alt="No Img"
                         id="profile-image1">
                 </div>
             @else
-                <div
-                    style="background-color: #fff;border-radius: 50%;height: 150px;
+                <div style="background-color: #fff;border-radius: 50%;height: 150px;
                     width: 150px;margin: auto;">
-                    <i style="line-height: 80px;" class="far fa-user fa-3x"></i>
+                    <img src="{{ URL::asset('/upload/user-image.png') }}" style="height:150px;width:150px;border-radius: 50%;padding:0px;" alt="No Img" id="profile-image1">
                 </div>
             @endif
             <p class="py-2" style="color:#ED4B60">Add avatar</p>
@@ -105,7 +103,6 @@
 </html>
 <script>
     function previewFile() {
-        // var preview = document.querySelector('img');
         var preview = document.getElementById('profile-image1');
         var file = document.querySelector('input[type=file]').files[0];
         var reader = new FileReader();
