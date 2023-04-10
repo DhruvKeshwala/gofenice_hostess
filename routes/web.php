@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HostessController;
 use Illuminate\Support\Facades\Route;
 
 //Admin Controllers
@@ -38,6 +39,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('profile', [UserController::class, 'edit'])->name('profile.edit');
+    Route::get('/hostess_profile',[HostessController::class, 'updateProfile'])->name('hostess_profile');
     Route::post('profile/{user}',[UserController::class,'update'])->name('profile.update');
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
