@@ -62,7 +62,7 @@
                     @if (@$prefix != null || $prefix != '')
                         <select class="form-control" name="mobilenoprefix" id="mobilenoprefix" style="">
                             @foreach ($prefix as $item)
-                                <option value="{{ @$item->prefix }}">
+                                <option value="{{ @$item->prefix }}" @if (old('mobilenoprefix') == @$item->prefix)selected @endif>
                                     +{{ @$item->prefix }}</option>
                             @endforeach
                         </select>
