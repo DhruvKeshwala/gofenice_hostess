@@ -129,11 +129,13 @@ class RegisteredUserController extends Controller
         $validated = $request->validate([
             'city' => 'required',
             'services' => 'required',
+            'wing_type' => 'required',
             
         ],
         [
             'city.required' => 'City is required',
             'services.required' => 'Services is required',
+            'wing_type.required' => 'Wing Type is required',
             
         ]);
         
@@ -141,8 +143,9 @@ class RegisteredUserController extends Controller
         {
             $services    = implode(",",$request->services);
             $city = $request->city;
+            $wing_type = $request->wing_type;
             $userId = $request->userId;
-            $result = User::where('id',$userId)->update(['services'=>$services,'city'=>$city]);
+            $result = User::where('id',$userId)->update(['services'=>$services,'city'=>$city,'wing_type'=>$wing_type]);
             if ($request->file('profilepic') != null) 
             {
                 $file      = $request->file('profilepic');
