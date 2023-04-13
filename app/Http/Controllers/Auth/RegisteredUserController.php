@@ -38,7 +38,7 @@ class RegisteredUserController extends Controller
     //         'name' => ['required', 'string', 'max:255'],
     //         'surname' => ['required', 'string', 'max:255'],
     //         'mobilenoprefix' => ['required', 'string', 'max:255'],
-    //         'mobileno' => ['required', 'string', 'max:255'],
+    //         'mobileno' => ['required', 'string', 'max:255', 'unique:'.User::class],
     //         'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
     //         'password' => ['required', 'confirmed', Rules\Password::defaults()],
     //     ],
@@ -73,7 +73,7 @@ class RegisteredUserController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'surname' => 'required',
-            'mobileno' => 'required',
+            'mobileno' => 'required|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
             // 'password_confirmation' => 'required',
@@ -112,7 +112,7 @@ class RegisteredUserController extends Controller
             }
             $userDetails['user_type'] = $request->user_type;
             $result = User::create($userDetails);
-            Session::flash('success', 'OTP has been sent on your number +' .  $userDetails['mobilenoprefix'] . $userDetails['mobileno']); 
+            Session::flash('success', 'Verification Code has been sent on your number +' .  $userDetails['mobilenoprefix'] . $userDetails['mobileno']); 
             if($request->user_type == 'hostess'){
                 return redirect()->to('step2Form/'.$result->id);
             }
@@ -217,12 +217,12 @@ class RegisteredUserController extends Controller
             {
                 User::where('id',$user->id)->update(['email_verified_at'=>Carbon::now()->toDateTimeString()]);
                 Session::flash('success', 'Email verified successfully');
-                return redirect()->back();
+                return redirect('login');
             }
             else
             {
                 Session::flash('success', 'Invalid Email OTP please enter valid code');
-                return redirect()->back();
+                return redirect('login');
             }
         }
     }
