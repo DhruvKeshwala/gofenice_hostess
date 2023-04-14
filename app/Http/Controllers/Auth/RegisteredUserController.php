@@ -85,6 +85,7 @@ class RegisteredUserController extends Controller
             'name.required' => 'Name field is required',
             'surname.required' => 'Surname field is required',
             'mobileno.required' => 'Phone field is required',
+            'mobileno.unique' => 'This Phone Number is already using',
             'email.required' => 'Email field is required',
             'password.required' => 'Password field is required',
             // 'password_confirmation.required' => 'Confirm password field is required',
@@ -129,7 +130,7 @@ class RegisteredUserController extends Controller
         $validated = $request->validate([
             'city' => 'required',
             'services' => 'required',
-            'wing_type' => 'required',
+'wing_type' => 'required',
             
         ],
         [
@@ -157,7 +158,7 @@ class RegisteredUserController extends Controller
                 ]);
             }
             $user = User::where('id', $userId)->first();
-            Session::flash('success', 'OTP has been sent on your number +' .  $user->mobilenoprefix . $user->mobileno); 
+            Session::flash('success', 'Verification Code has been sent on your number +' .  $user->mobilenoprefix . $user->mobileno); 
             return redirect()->to('otpForm/'.$userId);
         }
         Session::flash('success', 'Something went wrong!!'); 
@@ -180,7 +181,7 @@ class RegisteredUserController extends Controller
             'otp' => 'required', 
         ],
         [
-            'otp.required' => 'OTP required',        
+            'otp.required' => 'Verification Code required',        
         ]);
         if($request)
         {
@@ -188,12 +189,14 @@ class RegisteredUserController extends Controller
             if($request->otp == $user->mobile_verification_code)
             {
                 User::where('id',$user->id)->update(['mobile_verified_at'=>Carbon::now()->toDateTimeString(), 'status' => 'Active']);
-                Session::flash('success', 'Phone number verified successfully');
-                return redirect()->to('emailForm/'.$user->id);
+                //Session::flash('success', 'Phone number verified successfully');
+                //return redirect()->to('emailForm/'.$user->id);
+                Session::flash('success', 'Signup Completed');
+		        return redirect('login');
             }
             else
             {
-                Session::flash('success', 'Invalid OTP please enter valid code');
+                Session::flash('error', 'Invalid Verification Code please enter valid code');
                 return redirect()->back();
             }
         }
@@ -211,7 +214,7 @@ class RegisteredUserController extends Controller
             'otpEmail' => 'required', 
         ],
         [
-            'otpEmail.required' => 'Email OTP required',        
+            'otpEmail.required' => 'Email Verification Code required',        
         ]);
         if($request)
         {
@@ -224,7 +227,7 @@ class RegisteredUserController extends Controller
             }
             else
             {
-                Session::flash('success', 'Invalid Email OTP please enter valid code');
+                Session::flash('success', 'Invalid Email Verification Code please enter valid code');
                 return redirect('login');
             }
         }

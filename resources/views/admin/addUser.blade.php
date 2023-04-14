@@ -207,7 +207,7 @@
                             value="{{ @$user->city }}" />
                     </div>
                 </div>
-
+                <input type="hidden" name="user_type" value="{{@$user->user_type}}">
                 <input type="hidden" name="userId" value="{{@$id}}">
             </div>
             <!--end::Card body-->
@@ -248,6 +248,7 @@
         var gender = $("input[name='gender']:checked").val();
         var city = $("input[name='city']").val();
         var userId = $("input[name='userId']").val();
+        var user_type = $("input[name='user_type']").val();
         var fd = new FormData();
         if(userId == ''){
             userId = 0;
@@ -269,6 +270,7 @@
         fd.append('gender', gender);
         fd.append('city', city);
         fd.append('userId', userId);
+        fd.append('user_type', user_type);
 
         if (name == '' || name == null) 
         {
@@ -352,7 +354,10 @@
                             buttons: 'OK'
                         }).then(function(isConfirm) {
                             if (isConfirm) {
-                                window.location.href =  "{{ URL::to('admin/users') }}"
+                                if(data.success == 1)
+                                    window.location.href =  "{{ URL::to('admin/users') }}"
+                                else
+                                   window.location.href = "{{ URL::to('admin/hostess') }}"
                             }
                         })
                     }

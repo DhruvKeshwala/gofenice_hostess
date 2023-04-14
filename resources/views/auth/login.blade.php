@@ -7,6 +7,9 @@ max-width:400px;
 </style>
 @section('title', 'Hostess | Sign in')
     <main class="form-signin w-100 mx-auto">
+        @if(Session::has('success'))
+        <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('success') }}</p>
+        @endif
         <form name="signup" method="POST" action="{{ route('login') }}" autocomplete="off">
             @csrf
             <h1 style="color:#000000;text-align: left;font-weight:bold!important;" class="h3 mb-3 fw-normal">Sign-in</h1>
@@ -21,13 +24,13 @@ max-width:400px;
             </div> --}}
             <div class="form-floating">
                 <span for="floatingEmail" style="color: #636161;">
-                    Mobile
+                    Email
                 </span>
                 <input style="" type="text"
-                    class="form-control" id="mobileno" name="mobileno"  value="{{ old('mobileno')}}">
+                    class="form-control" id="email" name="email"  value="{{ old('email')}}">
                 
-                @if ($errors->has('mobileno'))
-                <span class="text-danger">{{ $errors->first('mobileno') }}</span>
+                @if ($errors->has('email'))
+                <span class="text-danger">{{ $errors->first('email') }}</span>
                 @endif
             </div>
             <div class="form-floating">
@@ -37,7 +40,7 @@ max-width:400px;
                 <input style="" type="password"
                     class="form-control" id="password" name="password" placeholder="Password" value="{{ old('password')}}">
                 
-                <input type="hidden" name="role" value="user">
+                <input type="hidden" name="role" value="User">
                 @if ($errors->has('password'))
                 <span class="text-danger">{{ $errors->first('password') }}</span>
                 @endif

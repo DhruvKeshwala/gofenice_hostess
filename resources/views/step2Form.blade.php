@@ -4,8 +4,18 @@
     <form name="signup" method="post" action="{{ route('user.registerStep2') }}" autocomplete="off"
         enctype="multipart/form-data">
         @csrf
-        <h1 style="color:#000000;font-weight:bold!important;text-align: left;" class="h3 mb-3 fw-normal">Signup Step 2
+        <h1 style="color:#000000;font-weight:bold!important;text-align: left;" class="h3 mb-3 fw-normal">Step 2
         </h1>
+
+        <div class="form-floating text-center">
+            <span for="floatingPassword" style="color: #636161;">
+                Add Main Photo
+            </span><br>
+            <input style="display:none" type="file" name="profilepic" id="profilepic" onchange="previewFile()" />
+            <img src="{{ URL::asset('/upload/user-image.png') }}"
+                style="height:150px;width:150px;border-radius: 50%;padding:0px;cursor:pointer;" alt="No Img"
+                id="profile-image1" onclick="openFileChoosePopup()">
+        </div>
 
         <div class="form-floating">
             <span for="floatingInput" style="color: #636161;">City</span>
@@ -47,9 +57,12 @@
                 <span class="">Extra</span>
             </label>
         </div>
+        @if ($errors->has('services'))
+            <span class="text-danger">{{ $errors->first('services') }}</span>
+        @endif
 
         <div class="form-floating">
-            <span for="floatingInput" style="color: #636161;">Wing Type</span>
+            <span for="floatingInput" style="color: #636161;">Are you a wing hostess or wing man ?</span>
         </div>
         <div class="form-radio">
             <input class="form-radio-input" type="radio" name="wing_type" checked value="hostess"
@@ -65,18 +78,8 @@
             </label>
         </div>
 
-        @if ($errors->has('services'))
-            <span class="text-danger">{{ $errors->first('services') }}</span>
-        @endif
-        <div class="form-floating">
-            <span for="floatingPassword" style="color: #636161;">
-                Add Main Photo
-            </span><br>
-            <input style="display:none" type="file" name="profilepic" id="profilepic" onchange="previewFile()" />
-            <img src="{{ URL::asset('/upload/user-image.png') }}"
-                style="height:150px;width:150px;border-radius: 50%;padding:0px;cursor:pointer;" alt="No Img"
-                id="profile-image1" onclick="openFileChoosePopup()">
-        </div>
+        
+        
         <button type="submit" style="background-color: #ED4B60;border-radius:30px;color:#ffffff!important;"
             class="w-100 btn mt-2" name="submit"><b>Next</b></button>
     </form>

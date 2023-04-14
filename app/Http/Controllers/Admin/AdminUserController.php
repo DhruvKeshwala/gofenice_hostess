@@ -17,9 +17,17 @@ class AdminUserController extends Controller
      */
     public function index()
     {
-        $users = User::where('role', 'user')->get();
+        $users = User::where('role', 'user')->where('user_type', 'user')->get();
         return view('admin.users', compact('users'));
     }
+
+    //Hostess listing admin side
+    public function hostessList()
+    {
+        $users = User::where('role', 'user')->where('user_type', 'hostess')->get();
+        return view('admin.hostess', compact('users'));
+    }
+
 
     public function dashboard()
     {
@@ -68,7 +76,6 @@ class AdminUserController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->only([
             'profilepic',
             'name',
@@ -102,7 +109,11 @@ class AdminUserController extends Controller
 
 
         UserService::createUpdate($userDetails, $request->userId);
-        return json_encode(['success' => 1, 'message' => 'User Saved Successfully']);
+        if($request->user_type == 'user')
+            return json_encode(['success' => 1, 'message' => 'User Saved Successfully']);
+        else if($request->user_type == 'hostess')
+            return json_encode(['success' => 2, 'message' => 'Hostess Saved Successfully']);
+
     }
 
     /**
