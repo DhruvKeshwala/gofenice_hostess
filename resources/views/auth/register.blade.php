@@ -201,21 +201,20 @@
         <div class="modal-content" style="background-color:#FFFEFF;">
             <div class="modal-header border-0 mt-4">
                 <h4 class="modal-title" style="font-weight:bold!important;font-size:30px">
-                    create your profile</h4>
+                    Crea il tuo profili Gratis </h4>
             </div>
             
             <div class="modal-body" id="selectcard">
                 <div class="col-md-12" style="text-align: center">
-                    <p style="font-size:17px">it takes just a few minutes and you can immediately start interacting with
-                        our community.</p>
-                    <p style="font-weight:bold!important;font-size:17px">First of all, tell us who you are</p>
+                    <p style="font-size:17px">Bastano pochi minuti e potrai cominciare subito a interagire con la nostra community</p>
+                    <!--<p style="font-weight:bold!important;font-size:17px">First of all, tell us who you are</p>-->
                 </div>
                 <div class="col-md-6" style="text-align:center;">
                     <div onclick="changeStyle('user');checkUserType('user');" class="">
                         <img src="https://t4.ftcdn.net/jpg/04/50/60/51/360_F_450605101_Rc8xz4hnMtuePmpZA1i6RZMwREwcqaZI.jpg"
                             alt="card image" class="card__img" />
                     </div>
-                    <h4 class="card__name" whoIs="user">User</h4>
+                    <h4 class="card__name" whoIs="user">Cliente</h4>
                 </div>
                 <div class="col-md-6" style="text-align:center;">
                     <div class="" onclick="checkUserType('hostess');">
@@ -249,6 +248,16 @@
     }, 'show');
     @php
     } 
+    else{
+    @endphp
+    var userType = $("#user_type").val();
+    if(userType == 'user')
+    {
+        var element = document.getElementById("hidebirthdate");
+        element.style.display = "none";
+    } 
+    @php
+    }
     @endphp
     $('#selectcard img').click(function() {
         $('img').not($(this)).css({

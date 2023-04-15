@@ -145,7 +145,7 @@
                             <div id="emailError"></div>
                     </div>
                 </div>
-                
+ 
                 <div class="row mb-12">
                     <label class="col-lg-4 col-form-label required fw-bold fs-6">Mobile</label>
                     <div class="col-lg-8">
@@ -176,14 +176,16 @@
                     </div>
                 </div>
 
-                <div class="row mb-12">
-                    <label class="col-lg-4 col-form-label fw-bold fs-6">Birthdate</label>
-                    <div class="col-lg-8">
-                        <input type="date" name="birthdate" id="birthdate"
-                            class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                            value="{{ @$user->birthdate }}" />
+                @if(@$user->user_type == 'hostess')
+                    <div class="row mb-12">
+                        <label class="col-lg-4 col-form-label fw-bold fs-6">Birthdate</label>
+                        <div class="col-lg-8">
+                            <input type="date" name="birthdate" id="birthdate"
+                                class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                value="{{ @$user->birthdate }}" />
+                        </div>
                     </div>
-                </div>
+                @endif
                 
                 <div class="row mb-12">
                     <label class="col-lg-4 col-form-label fw-bold fs-6">Gender</label>
@@ -198,22 +200,76 @@
                         </div>
                     </div>
                 </div>
-
+                @if(@$user->user_type == 'hostess')
+                    <div class="row mb-12">
+                        <label class="col-lg-4 col-form-label fw-bold fs-6">City / Country</label>
+                        <div class="col-lg-8">
+                            <input type="text" name="city" id="city"
+                                class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                value="{{ @$user->city }}" />
+                        </div>
+                    </div>
+                @endif
+                
+                @if(@$user->user_type == 'hostess')
                 <div class="row mb-12">
-                    <label class="col-lg-4 col-form-label fw-bold fs-6">City / Country</label>
-                    <div class="col-lg-8">
-                        <input type="text" name="city" id="city"
-                            class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                            value="{{ @$user->city }}" />
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">Services</label>
+                    <div class="col-lg-2">
+                        <input class="form-check-input" type="checkbox" id="Conference" name="services[]" value="Conference" 
+                        @if(@$getServices)
+                            @foreach($getServices as $service)
+                                @if($service == 'Conference') checked @endif
+                            @endforeach
+                        @endif>
+                        <label class="form-check-label" for="Conference" style="text-align: left!important;font-size: 12px;">
+                            <span class="">Conference</span>
+                        </label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input class="form-check-input" type="checkbox" id="Photoshoot" name="services[]" value="Photoshoot" 
+                        @if(@$getServices)
+                            @foreach($getServices as $service)
+                                @if($service == 'Photoshoot') checked @endif
+                            @endforeach
+                        @endif>
+                        <label class="form-check-label" for="Photoshoot" style="text-align: left!important;font-size: 12px;">
+                            <span class="">Photoshoot</span>
+                        </label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input class="form-check-input" type="checkbox" id="fashion_shows" name="services[]" value="Fashion shows" @if(@$getServices)
+                            @foreach($getServices as $service)
+                                @if($service == 'Fashion shows') checked @endif
+                            @endforeach
+                        @endif>
+                        <label class="form-check-label" for="fashion_shows" style="text-align: left!important;font-size: 12px;">
+                            <span class="">Fashion shows</span>
+                        </label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input class="form-check-input" type="checkbox" id="extra" name="services[]" value="Extra" 
+                        @if(@$getServices)
+                            @foreach($getServices as $service)
+                                @if($service == 'Extra') checked @endif
+                            @endforeach
+                        @endif>
+                        <label class="form-check-label" for="extra" style="text-align: left!important;font-size: 12px;">
+                            <span class="">Extra</span>
+                        </label>
                     </div>
                 </div>
-
+                @endif
+                <input type="hidden" name="user_type" value="{{@$user->user_type}}">
                 <input type="hidden" name="userId" value="{{@$id}}">
             </div>
             <!--end::Card body-->
             <!--begin::Actions-->
             <div class="card-footer d-flex justify-content-end py-6 px-9">
-                <a href="{{ route('admin.users') }}" class="btn btn-light btn-active-light-primary me-2">Discard</a>
+                @if(@$user->user_type == 'hostess')
+                    <a href="{{ route('admin.hostessList') }}" class="btn btn-light btn-active-light-primary me-2">Discard</a>
+                @else
+                    <a href="{{ route('admin.users') }}" class="btn btn-light btn-active-light-primary me-2">Discard</a>
+                @endif
                 {{-- <a href="javascript::" onclick="saveProject()"  class="btn btn-primary" id="kt_account_profile_details_submit">Save
                     Changes</button> --}}
                     <a href="javascript:;" onclick="saveUser()" id="saveBtn" class="btn btn-success">SAVE</a>
@@ -234,20 +290,31 @@
         $('.errorMessage').hide();
         var flag = 1;
         // var categoryName = $("select[name='categoryName']").val();
-        // var categoryName = $("input[name='categoryName[]']:checked").map(function () {
-        //   return this.value;
-        // }).get();
-        // alert(categoryName);
+        var services = $("input[name='services[]']:checked").map(function () {
+          return this.value;
+        }).get();
+
         var name = $("input[name='name']").val();
         var surname = $("input[name='surname']").val();
         var email = $("input[name='email']").val();
         var mobilenoprefix = $("select[name='mobilenoprefix']").val();
         var mobileno = $("input[name='mobileno']").val();
         var aboutme = $('#aboutme').val();
+
         var birthdate = $("input[name='birthdate']").val();
+        if(birthdate == null || birthdate == 'undefined')
+            birthdate = '';
+        
         var gender = $("input[name='gender']:checked").val();
+        if(gender == null || gender == 'undefined')
+            gender = '';
+
         var city = $("input[name='city']").val();
+        if(city == null || city == 'undefined')
+            city = '';
+        
         var userId = $("input[name='userId']").val();
+        var user_type = $("input[name='user_type']").val();
         var fd = new FormData();
         if(userId == ''){
             userId = 0;
@@ -261,6 +328,7 @@
         
         fd.append('name', name);
         fd.append('surname', surname);
+        fd.append('services', services);
         fd.append('email', email);
         fd.append('mobilenoprefix', mobilenoprefix);
         fd.append('mobileno', mobileno);
@@ -269,6 +337,7 @@
         fd.append('gender', gender);
         fd.append('city', city);
         fd.append('userId', userId);
+        fd.append('user_type', user_type);
 
         if (name == '' || name == null) 
         {
@@ -352,7 +421,10 @@
                             buttons: 'OK'
                         }).then(function(isConfirm) {
                             if (isConfirm) {
-                                window.location.href =  "{{ URL::to('admin/users') }}"
+                                if(data.success == 1)
+                                    window.location.href =  "{{ URL::to('admin/users') }}"
+                                else
+                                   window.location.href = "{{ URL::to('admin/hostess') }}"
                             }
                         })
                     }

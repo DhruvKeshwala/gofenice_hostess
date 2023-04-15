@@ -77,14 +77,14 @@ License: For each use you must have a valid license purchased only from above li
                         <!--begin::Input group-->
                         <div class="fv-row mb-10">
                             <!--begin::Label-->
-                            <label class="form-label fs-6 fw-bolder text-dark">{{ __('Mobile') }}</label>
+                            <label class="form-label fs-6 fw-bolder text-dark">{{ __('Email') }}</label>
                             <!--end::Label-->
                             <!--begin::Input-->
                             <input id="mobileno"
-                                class="form-control form-control-lg form-control-solid @error('mobileno') is-invalid @enderror"
-                                type="text" name="mobileno" value="{{ old('mobileno') }}" required autocomplete="mobileno"
+                                class="form-control form-control-lg form-control-solid @error('email') is-invalid @enderror"
+                                type="text" name="email" value="{{ old('email') }}" required autocomplete="email"
                                 autofocus autocomplete="off" />
-                            @error('mobileno')
+                            @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

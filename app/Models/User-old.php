@@ -36,19 +36,7 @@ class User extends Authenticatable
         'email_verified_at',
         'mobile_verified_at',
         'email_verification_code',
-        'mobile_verification_code',
-        'user_type',
-        
-        'height',
-        'size',
-        'shoeSize',
-        'languages',
-        'nationality',
-        'hairColor',
-        'description',
-        'profileVisibility',
-        'smsNotification',
-        'privacyProfile'
+        'mobile_verification_code'
     ];
 
     /**

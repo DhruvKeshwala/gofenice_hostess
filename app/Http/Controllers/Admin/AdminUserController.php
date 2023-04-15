@@ -17,9 +17,17 @@ class AdminUserController extends Controller
      */
     public function index()
     {
-        $users = User::where('role', 'user')->get();
+        $users = User::where('role', 'user')->where('user_type', 'user')->get();
         return view('admin.users', compact('users'));
     }
+
+    //Hostess listing admin side
+    public function hostessList()
+    {
+        $users = User::where('role', 'user')->where('user_type', 'hostess')->get();
+        return view('admin.hostess', compact('users'));
+    }
+
 
     public function dashboard()
     {
@@ -56,8 +64,9 @@ class AdminUserController extends Controller
     public function create($id = null)
     {
         $user = UserService::getUserById($id);
+        $getServices = explode(",",$user->services);
         $prefix = MobilePrefix::select('prefix')->get();
-        return view('admin.addUser', compact('user', 'id', 'prefix'));
+        return view('admin.addUser', compact('user', 'id', 'prefix', 'getServices'));
     }
 
     /**
@@ -68,7 +77,6 @@ class AdminUserController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->only([
             'profilepic',
             'name',
@@ -89,20 +97,31 @@ class AdminUserController extends Controller
             $userDetails['profilepic'] = $fileName;
         }
 
+        if($request->services != null || $request->services != '')
+            $userDetails['services'] =  $request->services;
+        
         $userDetails['name']            =  $request->name;
         $userDetails['surname']         =  $request->surname;
         $userDetails['email']           =  $request->email;
         $userDetails['mobilenoprefix']  =  $request->mobilenoprefix;
         $userDetails['mobileno']        =  $request->mobileno;
         $userDetails['aboutme']         =  $request->aboutme;
-        $userDetails['birthdate']       =  $request->birthdate;
+        
+        if($request->birthdate != null || $request->birthdate != '')
+            $userDetails['birthdate']   =  $request->birthdate;
 
-        $userDetails['gender']          =  $request->gender;
-        $userDetails['city']            =  $request->city;
-
+        if($request->gender != null || $request->gender != '')
+            $userDetails['gender']          =  $request->gender;
+        
+        if($request->city != null || $request->city != '')
+            $userDetails['city']            =  $request->city;
 
         UserService::createUpdate($userDetails, $request->userId);
-        return json_encode(['success' => 1, 'message' => 'User Saved Successfully']);
+        if($request->user_type == 'user')
+            return json_encode(['success' => 1, 'message' => 'User Saved Successfully']);
+        else if($request->user_type == 'hostess')
+            return json_encode(['success' => 2, 'message' => 'Hostess Saved Successfully']);
+
     }
 
     /**

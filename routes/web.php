@@ -39,7 +39,13 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('profile', [UserController::class, 'edit'])->name('profile.edit');
+
     Route::get('/hostess_profile',[HostessController::class, 'updateProfile'])->name('hostess_profile');
+    Route::post('save_hostess_profile', [HostessController::class, 'profileUpdate'])->name('save_hostess_profile');
+    Route::post('delete_gallery', [HostessController::class, 'destroy'])->name('delete_gallery');
+    Route::post('update_gallery',[HostessController::class, 'updateGallery'])->name('updateGallery');
+    Route::post('change_gallery_status', [HostessController::class, 'change_gallery_status'])->name('change_gallery_status');
+    Route::post('save_profilePic', [HostessController::class, 'storeProfilePic'])->name('save_profilePic');
     Route::post('profile/{user}',[UserController::class,'update'])->name('profile.update');
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -62,6 +68,9 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('delete_user', [AdminUserController::class, 'destroy'])->name('delete_contact');  
         Route::get('addUser/{id?}', [AdminUserController::class, 'create'])->name('admin.addUser');
         Route::post('save_user', [AdminUserController::class, 'store'])->name('save_user');
+
+        Route::get('hostess', [AdminUserController::class, 'hostessList'])->name('admin.hostessList');
+        
         Route::get('dashboard', [AdminUserController::class, 'dashboard'])->name('admin.dashboard');        
         
         Route::get('logout', function ()
