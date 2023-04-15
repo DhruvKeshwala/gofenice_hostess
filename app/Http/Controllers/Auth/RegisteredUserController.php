@@ -137,7 +137,6 @@ class RegisteredUserController extends Controller
             'city.required' => 'City is required',
             'services.required' => 'Services is required',
             'wing_type.required' => 'Wing Type is required',
-
             
         ]);
         

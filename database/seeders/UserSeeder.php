@@ -42,7 +42,7 @@ class UserSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-        $prefixes = ['91', '93', '355'];
+        $prefixes = ['39'];
         foreach ($prefixes as $key => $value) {
             DB::table('mobile_prefixes')->insert([
                 'prefix' => $value,
