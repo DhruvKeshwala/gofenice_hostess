@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Services\UserService;
 use App\Models\Gallery;
 use Auth, DB, Session;
 
@@ -37,7 +38,6 @@ class HostessController extends Controller
 
     public function profileUpdate(Request $request)
     {
-        // // dd($request->file);
         // if($request->file('file'))
         // {
         //     $image      = $request->file('file');
@@ -100,7 +100,8 @@ class HostessController extends Controller
             $projectDetails['height']       =  $request->height;
             $projectDetails['size']         =  $request->size;
             $projectDetails['shoesize']     =  $request->shoesize;
-            $projectDetails['languages']    =  implode(',',$request->languages);
+            if($request->languages != null || $request->languages != '')
+                $projectDetails['languages']    =  implode(',',$request->languages);
             $projectDetails['city']         =  $request->city;
             $projectDetails['nationality']  =  $request->nationality;
             $projectDetails['hairColor']    =  $request->hairColor;
@@ -137,12 +138,11 @@ class HostessController extends Controller
 
         }
 
-            if($request->profileVisibility != null || $request->profileVisibility != '')
-                $projectDetails['profileVisibility'] =  $request->profileVisibility;
+        if($request->profileVisibility != null || $request->profileVisibility != '')
+            $projectDetails['profileVisibility'] =  $request->profileVisibility;
 
         $user = User::where('id', Auth::id())->update($projectDetails);
-        if($user)
-            return redirect()->back();
+        return redirect()->back();
     }
 
     public function destroy(Request $request)
@@ -177,4 +177,12 @@ class HostessController extends Controller
             return json_encode(['success' => 1, 'message' => 'Gallery status updated successfully']);
         }
     }
+
+    public function showHostess($lang, $id = null)
+    {
+        $user = UserService::getUserById($id);
+        return view('hostess_profile_new', compact('user', 'id'));
+    }
+
+    
 }

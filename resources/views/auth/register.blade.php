@@ -35,30 +35,30 @@
 <main class="form-signin w-100 mx-auto">
     <form name="signup" method="post" action="{{ route('user.postRegister') }}" autocomplete="off">
         @csrf
-        <h1 style="color:#000000;font-weight:bold!important;text-align: left;" class="h3 mb-3 fw-normal">Free Signup</h1>
+        <h1 style="color:#000000;font-weight:bold!important;text-align: left;" class="h3 mb-3 fw-normal">{{ __('messages.Free Signup') }}</h1>
 
         <div class="form-floating">
-            <span for="floatingInput" style="color: #636161;">Name</span>
+            <span for="floatingInput" style="color: #636161;">{{__('messages.Name')}}</span>
             <input style="" type="text" class="form-control" id="name" name="name"
                 mailto:placeholder="name@example.com" value="{{ old('name') }}">
             @if ($errors->has('name'))
-                <span class="text-danger">{{ $errors->first('name') }}</span>
+                <span class="text-danger">{{ __('messages.Name field is required') }}</span>
             @endif
         </div>
         <div class="form-floating">
             <span for="floatingPassword" style="color: #636161;">
-                Surname
+                {{__('messages.Surname')}}
             </span>
             <input style="" type="text" class="form-control" id="surname" name="surname"
                 placeholder="Surname" value="{{ old('surname') }}">
             @if ($errors->has('surname'))
-                <span class="text-danger">{{ $errors->first('surname') }}</span>
+                <span class="text-danger">{{ __('messages.Surname field is required') }}</span>
             @endif
         </div>
         <div class="form-floating">
             <div class="row">
                 <div class="col-md-2">
-                    <span for="floatingInput" style="color: #636161;">Phone</span>
+                    <span for="floatingInput" style="color: #636161;">{{__('messages.Phone')}}</span>
                     @if (@$prefix != null || $prefix != '')
                         <select class="form-control" name="mobilenoprefix" id="mobilenoprefix" style="">
                             @foreach ($prefix as $item)
@@ -77,29 +77,37 @@
 
                 </div>
                 @if ($errors->has('mobileno'))
-                    <span class="text-danger">{{ $errors->first('mobileno') }}</span>
+                    <span class="text-danger">{{ __('messages.Phone field is required') }}</span>
                 @endif
             </div>
         </div>
         <div class="form-floating">
             <span for="floatingPassword" style="color: #636161;">
-                Email
+                {{__('messages.Email')}}
             </span>
             <input style="" type="text" class="form-control" id="email" name="email" placeholder="test@example.com" value="{{ old('email') }}">
             <input type="hidden" class="form-control" id="user_type" name="user_type" value="{{ old('user_type') }}">
             @if ($errors->has('email'))
-                <span class="text-danger">{{ $errors->first('email') }}</span>
+                <span class="text-danger">
+                    @if($errors->has('email') == 'validation.email')  
+                        {{ __('messages.Invalid Email Please enter valid email') }}
+                    @elseif($errors->has('email') == 'validation.unique')
+                        {{ __('messages.Email already exist') }}
+                    @else 
+                    {{ __('messages.Email field is required') }}
+                    @endif 
+                </span>
             @endif
         </div>
         <div class="form-floating" id="hidebirthdate">
             <span for="floatingPassword" style="color: #636161;">
-                Birth Date
+                {{__('messages.Birth Date')}}
             </span>
 
             <div class="row">
                 <div class="col-md-3">
                     <span style="color: #636161;">
-                        Day
+                        {{__('messages.Day')}}
                     </span>
                     <select aria-label="Day" name="birthday_day" id="day" title="Day" class="form-control">
                         @for ($i = 1; $i <= 31; $i++)
@@ -109,26 +117,26 @@
                 </div>
                 <div class="col-md-3">
                     <span style="color: #636161;">
-                        Month
+                        {{__('messages.Month')}}
                     </span>
                     <select aria-label="Month" name="birthday_month" id="month" title="Month" class="form-control">
-                        <option value="1" @if (old('birthday_month') == 1)selected @endif>Jan</option>
-                        <option value="2" @if (old('birthday_month') == 2)selected @endif>Feb</option>
-                        <option value="3" @if (old('birthday_month') == 3)selected @endif>Mar</option>
-                        <option value="4" @if (old('birthday_month') == 4)selected @endif>Apr</option>
-                        <option value="5" @if (old('birthday_month') == 5)selected @endif>May</option>
-                        <option value="6" @if (old('birthday_month') == 6)selected @endif>Jun</option>
-                        <option value="7" @if (old('birthday_month') == 7)selected @endif>Jul</option>
-                        <option value="8" @if (old('birthday_month') == 8)selected @endif>Aug</option>
-                        <option value="9" @if (old('birthday_month') == 9)selected @endif>Sep</option>
-                        <option value="10" @if (old('birthday_month') == 10)selected @endif>Oct</option>
-                        <option value="11" @if (old('birthday_month') == 11)selected @endif>Nov</option>
-                        <option value="12" @if (old('birthday_month') == 12)selected @endif>Dec</option>
+                        <option value="1" @if (old('birthday_month') == 1)selected @endif>{{__('messages.Jan')}}</option>
+                        <option value="2" @if (old('birthday_month') == 2)selected @endif>{{__('messages.Feb')}}</option>
+                        <option value="3" @if (old('birthday_month') == 3)selected @endif>{{__('messages.Mar')}}</option>
+                        <option value="4" @if (old('birthday_month') == 4)selected @endif>{{__('messages.Apr')}}</option>
+                        <option value="5" @if (old('birthday_month') == 5)selected @endif>{{__('messages.May')}}</option>
+                        <option value="6" @if (old('birthday_month') == 6)selected @endif>{{__('messages.Jun')}}</option>
+                        <option value="7" @if (old('birthday_month') == 7)selected @endif>{{__('messages.Jul')}}</option>
+                        <option value="8" @if (old('birthday_month') == 8)selected @endif>{{__('messages.Aug')}}</option>
+                        <option value="9" @if (old('birthday_month') == 9)selected @endif>{{__('messages.Sep')}}</option>
+                        <option value="10" @if (old('birthday_month') == 10)selected @endif>{{__('messages.Oct')}}</option>
+                        <option value="11" @if (old('birthday_month') == 11)selected @endif>{{__('messages.Nov')}}</option>
+                        <option value="12" @if (old('birthday_month') == 12)selected @endif>{{__('messages.Dec')}}</option>
                     </select>
                 </div>
                 <div class="col-md-6">
                     <span style="color: #636161;">
-                        Year
+                        {{__('messages.Year')}}
                     </span>
                     <select aria-label="Year" name="birthday_year" id="year" title="Year"
                         class="form-control">
@@ -147,52 +155,51 @@
 
         <div class="form-floating">
             <span for="floatingPassword" style="color: #636161;">
-                Password
+                {{__('messages.Password')}}
             </span>
             <input style="" type="password" class="form-control" id="password" name="password"
                 placeholder="Password" value="{{ old('password') }}">
 
             @if ($errors->has('password'))
-                <span class="text-danger">{{ $errors->first('password') }}</span>
+                <span class="text-danger">{{ __('messages.Password field is required') }}</span>
             @endif
         </div>
 
         <div class="form-floating">
             <span for="floatingPassword" style="color: #636161;">
-                Confirm Password
+                {{__('messages.Confirm Password')}}
             </span>
             <input style="" type="password" class="form-control" id="password_confirmation"
                 name="password_confirmation" placeholder="Password" value="{{ old('password_confirmation') }}">
 
             @if ($errors->has('password_confirmation'))
-                <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
+                <span class="text-danger">{{ __('messages.Password Mismatched Please Enter Valid Confirm Password') }}</span>
             @endif
         </div>
 
         <div class="form-check py-2">
             <input class="form-check-input" type="checkbox" id="marketing" name="marketing" value="1" {{ old('marketing') == '1' ? 'checked' : '' }}>
             <label class="form-check-label" for="marketing" style="text-align: left!important;font-size: 12px;">
-                <span class="">Marketing</span>
+                <span class="">{{__('messages.Marketing')}}</span>
             </label>
             @if ($errors->has('marketing'))
-                <span class="text-danger">{{ $errors->first('marketing') }}</span>
+                <span class="text-danger">{{ __('messages.Please accept Marketing field') }}</span>
             @endif
         </div>
         <div class="form-check py-2">
             <input class="form-check-input" type="checkbox" id="privacy" name="privacy" value="1" {{ old('privacy') == '1' ? 'checked' : '' }}>
             <input type="hidden" id="whoIs" name="" value="">
             <label class="form-check-label" for="privacy" style="text-align: left!important;font-size: 12px;">
-                <span class="">Terms of Use</span>
+                <span class="">{{__('messages.Terms of Use')}}</span>
             </label>
             @if ($errors->has('privacy'))
-                <span class="text-danger">{{ $errors->first('privacy') }}</span>
+                <span class="text-danger">{{ __('messages.Please accept our privacy policy') }}</span>
             @endif
         </div>
         <button type="submit" style="background-color: #ED4B60;border-radius:30px;color:#ffffff!important;"
-            class="w-100 btn mt-2" name="submit"><b>Next</b></button>
-        <p style="color: #636161;text-align:center;" class="mt-2 mb-3">Already have an account?&nbsp;<a
-                href="{{ route('login') }}" style="color: #ED4B60;">Sign
-                in</a></p>
+            class="w-100 btn mt-2" name="submit"><b>{{__('messages.Next')}}</b></button>
+        <p style="color: #636161;text-align:center;" class="mt-2 mb-3">{{__('messages.Already have an account?')}}&nbsp;<a
+                href="{{ route('login') }}" style="color: #ED4B60;">{{__('messages.Sign in')}}</a></p>
     </form>
 </main>
 <div class="modal fade" id="chooseregmodal" role="dialog">
@@ -201,12 +208,12 @@
         <div class="modal-content" style="background-color:#FFFEFF;">
             <div class="modal-header border-0 mt-4">
                 <h4 class="modal-title" style="font-weight:bold!important;font-size:30px">
-                    Crea il tuo profili Gratis </h4>
+                    {{__('messages.Create your profile for free')}} </h4>
             </div>
             
             <div class="modal-body" id="selectcard">
                 <div class="col-md-12" style="text-align: center">
-                    <p style="font-size:17px">Bastano pochi minuti e potrai cominciare subito a interagire con la nostra community</p>
+                    <p style="font-size:17px">{{__('messages.It only takes a few minutes and you can start interacting with our community right away')}}</p>
                     <!--<p style="font-weight:bold!important;font-size:17px">First of all, tell us who you are</p>-->
                 </div>
                 <div class="col-md-6" style="text-align:center;">
@@ -214,17 +221,17 @@
                         <img src="https://t4.ftcdn.net/jpg/04/50/60/51/360_F_450605101_Rc8xz4hnMtuePmpZA1i6RZMwREwcqaZI.jpg"
                             alt="card image" class="card__img" />
                     </div>
-                    <h4 class="card__name" whoIs="user">Cliente</h4>
+                    <h4 class="card__name" whoIs="user">{{__('messages.Client')}}</h4>
                 </div>
                 <div class="col-md-6" style="text-align:center;">
                     <div class="" onclick="checkUserType('hostess');">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYodX4PS5R7aKD07Tli-JcxLDvuKv5PZOFZHpuihWbTu63e-riirBBrvu8IqOJz7XjaSQ&usqp=CAU"
                             alt="card image" class="card__img" />
                     </div>
-                    <h4 class="card__name" whoIs="hostess">Hostess</h4>
+                    <h4 class="card__name" whoIs="hostess">{{__('messages.Hostess')}}</h4>
                 </div>
                 <button type="button" class="btn btn-secondary" style="display:none;" id="chooseregmodalclosebtn"
-                    data-dismiss="modal">Close</button>
+                    data-dismiss="modal">{{__('messages.Close')}}</button>
             </div>
         </div>
     </div>

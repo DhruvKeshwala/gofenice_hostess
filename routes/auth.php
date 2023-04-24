@@ -14,6 +14,12 @@ use App\Http\Controllers\UserController;
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function () {
+    return redirect(app()->getLocale());
+});
+
+Route::prefix('{locale}')->where(['locale' => '[a-zA-Z]{2}'])
+    ->middleware('setlocale')->group(function() {
 Route::middleware('guest')->group(function () {
     
     // Route::get('register', [UserController::class, 'index'])->name('user.register');
@@ -30,6 +36,7 @@ Route::middleware('guest')->group(function () {
     Route::get('emailForm/{id?}', [RegisteredUserController::class, 'emailForm'])->name('user.emailForm');
     Route::post('emailForm', [RegisteredUserController::class, 'verifyEmailOtp'])->name('user.verifyEmailOtp');
 
+    
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
 
@@ -47,6 +54,7 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
 });
+
 
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
@@ -69,4 +77,5 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+});
 });

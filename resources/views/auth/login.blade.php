@@ -5,14 +5,14 @@ max-width:400px;
 }
 
 </style>
-@section('title', 'Hostess | Sign in')
+@section('title', 'Sign in | Hostess')
     <main class="form-signin w-100 mx-auto">
         @if(Session::has('success'))
         <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('success') }}</p>
         @endif
         <form name="signup" method="POST" action="{{ route('login') }}" autocomplete="off">
             @csrf
-            <h1 style="color:#000000;text-align: left;font-weight:bold!important;" class="h3 mb-3 fw-normal">Sign-in</h1>
+            <h1 style="color:#000000;text-align: left;font-weight:bold!important;" class="h3 mb-3 fw-normal">{{ __('messages.Sign-in') }}</h1>
 
             {{-- <div class="form-floating">
                 <input style="" type="text"
@@ -24,32 +24,32 @@ max-width:400px;
             </div> --}}
             <div class="form-floating">
                 <span for="floatingEmail" style="color: #636161;">
-                    Email
+                    {{ __('messages.Email') }}
                 </span>
                 <input style="" type="text"
                     class="form-control" id="email" name="email"  value="{{ old('email')}}">
                 
                 @if ($errors->has('email'))
-                <span class="text-danger">{{ $errors->first('email') }}</span>
+                <span class="text-danger">{{ $errors->first('email') == 'validation.required' ? __('messages.email_required') : __('messages.auth_failed') }}</span>
                 @endif
             </div>
             <div class="form-floating">
 		    <span for="floatingPassword" style="color: #636161;">
-                    Password
+                    {{ __('messages.Password') }}
                 </span>
                 <input style="" type="password"
                     class="form-control" id="password" name="password" placeholder="Password" value="{{ old('password')}}">
                 
                 <input type="hidden" name="role" value="User">
                 @if ($errors->has('password'))
-                <span class="text-danger">{{ $errors->first('password') }}</span>
+                <span class="text-danger">{{ __('messages.password_required') }}</span>
                 @endif
             </div>
             
             
-            <button type="submit" style="background-color: #ED4B60;border-radius:30px;color:#ffffff!important;" class="w-100 btn mt-2" name="submit"><b>Sign in</b></button>
-            <p style="color: #636161;text-align:center;" class="mt-2 mb-3">New User?&nbsp;<a href="{{ route('register')}}"
-                    style="color: #ED4B60;">Sign up</a></p>
+            <button type="submit" style="background-color: #ED4B60;border-radius:30px;color:#ffffff!important;" class="w-100 btn mt-2" name="submit"><b>{{ __('messages.Sign in') }}</b></button>
+            <p style="color: #636161;text-align:center;" class="mt-2 mb-3">{{ __('messages.New User?') }}&nbsp;<a href="{{ route('register')}}"
+                    style="color: #ED4B60;">{{ __('messages.Sign up') }}</a></p>
         </form>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"

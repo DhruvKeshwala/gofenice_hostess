@@ -276,11 +276,11 @@
                             </label>
                         @endif
                     </form>
-                    <P class="">CLICK HERE TO CHANGE IMAGE</P>
+                    <P class="">{{ __('messages.CLICK HERE TO CHANGE IMAGE') }}</P>
                     <div class="card-body">
                         <p class="card-text">{{ Auth::user()->name }} {{ Auth::user()->surname }} </p>
-                        <h6 class="card-text ">Profile Visibility : @if(Auth::user()->profileVisibility == 1 || Auth::user()->profileVisibility == null || Auth::user()->profileVisibility == '') Visible @elseif(Auth::user()->profileVisibility == 2) visible only to registered users @elseif(Auth::user()->profileVisibility == 3) Hidden @endif</h6>
-                        <h6 class="card-text mt-5">Profile Status : {{ Auth::user()->status }}</h6>
+                        <h6 class="card-text ">{{ __('messages.Profile Visibility') }} : @if(Auth::user()->profileVisibility == 1 || Auth::user()->profileVisibility == null || Auth::user()->profileVisibility == '') {{ __('messages.Visible') }} @elseif(Auth::user()->profileVisibility == 2) {{ __('messages.visible only to registered users') }} @elseif(Auth::user()->profileVisibility == 3) {{ __('messages.Hidden') }} @endif</h6>
+                        <h6 class="card-text mt-5">{{ __('messages.Profile Status') }} : {{ Auth::user()->status }}</h6>
                     </div>
                 </div>
             </main>
@@ -293,17 +293,17 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
                                 data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-                                aria-selected="true">Profile</button>
+                                aria-selected="true">{{ __('messages.Profile') }}</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
                                 data-bs-target="#pills-profile" type="button" role="tab"
-                                aria-controls="pills-profile" aria-selected="false">Gallery</button>
+                                aria-controls="pills-profile" aria-selected="false">{{ __('messages.Gallery') }}</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
                                 data-bs-target="#pills-contact" type="button" role="tab"
-                                aria-controls="pills-contact" aria-selected="false">Services & Privacy</button>
+                                aria-controls="pills-contact" aria-selected="false">{{ __('messages.Services & Privacy') }}</button>
                         </li>
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
@@ -313,11 +313,11 @@
                                 style="max-width: 1500px;padding: 50px;background-color: white;">
                                 <form name="profile" action="{{ route('save_hostess_profile') }}" method="POST">
                                     @csrf
-                                    <h3 style="text-align: left">Features</h3>
+                                    <h3 style="text-align: left">{{ __('messages.Features') }}</h3>
                                     <div class="row mt-3">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="exampleFormControlSelect1">Height(cm)</label>
+                                                <label for="exampleFormControlSelect1">{{ __('messages.Height(cm)') }}</label>
                                                 <select class="form-control" id="height" name="height">
 <?php
                                                 for ($height=150; $height<=190; $height++)
@@ -333,7 +333,7 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="exampleFormControlSelect1">Size</label>
+                                                <label for="exampleFormControlSelect1">{{ __('messages.Size') }}</label>
                                                 <select class="form-control" id="size" name="size">
 <?php
                                                 for ($size=26; $size<=32; $size++) 
@@ -352,7 +352,7 @@
                                     <div class="row mt-3">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="exampleFormControlSelect1">Shoe Size</label>
+                                                <label for="exampleFormControlSelect1">{{ __('messages.Shoe Size') }}</label>
                                                 <select class="form-control" id="shoesize" name="shoesize">
 <?php
                                                     for ($shoesize=35; $shoesize<=43; $shoesize++) 
@@ -375,7 +375,7 @@ if(Auth::user()->languages != '' && Auth::user()->languages != null)
 
 							  @endphp
                                             <div class="form-group">
-                                                <label for="exampleFormControlSelect1">Languages</label>
+                                                <label for="exampleFormControlSelect1">{{ __('messages.Languages') }}</label>
                                                 <select class="form-control" id="languages" name="languages[]" multiple>
 								                    <option value=""></option>
                                                     <option value="Italian" @if(in_array('Italian',$languages)) selected @endif>Italian</option>
@@ -394,13 +394,13 @@ if(Auth::user()->languages != '' && Auth::user()->languages != null)
                                     <div class="row mt-3">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="exampleFormControlSelect1">City</label>
+                                                <label for="exampleFormControlSelect1">{{ __('messages.City') }}</label>
                                                 <input type="text" name="city" id="city" class="form-control" @if(Auth::user()->city != null || Auth::user()->city != '') value="{{ Auth::user()->city }}" @endif>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="exampleFormControlSelect1">Nationality</label>
+                                                <label for="exampleFormControlSelect1">{{ __('messages.Nationality') }}</label>
                                                 <select class="form-control" id="nationality" name="nationality">
                                                     <option value="Italian" @if(Auth::user()->nationality == 'Italian') selected @endif>Italian</option>
                                                     <option value="English" @if(Auth::user()->nationality == 'English') selected @endif>English</option>
@@ -414,12 +414,12 @@ if(Auth::user()->languages != '' && Auth::user()->languages != null)
                                     <div class="row mt-3">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="exampleFormControlSelect1">Hair Color</label>
+                                                <label for="exampleFormControlSelect1">{{ __('messages.Hair Color') }}</label>
                                                 <select class="form-control" id="hairColor" name="hairColor">
-                                                    <option value="blonde" @if(Auth::user()->hairColor == 'blonde') selected @endif>blonde</option>
-                                                    <option value="reds" @if(Auth::user()->hairColor == 'reds') selected @endif>reds</option>
-                                                    <option value="chestnuts" @if(Auth::user()->hairColor == 'chestnuts') selected @endif>chestnuts</option>
-                                                    <option value="blacks" @if(Auth::user()->hairColor == 'blacks') selected @endif>blacks</option>
+                                                    <option value="blonde" @if(Auth::user()->hairColor == 'blonde') selected @endif>{{ __('messages.blonde') }}</option>
+                                                    <option value="reds" @if(Auth::user()->hairColor == 'reds') selected @endif>{{ __('messages.reds') }}</option>
+                                                    <option value="chestnuts" @if(Auth::user()->hairColor == 'chestnuts') selected @endif>{{ __('messages.chestnuts') }}</option>
+                                                    <option value="blacks" @if(Auth::user()->hairColor == 'blacks') selected @endif>{{ __('messages.blacks') }}</option>
 
                                                 </select>
                                             </div>
@@ -430,14 +430,14 @@ if(Auth::user()->languages != '' && Auth::user()->languages != null)
                                         </div>
                                     </div>
                                     <div class="form-group mt-3">
-                                        <label for="exampleFormControlTextarea1">Description</label>
+                                        <label for="exampleFormControlTextarea1">{{ __('messages.Description') }}</label>
                                         <textarea class="form-control" id="description" name="description" rows="3">@if(Auth::user()->description != null || Auth::user()->description != '') {{ Auth::user()->description }} @endif</textarea>
                                     </div>
 
                                     <div class="text-white text-right">
                                         {{-- <a href="javascript:;" class="btn btn-success mt-2"
                                             style="float:right" onclick="saveProfile()">Save</a> --}}
-                                        <input type="submit" name="save" value="Save" class="btn btn-success mt-2"
+                                        <input type="submit" name="save" value="{{ __('messages.Save') }}" class="btn btn-success mt-2"
                                             style="float:right">  
                                             
                                     </div>
@@ -461,8 +461,8 @@ if(Auth::user()->languages != '' && Auth::user()->languages != null)
                                                     <img src="{{ URL::asset('images/' . @$item->image) }}" class="card-img-top" alt="...">
                                                 </div>
                                                 <h6><a title="Change Status" href="javascript::void(0)" onclick="changeGalleryStatus('{{@$item->id}}')"
-                                                    class="text-primary mr-2">@if($item->status == 'Private')Make Public @elseif($item->status == 'Public')Make Private @endif</a></h6>
-                                                <h6><a title="Delete" href="javascript::void(0)" onclick="deleteGallery('{{@$item->id}}')" class="text-danger mr-2">Delete</a></h6>
+                                                    class="text-primary mr-2">@if($item->status == 'Private'){{ __('messages.Make Public') }} @elseif($item->status == 'Public'){{ __('messages.Make Private') }} @endif</a></h6>
+                                                <h6><a title="Delete" href="javascript::void(0)" onclick="deleteGallery('{{@$item->id}}')" class="text-danger mr-2">{{ __('messages.Delete') }}</a></h6>
                                             </div>
                                         @endforeach
                                     @endif
@@ -493,8 +493,7 @@ if(Auth::user()->languages != '' && Auth::user()->languages != null)
                                         {{-- <button type="button" class="btn btn-light ">DRAG AND DROP OR CLICK TO
                                             UPLOAD
                                             PHOTO</button> --}}
-                                            DRAG AND DROP OR CLICK TO
-                                            UPLOAD<br>
+                                            {{ __('messages.DRAG AND DROP OR CLICK TO UPLOAD') }}<br>
                                         </div>    
                                     </form>
                                 </div>
@@ -548,7 +547,7 @@ if(Auth::user()->languages != '' && Auth::user()->languages != null)
                                         if(Auth::user()->services != null || Auth::user()->services != '')
                                             $getServices = explode(",",Auth::user()->services);
                                     @endphp
-                                <label class="container">Conference
+                                <label class="container">{{ __('messages.Conference') }}
                                     <input type="checkbox" name="services[]" id="services" value="Conference" 
                                     @if(@$getServices)
                                     @foreach($getServices as $service)
@@ -557,7 +556,7 @@ if(Auth::user()->languages != '' && Auth::user()->languages != null)
                                     @endif>
                                     <span class="checkmark"></span>
                                 </label>
-                                <label class="container">Photoshoot
+                                <label class="container">{{ __('messages.Photoshoot') }}
                                     <input type="checkbox" name="services[]" id="services" value="Photoshoot"
                                     @if(@$getServices)
                                     @foreach($getServices as $service)
@@ -566,7 +565,7 @@ if(Auth::user()->languages != '' && Auth::user()->languages != null)
                                     @endif>
                                     <span class="checkmark"></span>
                                 </label>
-                                <label class="container">Fashion shows
+                                <label class="container">{{ __('messages.Fashion shows') }}
                                     <input type="checkbox" name="services[]" id="services" value="Fashion shows"
                                     @if(@$getServices)
                                     @foreach($getServices as $service)
@@ -575,7 +574,7 @@ if(Auth::user()->languages != '' && Auth::user()->languages != null)
                                     @endif>
                                     <span class="checkmark"></span>
                                 </label>
-                                <label class="container">Extra
+                                <label class="container">{{ __('messages.Extra') }}
                                     <input type="checkbox" name="services[]" id="services" value="Extra"
                                     @if(@$getServices)
                                     @foreach($getServices as $service)
@@ -588,13 +587,13 @@ if(Auth::user()->languages != '' && Auth::user()->languages != null)
                                 <input type="hidden" name="userId" value="{{ Auth::id() }}">
                                 <div class="form-group row mt-5">
                                     <label for="inputPassword" class="col-sm-2 col-form-label"
-                                        style="font-weight: bold;">Profile Visibility
+                                        style="font-weight: bold;">{{ __('messages.Profile Visibility') }}
                                         :</label>
                                     <div class="col-sm-4" style="padding-left:1px;">
                                         <select class="form-control" id="profileVisibility" name="profileVisibility">
-                                            <option value="1" @if(Auth::user()->profileVisibility == '1' || Auth::user()->profileVisibility == '') selected @endif>visible</option>
-                                            <option value="2" @if(Auth::user()->profileVisibility == '2') selected @endif>visible only to registered users</option>
-                                            <option value="3" @if(Auth::user()->profileVisibility == '3') selected @endif>hidden</option>
+                                            <option value="1" @if(Auth::user()->profileVisibility == '1' || Auth::user()->profileVisibility == '') selected @endif>{{ __('messages.Visible') }}</option>
+                                            <option value="2" @if(Auth::user()->profileVisibility == '2') selected @endif>{{ __('messages.visible only to registered users') }}</option>
+                                            <option value="3" @if(Auth::user()->profileVisibility == '3') selected @endif>{{ __('messages.Hidden') }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -602,9 +601,8 @@ if(Auth::user()->languages != '' && Auth::user()->languages != null)
                                 <div class="row mt-5">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="exampleFormControlSelect1" style="font-weight: bold;">SMS
-                                                Notification</label>
-                                            <label class="container mt-3"> I want to receive Chat Notification
+                                            <label for="exampleFormControlSelect1" style="font-weight: bold;">{{ __('messages.SMS Notification') }}</label>
+                                            <label class="container mt-3"> {{ __('messages.I want to receive Chat Notification') }}
                                                 <input type="checkbox" name="smsNotification" id="smsNotification" @if(Auth::user()->smsNotification == 1) checked @endif>
                                                 <span class="checkmark"></span>
                                             </label>
@@ -613,10 +611,9 @@ if(Auth::user()->languages != '' && Auth::user()->languages != null)
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="exampleFormControlSelect1" style="font-weight: bold;">Privacy
-                                                Profile</label>
+                                            <label for="exampleFormControlSelect1" style="font-weight: bold;">{{ __('messages.Privacy Profile') }}</label>
 
-                                            <label class="container mt-3"> Set my profile as 'private'
+                                            <label class="container mt-3"> {{ __('messages.Set my profile as \'private\'') }}
                                                 <input type="checkbox" name="privacyProfile" id="privacyProfile" @if(Auth::user()->privacyProfile == 1) checked @endif>
                                                 <span class="checkmark"></span>
                                             </label>
@@ -626,7 +623,7 @@ if(Auth::user()->languages != '' && Auth::user()->languages != null)
                                 </div>
 
                                 <div class="text-white text-right">
-                                    <input type="submit" name="save" value="Save" class="btn btn-success mt-2" style="float:right">
+                                    <input type="submit" name="save" value="{{ __('messages.Save') }}" class="btn btn-success mt-2" style="float:right">
                                     {{-- <button type="button" class="btn btn-success mt-5"
                                         style="float:right;" onclick="">Save</button> --}}
                                     {{-- <a href="javascript:;" style="float:right;" onclick="saveProfile()" id="saveBtn" class="btn btn-success mt-5">Save</a> --}}
@@ -718,7 +715,7 @@ multiple:true,
                     }
                 });
                 $.ajax({
-                    url: "{{ url('delete_gallery') }}",
+                    url: "{{ url(app()->getLocale() . '/delete_gallery') }}",
                     type: "POST",
                     data: {
                         id: id
@@ -759,7 +756,7 @@ multiple:true,
                     }
                 });
                 $.ajax({
-                    url: "{{ url('change_gallery_status') }}",
+                    url: "{{ url(app()->getLocale() . '/change_gallery_status') }}",
                     type: "POST",
                     data: {
                         id: id

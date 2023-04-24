@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MobilePrefix;
 use App\Models\User;
-use Session, Hash;
+use Session, Hash, Auth;
 use Carbon\Carbon;
 
 class UserController extends Controller
@@ -15,7 +15,7 @@ class UserController extends Controller
         return view('profile');
     }
 
-    public function update(User $user, Request $request)
+    public function update(Request $request)
     {   
         $request->only([
             'aboutme',
@@ -24,7 +24,8 @@ class UserController extends Controller
             'gender',
             'profilepic'
         ]);
-
+        $user = Auth::user();
+        
         if ($request->file('profilepic') != null) 
         {
             $file      = $request->file('profilepic');
@@ -37,13 +38,20 @@ class UserController extends Controller
             ]);
         }
 
-        $user->update([
-            'aboutme'   => $request->aboutme,
-            'birthdate' => $request->birthdate,
-            'city'      => $request->city,
-            'gender'    => $request->gender,
-            'updated_at'=> now()
-        ]);
+
+        $user->aboutme      = $request->aboutme;
+        $user->birthdate    = $request->birthdate;
+        $user->city         = $request->city;
+        $user->gender       = $request->gender;
+        $user->updated_at   = now();
+        $user->save();
+        // $user->update([
+        //     'aboutme'   => $request->aboutme,
+        //     'birthdate' => $request->birthdate,
+        //     'city'      => $request->city,
+        //     'gender'    => $request->gender,
+        //     'updated_at'=> now()
+        // ]);
 
         Session::flash('success', 'Profile updated successfully'); 
         return redirect()->back();

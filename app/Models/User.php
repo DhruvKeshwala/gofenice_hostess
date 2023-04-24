@@ -18,6 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'type',
         'role',
         'name',
         'surname',
@@ -48,7 +49,8 @@ class User extends Authenticatable
         'description',
         'profileVisibility',
         'smsNotification',
-        'privacyProfile'
+        'privacyProfile',
+        'last_seen',
     ];
 
     /**
@@ -69,4 +71,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+     /**
+     * Interact with the user's first name.
+     *
+     * @param  string  $value
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function type(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) =>  ["0", "1", "2"][$value],
+        );
+    }
 }

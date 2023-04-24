@@ -20,7 +20,60 @@
             crossorigin="anonymous" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat"/>
 
+        {{-- Added by Dev --}}
+        <script src="https://code.jquery.com/jquery-3.6.4.slim.js"
+            integrity="sha256-dWvV84T6BhzO4vG6gWhsWVKVoa4lVmLnpBOZh/CAHU4=" crossorigin="anonymous"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/dropzone.min.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js"></script>
+        <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+            crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        {{-- end --}}
 
+        <style>
+            .dropbtn {
+                background-color: #4CAF50;
+                color: white;
+                padding: 16px;
+                font-size: 16px;
+                border: none;
+                cursor: pointer;
+            }
+        
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+        
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                z-index: 1;
+            }
+        
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+        
+            .dropdown-content a:hover {
+                background-color: #f1f1f1
+            }
+        
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+        
+            .dropdown:hover .dropbtn {
+                background-color: #3e8e41;
+            }
+        </style>
+        
         <style>
             .bd-placeholder-img {
                 font-size: 1.125rem;
@@ -136,7 +189,7 @@
                         href="#offcanvasResponsive" role="button" aria-controls="offcanvasResponsive">
                         <div
                             class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                            <img src="{{ URL::asset('upload/wostess.png') }}" style="width: 200px;" />
+                            <a href="#"><img src="{{ URL::asset('upload/wostess.png') }}" style="width: 200px;" /></a>
                             <!-- <h1 style="color: #c98e49;">Hostess</h1> -->
                         </div>
                     </a>
@@ -158,33 +211,93 @@
                             <ul style="margin: auto; background-color: white;"
                                 class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 d-block d-lg-inline-flex">
                                 <li><a href="#" class="nav-link px-4"
-                                        style="font-weight:bold!important;font-size: 18px;">Explore</a></li>
+                                        style="font-weight:bold!important;font-size: 18px;">{{__('messages.Explore')}}</a></li>
                                 <li><a href="#" class="nav-link px-4"
-                                        style="font-weight:bold!important;font-size: 18px;">Plans</a></li>
+                                        style="font-weight:bold!important;font-size: 18px;">{{__('messages.Plans')}}</a></li>
                                 <li><a href="#" class="nav-link px-4"
-                                        style="font-weight:bold!important;font-size: 18px;">Upload</a></li>
+                                        style="font-weight:bold!important;font-size: 18px;">{{__('messages.Upload')}}</a></li>
                             </ul>
                         </div>
                     </div>
                     @if (Auth::id() != null || Auth::id() != '')
                     <div class="text-end">
-                        <span style="color: #000000;" class="">Welcome, {{ Auth::user()->name }} |</span>
-                        <a href="{{ route('user.logout') }}" style="color: #000000;" class="">Logout</a>
+                        <span style="color: #000000;" class="">{{__('messages.Welcome')}}, {{ Auth::user()->name }} |</span>
+                        <a href="{{ route('user.logout') }}" style="color: #000000;" class="">{{__('messages.Logout')}}</a>
                     </div>
                     @else
                     <div class="text-end" style="padding-right:50px;">
                         <a href="{{ route('login') }}"
                             style="color: #ED4B60; font-size: 14px;font-weight:bold!important;text-decoration: none;"
-                            class="">Login </a>
+                            class="">{{__('messages.Login')}} </a>
 
-                        <img src="{{ url('assets/images/header.png') }}" width="60px" height="60px" alt="Image" />
+                        {{-- <img src="{{ url('assets/images/italy.png') }}" width="60px" height="60px" alt="Image" /> --}}
+                        {{-- <div class="col-md-4"> --}}
+                            {{-- working properly <select class="changeLang" id="changeLang" onchange="change_language()">
+                                @foreach(config('app.available_locales') as $locale)
+                                <option value="{{$locale}}" {{ app()->getLocale() == $locale ? 'selected' : '' }} redirectroute="{{route(\Illuminate\Support\Facades\Route::currentRouteName(), ['locale' => $locale])}}">
+                                    {{ strtoupper($locale) }}</option>
+                                @endforeach
+                            </select> --}}
 
+                            {{-- <select class="changeLang" id="changeLang" onchange="change_language()">
+                                @foreach(config('app.available_locales') as $locale)
+                                <option value="{{$locale}}" {{ app()->getLocale() == $locale ? 'selected' : '' }}
+                                    redirectroute="{{route(\Illuminate\Support\Facades\Route::currentRouteName(), ['locale' => $locale])}}">
+                                    
+                                </option>
+                                @endforeach
+                            </select> --}}
+                            <div class="dropdown">
+                                <a href="javascript:;void(0)">@if(app()->getLocale() == 'en')
+                                    <img src="{{URL::asset('assets/images/1.png')}}" height="70px" width="70px" />
+                                    @elseif(app()->getLocale() == 'it')
+                                        <img src="{{URL::asset('assets/images/2.png')}}" height="70px" width="70px" />
+                                    @elseif(app()->getLocale() == 'sp')
+                                        <img src="{{URL::asset('assets/images/3.png')}}" height="70px" width="70px" />
+                                    @endif
+                                </a>
+                                <div class="dropdown-content">
+                                    {{-- <x-nav-link href="#"><img src="https://img.icons8.com/color/256/brazil-circular.png" height="100%" width="100%" /></a> --}}
+@php
+                                        @$i = 1;
+@endphp
+                                    @foreach(config('app.available_locales') as $locale)
+                                    <x-nav-link :href="route(\Illuminate\Support\Facades\Route::currentRouteName(), ['locale' => $locale])"
+                                        :active="app()->getLocale() == $locale">
+                                        <img src="{{URL::asset('assets/images/' . @$i . '.png')}}" height="70px" width="70px" />
+                                    </x-nav-link>
+@php 
+                                        @$i++ 
+@endphp
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            {{-- @foreach(config('app.available_locales') as $locale)
+                            <x-nav-link :href="route(\Illuminate\Support\Facades\Route::currentRouteName(), ['locale' => $locale])"
+                                :active="app()->getLocale() == $locale">
+                                {{ strtoupper($locale) }}
+                            </x-nav-link>
+                            @endforeach
+                            <x-dropdown-link align="right" width="48"></x-dropdown-link> --}}
+
+                           
+
+                        {{-- </div> --}}
                         <button type="button" class="btn btn-dark"><a href="{{ route('register') }}"
-                                style="color: white;font-size: 14px;text-decoration: none;" class="">Sign up
-                                free</a></button>
+                                style="color: white;font-size: 14px;text-decoration: none;" class="">{{__('messages.Sign up free')}}</a></button>
                         {{-- <a href="{{ route('register') }}" style="color: #000000;" class="">Sign up free</a> --}}
                     </div>
                     @endif
                 </div>
             </nav>
+            <script type="text/javascript">
+                function change_language()
+                {
+                    var redirectroute = $('#changeLang').find(":selected").attr("redirectroute");
+                    //window.location = $('#changeLang').find(":selected").attr("redirectroute");
+                    // alert(redirectroute);
+                    location.replace($('#changeLang').find(":selected").attr("redirectroute"));
+                }
+            </script>
         </header>

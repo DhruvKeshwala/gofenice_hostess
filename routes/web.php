@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\LangController;
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -20,16 +21,20 @@ use App\Http\Controllers\Admin\AdminUserController;
 |
 */
 
+Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
 
-Route::get('/', function () {
-    return Redirect::to('/login');
-});
+    // Route::get('/', function () {
+    //     return redirect(app()->getLocale());
+    // });
 
-// Route::get('/register_old', [UserController::class, 'index'])->name('user.register');
+    Route::get('/en', function () {
+        return Redirect::to('/en/login');
+    });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
 
 //Verify phone and email for registration
 // Route::get('otpForm/{id?}', [UserController::class, 'otpForm'])->name('user.otpForm');
@@ -37,30 +42,69 @@ Route::get('/dashboard', function () {
 // Route::get('emailForm/{id?}', [UserController::class, 'emailForm'])->name('user.emailForm');
 // Route::post('emailForm', [UserController::class, 'verifyEmailOtp'])->name('user.verifyEmailOtp');
 
-Route::middleware('auth')->group(function () {
+// User Routes
+Route::prefix('{locale}')->where(['locale' => '[a-zA-Z]{2}'])
+    ->middleware('setlocale')->group(function() {
+Route::middleware(['auth', 'user-access:0'])->group(function () {
+    
     Route::get('profile', [UserController::class, 'edit'])->name('profile.edit');
-
-    Route::get('/hostess_profile',[HostessController::class, 'updateProfile'])->name('hostess_profile');
-    Route::post('save_hostess_profile', [HostessController::class, 'profileUpdate'])->name('save_hostess_profile');
-    Route::post('delete_gallery', [HostessController::class, 'destroy'])->name('delete_gallery');
-    Route::post('update_gallery',[HostessController::class, 'updateGallery'])->name('updateGallery');
-    Route::post('change_gallery_status', [HostessController::class, 'change_gallery_status'])->name('change_gallery_status');
-    Route::post('save_profilePic', [HostessController::class, 'storeProfilePic'])->name('save_profilePic');
     Route::post('profile/{user}',[UserController::class,'update'])->name('profile.update');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('logout', function ()
-    {
-        auth()->logout();
-        Session()->flush();
 
-        return Redirect::to('/login');
-    })->name('user.logout');
 });
 
+// Route::get('hostess_profile_new/{id?}', function(){
+//     $user = UserService::getUserById(Request::segment(3));
+//     // $getServices = explode(",",$user->services);
+//     // $prefix = MobilePrefix::select('prefix')->get();
+//     // return view('hostess_profile_new', compact('user', 'id', 'prefix', 'getServices'));
+//     return view('hostess_profile_new' , compact('user'));
+// });
+
+Route::get('hostess_profile_new/{id?}', [HostessController::class, 'showHostess'])->name('showHostess');
+
+    Route::get('logout', function ()
+    {
+        if(Auth::user()->role == 'user')
+        {
+            auth()->logout();
+            Session()->flush();
+            if(app()->getLocale() == 'en')
+                return redirect('/en/login');
+            else if(app()->getLocale() == 'it')
+                return redirect('/it/login');
+            else if(app()->getLocale() == 'sp')
+                return redirect('/sp/login');
+        }
+        else if(Auth::user()->role == 'Admin')
+        {
+            auth()->logout();
+            Session()->flush();
+            return Redirect::to('admin/login');
+        }
+
+    })->name('user.logout');
+
+
+// Hostess Routes
+    Route::middleware(['auth', 'user-access:2'])->group(function () {
+        Route::get('/hostess_profile',[HostessController::class, 'updateProfile'])->name('hostess_profile');
+        Route::post('save_hostess_profile', [HostessController::class, 'profileUpdate'])->name('save_hostess_profile');
+        Route::post('delete_gallery', [HostessController::class, 'destroy'])->name('delete_gallery');
+        Route::post('update_gallery',[HostessController::class, 'updateGallery'])->name('updateGallery');
+        Route::post('change_gallery_status', [HostessController::class, 'change_gallery_status'])->name('change_gallery_status');
+        Route::post('save_profilePic', [HostessController::class, 'storeProfilePic'])->name('save_profilePic');
+        // Route::post('profile/{user}',[UserController::class,'update'])->name('profile.update');
+        // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
+});
+
+
+// Admin Routes
 Route::group(['prefix' => 'admin'], function () {
+    Route::get('/', [AdminUserController::class, 'adminLogin'])->name('admin.login');
     Route::get('login', [AdminUserController::class, 'adminLogin'])->name('admin.login');
-    Route::middleware(['auth'])->group(function () {
+    Route::middleware(['auth', 'user-access:1'])->group(function () {
 
 
         Route::get('users', [AdminUserController::class, 'index'])->name('admin.users');

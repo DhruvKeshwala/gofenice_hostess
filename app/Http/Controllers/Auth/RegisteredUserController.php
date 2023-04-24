@@ -110,33 +110,34 @@ class RegisteredUserController extends Controller
             if($request->user_type == 'hostess')
             {
                 $userDetails['birthdate'] = $request->birthday_year."-".$request->birthday_month."-".$request->birthday_day;
+                $userDetails['type'] = 2;
             }
             $userDetails['user_type'] = $request->user_type;
             $result = User::create($userDetails);
-            Session::flash('success', 'Verification Code has been sent on your number +' .  $userDetails['mobilenoprefix'] . $userDetails['mobileno']); 
+            Session::flash('success', 'Verification Code has been sent on your numbers +' .  $userDetails['mobilenoprefix'] . $userDetails['mobileno']); 
             if($request->user_type == 'hostess'){
-                return redirect()->to('step2Form/'.$result->id);
+                return redirect()->to(app()->getLocale() . '/step2Form/'.$result->id);
             }
             else{
-                return redirect()->to('otpForm/'.$result->id);
+                return redirect()->to(app()->getLocale() . '/otpForm/'.$result->id);
             }
         }
-        Session::flash('success', 'Something went wrong!!'); 
+        Session::flash('success', trans('messages.Something went wrong!!')); 
         return redirect()->back();
     }
 
     public function registerStep2(Request $request)
     {
         $validated = $request->validate([
-            'city' => 'required',
-            'services' => 'required',
-'wing_type' => 'required',
+            'city'      => 'required',
+            'services'  => 'required',
+            'wing_type' => 'required',
             
         ],
         [
-            'city.required' => 'City is required',
-            'services.required' => 'Services is required',
-            'wing_type.required' => 'Wing Type is required',
+            'city.required'         => 'City is required',
+            'services.required'     => 'Services is required',
+            'wing_type.required'    => 'Wing Type is required',
             
         ]);
         
@@ -158,17 +159,18 @@ class RegisteredUserController extends Controller
                 ]);
             }
             $user = User::where('id', $userId)->first();
-            Session::flash('success', 'Verification Code has been sent on your number +' .  $user->mobilenoprefix . $user->mobileno); 
-            return redirect()->to('otpForm/'.$userId);
+            Session::flash('success', 'Verification Code has been sent on your numbers +' .  $user->mobilenoprefix . $user->mobileno); 
+            return redirect()->to(app()->getLocale() . '/otpForm/'.$userId);
         }
-        Session::flash('success', 'Something went wrong!!'); 
+        Session::flash('success', trans('messages.Something went wrong!!')); 
         return redirect()->back();
     }
 
-    public function otpForm($id)
+    public function otpForm()
     {
-        $user = User::where('id', $id)->first();
-        return view('otpForm', compact('user'));
+        // dd($id);
+        // $user = User::where('id', $id)->first();
+        return view('otpForm');
     }
     public function step2Form($id){
         $user = User::where('id', $id)->first();
@@ -191,12 +193,12 @@ class RegisteredUserController extends Controller
                 User::where('id',$user->id)->update(['mobile_verified_at'=>Carbon::now()->toDateTimeString(), 'status' => 'Active']);
                 //Session::flash('success', 'Phone number verified successfully');
                 //return redirect()->to('emailForm/'.$user->id);
-                Session::flash('success', 'Signup Completed');
-		        return redirect('login');
+                Session::flash('success', trans('messages.Signup Completed'));
+		        return redirect(app()->getLocale() . '/login');
             }
             else
             {
-                Session::flash('error', 'Invalid Verification Code please enter valid code');
+                Session::flash('error', trans('messages.Invalid Verification Code please enter valid code'));
                 return redirect()->back();
             }
         }
