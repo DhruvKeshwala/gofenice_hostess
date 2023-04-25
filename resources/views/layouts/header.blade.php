@@ -49,7 +49,7 @@
                 display: none;
                 position: absolute;
                 background-color: #f9f9f9;
-                min-width: 160px;
+                min-width: 50px;
                 box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
                 z-index: 1;
             }
@@ -248,7 +248,8 @@
                                 @endforeach
                             </select> --}}
                             <div class="dropdown">
-                                <a href="javascript:;void(0)">@if(app()->getLocale() == 'en')
+                                <a href="javascript:;void(0)">
+                                    @if(app()->getLocale() == 'en')
                                     <img src="{{URL::asset('assets/images/1.png')}}" height="70px" width="70px" />
                                     @elseif(app()->getLocale() == 'it')
                                         <img src="{{URL::asset('assets/images/2.png')}}" height="70px" width="70px" />

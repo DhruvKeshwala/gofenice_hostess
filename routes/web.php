@@ -27,6 +27,10 @@ Route::get('lang/change', [LangController::class, 'change'])->name('changeLang')
     //     return redirect(app()->getLocale());
     // });
 
+    Route::get('layouts', function () {
+        return view('layouts.layout');
+    });
+
     Route::get('/en', function () {
         return Redirect::to('/en/login');
     });

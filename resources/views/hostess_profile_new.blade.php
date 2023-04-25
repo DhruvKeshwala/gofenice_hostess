@@ -1,289 +1,881 @@
-@include('layouts.header')
-<style>
-    .row1 {
-        margin-top: 100px;
-    }
+@extends('layouts.layout')
+@section('title', 'Hostess Profile | Hostess')
 
-    .row2 {
-        margin-top: 40px;
-    }
-
-    .red-color {
-        color: rgb(235, 156, 193);
-    }
-
-    .favorites {
-        padding-right: 5.5rem !important;
-        padding-left: 1.5rem !important;
-        margin-top: 15px;
-    }
-
-    .px-4 {
-        padding-right: 2.5rem !important;
-        padding-left: 1.5rem !important;
-    }
-
-    .btn-lg {
-        --bs-btn-padding-y: 1.2rem;
-        --bs-btn-padding-x: 14rem;
-        --bs-btn-font-size: 1.25rem;
-        --bs-btn-border-radius: 0.5rem;
-    }
-
-    .btn-color {
-        background-image: linear-gradient(90deg, #fc00ff, #00dbde);
-        color: white;
-    }
-
-    .btn-second {
-        --bs-btn-color: black;
-        /* --bs-btn-bg: #0d6efd; */
-        --bs-btn-border-color: #fda90d;
-        /* --bs-btn-hover-color: black; */
-        /* --bs-btn-hover-bg: #0b5ed7; */
-        /* --bs-btn-hover-border-color: #0a58ca; */
-        /* --bs-btn-focus-shadow-rgb: 49,132,253; */
-        /* --bs-btn-active-color: #fff; */
-        /* --bs-btn-active-bg: #0a58ca; */
-        /* --bs-btn-active-border-color: #dd9a0a; */
-        /* --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); */
-        /* --bs-btn-disabled-color: #fff; */
-        /* --bs-btn-disabled-bg: #0d6efd; */
-        /* --bs-btn-disabled-border-color: #0d6efd; */
-
-    }
-
-    .btn-lg1 {
-        --bs-btn-padding-y: 1.2rem;
-        --bs-btn-padding-x: 4rem;
-        --bs-btn-font-size: 1.25rem;
-        --bs-btn-border-radius: 0.5rem;
-    }
-
-    .logged-in {
-        color: green;
-        height: 35px;
-        width: 25px;
-    }
-
-
-
-    h3 {
-        position: relative;
-        /* font-size: 30px; */
-        z-index: 1;
-        overflow: hidden;
-        /* text-align: center; */
-    }
-
-    h3:after {
-        position: absolute;
-        top: 51%;
-        overflow: hidden;
-        width: 100%;
-        height: 2px;
-        content: '\a0';
-        background-color: rgba(177, 166, 166, 0.253);
-    }
-
-    .search {
-        height: 60px;
-    }
-
-    .searchicon {
-        position: relative;
-    }
-
-    .searchicon i {
-        position: absolute;
-        left: 15px;
-        top: 22px;
-        color: gray;
-    }
-
-    .dot {
-        height: 16px;
-        width: 16px;
-        background-color: #1feb52;
-        border-radius: 50%;
-        display: inline-block;
-    }
-
-    .dot-orange {
-    height: 16px;
-    width: 16px;
-    background-color: #ffa939;
-    border-radius: 50%;
-    display: inline-block;
-    }
-</style>
-
-<div class="container-fluid">
-    <div class="row row1">
-
-        <div class="col-md-10">
-            <div class="searchicon">
-                <input class="form-control search mr-sm-1" type="search" placeholder="" aria-label="Search">
-                <i class="fa fa-search fa-lg"></i>
+@section('content')
+<section>
+    <div class="container">
+        <div class="topFilterOptions">
+            <div class="searchLikeCol">
+                <div class="row g-2 g-lg-3 align-items-center">
+                    <div class="col">
+                        <div class="searchCol">
+                            <input type="text" class="form-control" placeholder="{{ __('messages.Search') }}">
+                            <span class="searchIcon"><img src="{{ URL::asset('assets/user/images/search-icon.svg') }}"
+                                    alt="..."></span>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <a href="javascript:void(0)" class="iconLink fwSBold"><img
+                                src="{{ URL::asset('assets/user/images/heart-filled.svg') }}" alt="...">
+                            <span>{{ __('messages.Favorites') }}</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="filterLinkCol">
+                <a href="javascript:void(0)" class="row g-0 filterTrigger align-items-center">
+                    <span class="col">{{ __('messages.Filter') }}</span>
+                    <span class="col-auto"><img src="{{ URL::asset('assets/user/images/filter-icon.svg') }}"
+                            alt="..."></span>
+                </a>
+                <div class="filterLinks">
+                    <ul class="tabs">
+                        <li data-tab="tab-1" class="tab-link current active"><a
+                                href="javascript:void(0)"><span>{{__('messages.All')}}</span></a></li>
+                        <li data-tab="tab-2" class="tab-link"><a href="javascript:void(0)"><img src="{{ URL::asset('assets/user/images/wh-icon.png') }}" alt="..."> <span>{{__('messages.Wing Hostess')}}</span></a></li>
+                        <li data-tab="tab-3" class="tab-link"><a href="javascript:void(0)"><img src="{{ URL::asset('assets/user/images/pm-icon.png') }}" alt="..."> <span>{{__('messages.Photo Models')}}</span></a></li>
+                        <li data-tab="tab-4" class="tab-link"><a href="javascript:void(0)"><img src="{{ URL::asset('assets/user/images/new-icon.png') }}" alt="...">
+                        <span>{{ __('messages.New') }}</span></a></li>
+                        <li data-tab="tab-5" class="tab-link"><a href="javascript:void(0)"><img src="{{ URL::asset('assets/user/images/online-icon.svg') }}" alt="..."><span>{{__('messages.Online Now')}}</span></a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <div class="col-md-2">
-            <h4 class="favorites"><i class='fa fa-heart red-color'></i> Favorites</h4>
-        </div>
-    </div>
-    <div class="offcanvas-body">
-        <ul style="margin: auto;"
-            class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 d-block d-lg-inline-flex">
-            <li><a href="#" class="nav-link px-4" style="font-weight:bold!important;font-size: 18px;">All</a></li>
-            <li><a href="#" class="nav-link px-4" style="font-weight:bold!important;font-size: 18px;">Wing
-                    Hostess</a></li>
-            <li><a href="#" class="nav-link px-4" style="font-weight:bold!important;font-size: 18px;">Photo
-                    Models</a></li>
-            <li><a href="#" class="nav-link px-4" style="font-weight:bold!important;font-size: 18px;">New</a></li>
-            <li><a href="#" class="nav-link px-4" style="font-weight:bold!important;font-size: 18px;">Online Now
-                </a></li>
-        </ul>
-    </div>
-
-    <div class="container-fluid">
-        <div class="row row2">
-
-            <div class="col-md-8">
-                <div class="row" style="margin-left: 10px;">
-                    <div class="col-md-10">
-                        <h4 style="font-weight:bold;display: inline-block">Maddalena,</h4>
-                        <h5 style="display: inline-block"> Perugia, 24 anni</h5>
+        <div id="tab-1" class="profileDetailCol tab-content current">
+            <div class="row">
+                <div class="col-lg">
+                    <div class="profileLeftCol">
+                        <div class="proLeftTopCol">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="topInfoCol">
+                                        <h4>Maddalena, <small>Perugia, 24 anni</small></h4>
+                                    {{-- <span class="lcTime">Last connerction: 2 hrs ago</span> --}}
 @php
-                        $to = Carbon\Carbon::now();
-                        $from = $user->last_seen;
-                        $diff_in_minutes = $to->diffInMinutes($from);
+                                        $to = Carbon\Carbon::now();
+                                        $from = $user->last_seen;
+                                        $diff_in_minutes = $to->diffInMinutes($from);
 @endphp
-                        @if(@$diff_in_minutes >= 0 && @$diff_in_minutes <= 10)
-                            <p><span class="dot"></span> Last connection:
-                                {{-- {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }} --}}
-                                online
-                            </p>
-                        @elseif(@$diff_in_minutes > 10 && @$diff_in_minutes <= 119)
-                            <p><span class="dot-orange"></span> Last connection:
-                                {{-- {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }} --}}
-                                just now
-                            </p>
-                        @elseif(@$diff_in_minutes >= 120 && @$diff_in_minutes <= 1440)
-                            <p>Last connection:
-                                {{-- {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }} --}}
-                                from a few hours
-                            </p>
-                        @elseif(@$diff_in_minutes >= 1441 && @$diff_in_minutes <= 2879) 
-                            <p>Last connection:
-                                {{-- {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }} --}}
-                                1 day
-                            </p>
-                        @elseif(@$diff_in_minutes >= 2880)
-                            <p>Last connection:
-                                {{-- {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }} --}}
-                                for a few days
-                            </p>
-                        @endif
-                        {{-- <p><span class="logged-in">●</span> Last connection: 2 hrs ago</p> --}}
-                    </div>
-                    <div class="col-md-2">
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star"></span>
-                        <span class="fa fa-star"></span>
+                                        @if(@$diff_in_minutes >= 0 && @$diff_in_minutes <= 10)
+                                            <span class="lcTime">{{__('messages.Last connection:')}} {{__('messages.online')}}</span>
+                                            {{-- {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }} --}}
+                                        @elseif(@$diff_in_minutes > 10 && @$diff_in_minutes <= 119)
+                                            <span class="lcTime2"></span> {{__('messages.Last connection:')}} {{__('messages.just now')}}</span>
+                                            {{-- {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }} --}}
+                                        @elseif(@$diff_in_minutes > 119 && @$diff_in_minutes <= 1440) 
+                                            <span>{{__('messages.Last connection:')}} {{__('messages.from a few hours')}}</span>
+                                            {{-- {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }} --}}
+                                        @elseif(@$diff_in_minutes > 1440 && @$diff_in_minutes <= 2880) 
+                                            <span>{{__('messages.Last connection:')}}{{__('messages.1 day')}}</span>
+                                            {{-- {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }} --}}
+                                        @elseif(@$diff_in_minutes > 2880)
+                                            <span>{{__('messages.Last connection:')}}{{__('messages.for a few days')}}</span>
+                                            {{-- {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }} --}}
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-sm-auto">
+                                    <ul class="ratingStars">
+                                        <li><img src="{{ URL::asset('assets/user/images/star-filled.svg') }}" alt="...">
+                                        </li>
+                                        <li><img src="{{ URL::asset('assets/user/images/star-filled.svg') }}" alt="...">
+                                        </li>
+                                        <li><img src="{{ URL::asset('assets/user/images/star-filled.svg') }}" alt="...">
+                                        </li>
+                                        <li><img src="{{ URL::asset('assets/user/images/star.svg') }}" alt="..."></li>
+                                        <li><img src="{{ URL::asset('assets/user/images/star.svg') }}" alt="..."></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="proLeftImgCol">
+                            <img src="{{ URL::asset('assets/user/images/img-1.jpg') }}" alt="...">
+                        </div>
+                        <div class="proLeftImgCol">
+                            <img src="{{ URL::asset('assets/user/images/img-1.jpg') }}" alt="...">
+                        </div>
+                        <div class="proLeftImgCol">
+                            <img src="{{ URL::asset('assets/user/images/img-1.jpg') }}" alt="...">
+                        </div>
                     </div>
                 </div>
-                <img src="https://images.hdqwalls.com/download/girl-taking-a-photo-in-nature-8k-bt-1366x768.jpg"
-                    class="card-img-top" height="650" alt="...">
-
-                <img src="https://images.hdqwalls.com/download/girl-taking-a-photo-in-nature-8k-bt-1366x768.jpg"
-                    class="card-img-top" height="400" alt="...">
-            </div>
-            <div class="col-md-4">
-                <h3 style="font-weight:bold!important;">About Me</h3>
-                <p>Hostess text here</p>
-
-                <table class="table table-borderless " style="width:50%;">
-                    <thead>
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if($user->birthdate != null || $user->birthdate != '')
-                            <tr>
-                                <th scope="row" style="padding-right: 0px;">Age:</th>
-                                <td>{{Carbon\Carbon::parse($user->birthdate)->age}}</td>
-                            </tr>
-                        @endif
-
-                        @if($user->nationality != null || $user->nationality != '')
-                            <tr>
-                                <th scope="row" style="padding-right: 0px;">Nationality:</th>
-                                <td>{{ $user->nationality }}</td>
-                            </tr>
-                        @endif
-                        @if($user->languages != null || $user->languages != '')
-                            <tr>
-                                <th scope="row" style="padding-right: 0px;">Languages:</th>
-                                <td>{{ $user->languages }}</td>
-                            </tr>
-                        @endif
-                        @if($user->height != null || $user->height != '')
-                            <tr>
-                                <th scope="row" style="padding-right: 0px;">Height:</th>
-                                <td>{{ $user->height }}</td>
-                            </tr>
-                        @endif
-                        @if($user->hairColor != null || $user->hairColor != '')
-                            <tr>
-                                <th scope="row" style="padding-right: 0px;">Cut:</th>
-                                <td>{{ $user->hairColor }}</td>
-                            </tr>
-                        @endif
-                        @if($user->shoeSize != null || $user->shoeSize != '')
-                            <tr>
-                                <th scope="row" style="padding-right: 0px;">Shoes:</th>
-                                <td>{{ $user->shoeSize }}</td>
-                            </tr>
-                        @endif
-                        <tr>
-                            <th scope="row" style="padding-right: 0px;">Transfer:</th>
-                            <td>yes</td>
-                        </tr>
-                        @if($user->services != null || $user->services != '')
-                            <tr>
-                                <th scope="row" style="padding-right: 0px;">Services:</th>
-                                <td>{{$user->services}} </td>
-                            </tr>
-                        @endif
-
-                    </tbody>
-                </table>
-
-
-                <div class="mt-5">
-                    <h3 style="font-weight:bold!important;">CONTACT HOSTESS</h3>
-                    <p style="font-weight:bold!important;" class="mt-3">Unblock the chat and send a personalised
-                        message</p>
-                    <div class="form-group">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div><br>
-                    <p>Pay now 3 credits. If the hostess does will be offline for over 72 hours the credits will be
-                        refunded to your account.</p>
-                    <button type="button" class="btn btn-color btn-lg btn-block">Invia Adess <i
-                            class='fab fa-telegram-plane' style='font-size:30px;color:white'></i></button>
-                    <br><br>
-                    <p style="font-weight:bold!important;">Alternatively send a free message</p>
-                    <a href="#" class="btn btn-second btn-lg1 active" role="button"
-                        aria-pressed="true">Ciao,complimenti:) possiamo sentirci in chat?</a>
-
+                <div class="col-lg-auto">
+                    <div class="profileRightCol stickyTop">
+                        <div class="sidebarCard aboutMe">
+                            <h4 class="lineTitle"><span>{{__('messages.About me')}}</span></h4>
+                            <p>{{__('messages.Hostess text here hostess text here.')}} </p>
+                            <ul class="optionList">
+                                @if($user->birthdate != null || $user->birthdate != '')
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">{{__('messages.Age:')}}</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            {{Carbon\Carbon::parse($user->birthdate)->age}}
+                                        </div>
+                                    </div>
+                                </li>
+                                @endif
+                                @if($user->nationality != null || $user->nationality != '')
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">{{__('messages.Nationality:')}}</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            {{ @$user->nationality }}
+                                        </div>
+                                    </div>
+                                </li>
+                                @endif
+                                @if($user->languages != null || $user->languages != '')
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">{{__('messages.Languages:')}}</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            {{ @$user->languages }}
+                                        </div>
+                                    </div>
+                                </li>
+                                @endif
+                                @if($user->height != null || $user->height != '')
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">{{__('messages.Height:')}}</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            {{ @$user->height }}
+                                        </div>
+                                    </div>
+                                </li>
+                                @endif
+                                @if($user->hairColor != null || $user->hairColor != '')
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">{{__('messages.Cut:')}}</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            {{ @$user->hairColor }}
+                                        </div>
+                                    </div>
+                                </li>
+                                @endif
+                                @if($user->shoeSize != null || $user->shoeSize != '')
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">{{__('messages.Shoes:')}}</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            {{ @$user->shoeSize }}
+                                        </div>
+                                    </div>
+                                </li>
+                                @endif
+                                
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">{{__('messages.Transfer:')}}</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            Yes
+                                        </div>
+                                    </div>
+                                </li>
+                                @if($user->services != null || $user->services != '')
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">{{__('messages.Services:')}}</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            {{@$user->services}}
+                                        </div>
+                                    </div>
+                                </li>
+                                @endif
+                            </ul>
+                        </div>
+                        <div class="sidebarCard contactHostessCol">
+                            <form action="" class="mb-20">
+                                <h4 class="lineTitle"><span>{{__('messages.CONTACT')}} {{__('messages.HOSTESS')}} </span></h4>
+                                <p class="fwSBold">{{__('messages.Unlock the chat and send a personalized message')}} </p>
+                                <div class="tAreaCol">
+                                    <textarea class="form-control"
+                                        placeholder="{{ __('messages.Write your personalized message') }}"></textarea>
+                                </div>
+                                <p><small>{{__('messages.Pay now 3 credits. If the hostess does will be offline for over 72 hours the credits will be refunded to your account.')}}</small></p>
+                                <button class="btn sendBtn">{{__('messages.Invia Adess')}}</button>
+                            </form>
+                            <div class="btmForm">
+                                <p class="fwSBold">{{__('messages.Alternatively send a free message')}}</p>
+                                <!-- <div class="msgInput">
+                      <input type="text" class="form-control" placeholder="Ciao, complimenti :) possiamo sentirci in chat? ">
+                      <button class="sendArrowBtn">
+                        <span>Ciao, complimenti :) possiamo sentirci in chat?</span>
+                        <span><img src="{{ URL::asset('assets/user/images/angle-right.svg') }}" alt="..." ></span>
+                       </button>
+                    </div> -->
+                                <div class="msgInput">
+                                    <a href="javascript:void(0);" class="btn btn_outline">
+                                        <span>{{ __('messages.Hello, congratulations can we chat?') }}</span>
+                                        <span><img src="{{ URL::asset('assets/user/images/angle-right.svg') }}"
+                                                alt="..."></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
-    </div>
+        <div id="tab-2" class="profileDetailCol tab-content">
+            <div class="row">
+                <div class="col-lg">
+                    <div class="profileLeftCol">
+                        <div class="proLeftTopCol">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="topInfoCol">
+                                        <h4>Lorem, <small>Perugia, 24 anni</small></h4>
+                                        <span class="lcTime">Last connerction: 2 hrs ago</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-auto">
+                                    <ul class="ratingStars">
+                                        <li><img src="{{ URL::asset('assets/user/images/star-filled.svg') }}" alt="...">
+                                        </li>
+                                        <li><img src="{{ URL::asset('assets/user/images/star-filled.svg') }}" alt="...">
+                                        </li>
+                                        <li><img src="{{ URL::asset('assets/user/images/star-filled.svg') }}" alt="...">
+                                        </li>
+                                        <li><img src="{{ URL::asset('assets/user/images/star.svg') }}" alt="..."></li>
+                                        <li><img src="{{ URL::asset('assets/user/images/star.svg') }}" alt="..."></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="proLeftImgCol">
+                            <img src="{{ URL::asset('assets/user/images/img-1.jpg') }}" alt="...">
+                        </div>
+                        <div class="proLeftImgCol">
+                            <img src="{{ URL::asset('assets/user/images/img-1.jpg') }}" alt="...">
+                        </div>
+                        <div class="proLeftImgCol">
+                            <img src="{{ URL::asset('assets/user/images/img-1.jpg') }}" alt="...">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-auto">
+                    <div class="profileRightCol stickyTop">
+                        <div class="sidebarCard aboutMe">
+                            <h4 class="lineTitle"><span>About me</span></h4>
+                            <p>Hostess text here hostess text here. </p>
+                            <ul class="optionList">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Age:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            24
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Nationality:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            Italy
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Languages:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            English, Italian
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Height:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            160
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Cut:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            blonde
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Shoes:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            35
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Transfer:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            Yes
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Services:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            Photo Model <br> Service 123
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="sidebarCard contactHostessCol">
+                            <form action="" class="mb-20">
+                                <h4 class="lineTitle"><span>CONTACT HOSTESS </span></h4>
+                                <p class="fwSBold">Unlock the chat and send a personalized message </p>
+                                <div class="tAreaCol">
+                                    <textarea class="form-control"
+                                        placeholder="Scrivi il tuo messaggio personalizzato"></textarea>
+                                </div>
+                                <p><small>Pay now 3 credits. If the hostess does will be offline for over 72
+                                        hours the credits will be refunded to your account.</small></p>
+                                <button class="btn sendBtn">Invia Adess</button>
+                            </form>
+                            <div class="btmForm">
+                                <p class="fwSBold">Alternatively send a free message</p>
+                                <!-- <div class="msgInput">
+                      <input type="text" class="form-control" placeholder="Ciao, complimenti :) possiamo sentirci in chat? ">
+                      <button class="sendArrowBtn">
+                        <span>Ciao, complimenti :) possiamo sentirci in chat?</span>
+                        <span><img src="{{ URL::asset('assets/user/images/angle-right.svg') }}" alt="..." ></span>
+                       </button>
+                    </div> -->
+                                <div class="msgInput">
+                                    <a href="javascript:void(0);" class="btn btn_outline">
+                                        <span>Ciao, complimenti :) possiamo sentirci in chat?</span>
+                                        <span><img src="{{ URL::asset('assets/user/images/angle-right.svg') }}"
+                                                alt="..."></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tab-3" class="profileDetailCol tab-content">
+            <div class="row">
+                <div class="col-lg">
+                    <div class="profileLeftCol">
+                        <div class="proLeftTopCol">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="topInfoCol">
+                                        <h4>Maddalena, <small>Perugia, 24 anni</small></h4>
+                                        <span class="lcTime">Last connerction: 2 hrs ago</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-auto">
+                                    <ul class="ratingStars">
+                                        <li><img src="{{ URL::asset('assets/user/images/star-filled.svg') }}" alt="...">
+                                        </li>
+                                        <li><img src="{{ URL::asset('assets/user/images/star-filled.svg') }}" alt="...">
+                                        </li>
+                                        <li><img src="{{ URL::asset('assets/user/images/star-filled.svg') }}" alt="...">
+                                        </li>
+                                        <li><img src="{{ URL::asset('assets/user/images/star.svg') }}" alt="..."></li>
+                                        <li><img src="{{ URL::asset('assets/user/images/star.svg') }}" alt="..."></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="proLeftImgCol">
+                            <img src="{{ URL::asset('assets/user/images/img-1.jpg') }}" alt="...">
+                        </div>
+                        <div class="proLeftImgCol">
+                            <img src="{{ URL::asset('assets/user/images/img-1.jpg') }}" alt="...">
+                        </div>
+                        <div class="proLeftImgCol">
+                            <img src="{{ URL::asset('assets/user/images/img-1.jpg') }}" alt="...">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-auto">
+                    <div class="profileRightCol stickyTop">
+                        <div class="sidebarCard aboutMe">
+                            <h4 class="lineTitle"><span>About me</span></h4>
+                            <p>Hostess text here hostess text here. </p>
+                            <ul class="optionList">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Age:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            24
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Nationality:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            Italy
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Languages:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            English, Italian
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Height:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            160
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Cut:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            blonde
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Shoes:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            35
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Transfer:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            Yes
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Services:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            Photo Model <br> Service 123
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="sidebarCard contactHostessCol">
+                            <form action="" class="mb-20">
+                                <h4 class="lineTitle"><span>CONTACT HOSTESS </span></h4>
+                                <p class="fwSBold">Unlock the chat and send a personalized message </p>
+                                <div class="tAreaCol">
+                                    <textarea class="form-control"
+                                        placeholder="Scrivi il tuo messaggio personalizzato"></textarea>
+                                </div>
+                                <p><small>Pay now 3 credits. If the hostess does will be offline for over 72
+                                        hours the credits will be refunded to your account.</small></p>
+                                <button class="btn sendBtn">Invia Adess</button>
+                            </form>
+                            <div class="btmForm">
+                                <p class="fwSBold">Alternatively send a free message</p>
+                                <!-- <div class="msgInput">
+                      <input type="text" class="form-control" placeholder="Ciao, complimenti :) possiamo sentirci in chat? ">
+                      <button class="sendArrowBtn">
+                        <span>Ciao, complimenti :) possiamo sentirci in chat?</span>
+                        <span><img src="{{ URL::asset('assets/user/images/angle-right.svg') }}" alt="..." ></span>
+                       </button>
+                    </div> -->
+                                <div class="msgInput">
+                                    <a href="javascript:void(0);" class="btn btn_outline">
+                                        <span>Ciao, complimenti :) possiamo sentirci in chat?</span>
+                                        <span><img src="{{ URL::asset('assets/user/images/angle-right.svg') }}"
+                                                alt="..."></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tab-4" class="profileDetailCol tab-content">
+            <div class="row">
+                <div class="col-lg">
+                    <div class="profileLeftCol">
+                        <div class="proLeftTopCol">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="topInfoCol">
+                                        <h4>Lorem, <small>Perugia, 24 anni</small></h4>
+                                        <span class="lcTime">Last connerction: 2 hrs ago</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-auto">
+                                    <ul class="ratingStars">
+                                        <li><img src="{{ URL::asset('assets/user/images/star-filled.svg') }}" alt="...">
+                                        </li>
+                                        <li><img src="{{ URL::asset('assets/user/images/star-filled.svg') }}" alt="...">
+                                        </li>
+                                        <li><img src="{{ URL::asset('assets/user/images/star-filled.svg') }}" alt="...">
+                                        </li>
+                                        <li><img src="{{ URL::asset('assets/user/images/star.svg') }}" alt="..."></li>
+                                        <li><img src="{{ URL::asset('assets/user/images/star.svg') }}" alt="..."></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="proLeftImgCol">
+                            <img src="{{ URL::asset('assets/user/images/img-1.jpg') }}" alt="...">
+                        </div>
+                        <div class="proLeftImgCol">
+                            <img src="{{ URL::asset('assets/user/images/img-1.jpg') }}" alt="...">
+                        </div>
+                        <div class="proLeftImgCol">
+                            <img src="{{ URL::asset('assets/user/images/img-1.jpg') }}" alt="...">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-auto">
+                    <div class="profileRightCol stickyTop">
+                        <div class="sidebarCard aboutMe">
+                            <h4 class="lineTitle"><span>About me</span></h4>
+                            <p>Hostess text here hostess text here. </p>
+                            <ul class="optionList">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Age:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            24
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Nationality:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            Italy
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Languages:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            English, Italian
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Height:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            160
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Cut:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            blonde
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Shoes:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            35
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Transfer:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            Yes
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Services:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            Photo Model <br> Service 123
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="sidebarCard contactHostessCol">
+                            <form action="" class="mb-20">
+                                <h4 class="lineTitle"><span>CONTACT HOSTESS </span></h4>
+                                <p class="fwSBold">Unlock the chat and send a personalized message </p>
+                                <div class="tAreaCol">
+                                    <textarea class="form-control"
+                                        placeholder="Scrivi il tuo messaggio personalizzato"></textarea>
+                                </div>
+                                <p><small>Pay now 3 credits. If the hostess does will be offline for over 72
+                                        hours the credits will be refunded to your account.</small></p>
+                                <button class="btn sendBtn">Invia Adess</button>
+                            </form>
+                            <div class="btmForm">
+                                <p class="fwSBold">Alternatively send a free message</p>
+                                <!-- <div class="msgInput">
+                      <input type="text" class="form-control" placeholder="Ciao, complimenti :) possiamo sentirci in chat? ">
+                      <button class="sendArrowBtn">
+                        <span>Ciao, complimenti :) possiamo sentirci in chat?</span>
+                        <span><img src="{{ URL::asset('assets/user/images/angle-right.svg') }}" alt="..." ></span>
+                       </button>
+                    </div> -->
+                                <div class="msgInput">
+                                    <a href="javascript:void(0);" class="btn btn_outline">
+                                        <span>Ciao, complimenti :) possiamo sentirci in chat?</span>
+                                        <span><img src="{{ URL::asset('assets/user/images/angle-right.svg') }}"
+                                                alt="..."></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tab-5" class="profileDetailCol tab-content">
+            <div class="row">
+                <div class="col-lg">
+                    <div class="profileLeftCol">
+                        <div class="proLeftTopCol">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="topInfoCol">
+                                        <h4>Maddalena, <small>Perugia, 24 anni</small></h4>
+                                        <span class="lcTime">Last connerction: 2 hrs ago</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-auto">
+                                    <ul class="ratingStars">
+                                        <li><img src="{{ URL::asset('assets/user/images/star-filled.svg') }}" alt="...">
+                                        </li>
+                                        <li><img src="{{ URL::asset('assets/user/images/star-filled.svg') }}" alt="...">
+                                        </li>
+                                        <li><img src="{{ URL::asset('assets/user/images/star-filled.svg') }}" alt="...">
+                                        </li>
+                                        <li><img src="{{ URL::asset('assets/user/images/star.svg') }}" alt="..."></li>
+                                        <li><img src="{{ URL::asset('assets/user/images/star.svg') }}" alt="..."></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="proLeftImgCol">
+                            <img src="{{ URL::asset('assets/user/images/img-1.jpg') }}" alt="...">
+                        </div>
+                        <div class="proLeftImgCol">
+                            <img src="{{ URL::asset('assets/user/images/img-1.jpg') }}" alt="...">
+                        </div>
+                        <div class="proLeftImgCol">
+                            <img src="{{ URL::asset('assets/user/images/img-1.jpg') }}" alt="...">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-auto">
+                    <div class="profileRightCol stickyTop">
+                        <div class="sidebarCard aboutMe">
+                            <h4 class="lineTitle"><span>About me</span></h4>
+                            <p>Hostess text here hostess text here. </p>
+                            <ul class="optionList">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Age:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            24
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Nationality:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            Italy
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Languages:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            English, Italian
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Height:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            160
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Cut:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            blonde
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Shoes:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            35
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Transfer:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            Yes
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <span class="optLbl">Services:</span>
+                                        </div>
+                                        <div class="col optionText">
+                                            Photo Model <br> Service 123
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="sidebarCard contactHostessCol">
+                            <form action="" class="mb-20">
+                                <h4 class="lineTitle"><span>CONTACT HOSTESS </span></h4>
+                                <p class="fwSBold">Unlock the chat and send a personalized message </p>
+                                <div class="tAreaCol">
+                                    <textarea class="form-control"
+                                        placeholder="Scrivi il tuo messaggio personalizzato"></textarea>
+                                </div>
+                                <p><small>Pay now 3 credits. If the hostess does will be offline for over 72
+                                        hours the credits will be refunded to your account.</small></p>
+                                <button class="btn sendBtn">Invia Adess</button>
+                            </form>
+                            <div class="btmForm">
+                                <p class="fwSBold">Alternatively send a free message</p>
+                                <!-- <div class="msgInput">
+                      <input type="text" class="form-control" placeholder="Ciao, complimenti :) possiamo sentirci in chat? ">
+                      <button class="sendArrowBtn">
+                        <span>Ciao, complimenti :) possiamo sentirci in chat?</span>
+                        <span><img src="{{ URL::asset('assets/user/images/angle-right.svg') }}" alt="..." ></span>
+                       </button>
+                    </div> -->
+                                <div class="msgInput">
+                                    <a href="javascript:void(0);" class="btn btn_outline">
+                                        <span>Ciao, complimenti :) possiamo sentirci in chat?</span>
+                                        <span><img src="{{ URL::asset('assets/user/images/angle-right.svg') }}"
+                                                alt="..."></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-</div>
+
+    </div>
+</section>
+@endsection
+
+@section('footer')
+<script src="{{ URL::asset('assets/user/js/script.js') }}"></script>
+@endsection
