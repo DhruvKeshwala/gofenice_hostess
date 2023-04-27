@@ -153,8 +153,11 @@ return [
     'Invia Adess' => 'Enviar ahora',
     'Alternatively send a free message' => 'Alternativamente envíe un mensaje gratis',
     'Hello, congratulations can we chat?' => 'Hola, felicitaciones :) podemos charlar?',
-    
     'Write your personalized message' => 'Escribe tu mensaje personalizado',
+    'Signup for free' => 'Registrate gratis',
+    'or' => 'o',
+    'login' => 'acceso',
+    'to contact this hostess' => 'contactar con esta anfitriona',
     'email' => 'Email',
     'email' => 'Email',
     'email' => 'Email',

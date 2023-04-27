@@ -2,6 +2,111 @@
 @section('title', 'Hostess Profile | Hostess')
 
 @section('content')
+<style>
+    .ModalbuttonGreen {
+    background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 16px 1px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 5%;
+        /* margin-left: 3%; */
+        /* margin-right: 5% !important; */
+        width: 100% !important;
+        cursor: pointer;
+    }
+
+    .ModalbuttonPink {
+    background-color: #de2352;
+    border: none;
+    color: white;
+    padding: 16px 1px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 5%;
+    /* margin-left: 3%; */
+    /* margin-right: 5% !important; */
+    width: 100% !important;
+    cursor: pointer;
+    }
+
+    .ModalbuttonOrange {
+    background-color: #f39b03;
+    border: none;
+    color: white;
+    padding: 16px 1px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 5%;
+    /* margin-left: 3%; */
+    /* margin-right: 5% !important; */
+    width: 100% !important;
+    cursor: pointer;
+    }
+
+    .logoImg1 {
+        height: 50%;
+        width: 42%;
+        margin-left: 30%;
+        margin-bottom: 5%;
+        padding-top: 5%;
+    }
+    /* The Modal (background) */
+    .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        padding-top: 100px;
+        /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin-top: 147px;
+        margin: 258px 700px;
+        padding: 19px;
+        border: 1px solid #888;
+        width: 25%;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
 <section>
     <div class="container">
         <div class="topFilterOptions">
@@ -202,16 +307,62 @@
                             </ul>
                         </div>
                         <div class="sidebarCard contactHostessCol">
-                            <form action="" class="mb-20">
-                                <h4 class="lineTitle"><span>{{__('messages.CONTACT')}} {{__('messages.HOSTESS')}} </span></h4>
+                            <h4 class="lineTitle"><span>{{__('messages.CONTACT')}} {{__('messages.HOSTESS')}} </span></h4>
+                            @if(Auth::id() != null || Auth::id() != '')
+                            <div class="mb-20">
                                 <p class="fwSBold">{{__('messages.Unlock the chat and send a personalized message')}} </p>
                                 <div class="tAreaCol">
                                     <textarea class="form-control"
-                                        placeholder="{{ __('messages.Write your personalized message') }}"></textarea>
+                                        placeholder="{{ __('messages.Write your personalized message') }}" name="message" id="message"></textarea>
+                                    <input type="hidden" name="hostessCredit" id="hostessCredit" value="{{@$user->credit}}">
+                                    <input type="hidden" name="userCredit" id="userCredit" value="{{@Auth::user()->credit}}">
+                                        <div id="messageError"></div>
                                 </div>
                                 <p><small>{{__('messages.Pay now 3 credits. If the hostess does will be offline for over 72 hours the credits will be refunded to your account.')}}</small></p>
-                                <button class="btn sendBtn">{{__('messages.Invia Adess')}}</button>
-                            </form>
+                                {{-- <button class="btn sendBtn" id="myBtn">{{__('messages.Invia Adess')}}</button> --}}
+                                <button class="btn sendBtn" onclick="sendMessage()" id="saveBtn">{{__('messages.Invia Adess')}}</button>
+                            </div>
+                            
+                            <!-- The Modal Confirm-->
+                            <div id="myModal" class="modal">
+                            
+                                <!-- Modal content -->
+                                <div class="modal-content mb-20">
+                                    <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..." class="logoImg1" height="10%" width="10%">
+                                    <span class="close">&times;</span>
+                                    <h3><b style="margin-left: 10%;">Use {{@$user->credit}} Credits and send the message</b></h3>
+                                    <form action="{{ route('confirmMsg') }}" method="post">
+                                        @csrf
+                                        <button class="ModalbuttonGreen"><strong>CONFIRM</strong></button>
+                                    </form>
+                                </div>
+                            
+                            </div>
+
+                            <!-- The Modal Buy Credit Modal-->
+                            <div id="lowCreditModal" class="modal">
+                            
+                                <!-- Modal content -->
+                                <div class="modal-content mb-20">
+                                    <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..." class="logoImg1" height="10%"
+                                        width="10%">
+                                    <span class="close">&times;</span>
+                                    <h3><b style="margin-left: 10%;margin-left: 23%;">You don't have enough credits.</b></h3>
+                                    <p style="margin-left: 10%;margin-left: 35%;">Buy your credits now:</p>
+                                    {{-- <form action="{{ route('confirmMsg') }}" method="post"> --}}
+                                        {{-- @csrf --}}
+                                        <button class="ModalbuttonPink"><strong>Buy {{@$user->credit}} credits (for 3 €) and start the chat</strong></button>
+                                    {{-- </form> --}}
+                                
+                                    <button class="ModalbuttonOrange"><strong>Buy a pack of 100 credits for €80 (save 20%!)</strong></button>
+                        
+                                </div>
+                            
+                            </div>
+
+                            @else
+                                <h4><a style="color:#3B71CA;" href="{{ route('register') }}" target="_blank">{{ __('messages.Signup for free') }}</a> {{__('messages.or')}} <a style="color:#3B71CA;" href="{{ route('login') }}" target="_blank">{{__('messages.login')}}</a> {{__('messages.to contact this hostess')}}.</h4>
+                            @endif
                             <div class="btmForm">
                                 <p class="fwSBold">{{__('messages.Alternatively send a free message')}}</p>
                                 <!-- <div class="msgInput">
@@ -874,8 +1025,195 @@
 
     </div>
 </section>
+
+<script>
+    // Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+    modal.style.display = "none";
+    }
+}
+</script>
 @endsection
 
 @section('footer')
 <script src="{{ URL::asset('assets/user/js/script.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script>
+    function sendMessage() 
+    {
+        $('.errorMessage').hide();
+        var flag = 1;
+        // var categoryName = $("select[name='categoryName']").val();
+        // var services = $("input[name='services[]']:checked").map(function () {
+        //   return this.value;
+        // }).get();
+
+        // var name = $("input[name='name']").val();
+        // var surname = $("input[name='surname']").val();
+        // var email = $("input[name='email']").val();
+        // var mobilenoprefix = $("select[name='mobilenoprefix']").val();
+        // var mobileno = $("input[name='mobileno']").val();
+        var message         = $('#message').val();
+        var hostessCredit   = $("input[name='hostessCredit']").val();
+        var userCredit      = $("input[name='userCredit']").val();
+
+        // var birthdate = $("input[name='birthdate']").val();
+        // if(birthdate == null || birthdate == 'undefined')
+        //     birthdate = '';
+        
+        // var gender = $("input[name='gender']:checked").val();
+        // if(gender == null || gender == 'undefined')
+        //     gender = '';
+
+        // var city = $("input[name='city']").val();
+        // if(city == null || city == 'undefined')
+        //     city = '';
+        
+        // var userId = $("input[name='userId']").val();
+        // var user_type = $("input[name='user_type']").val();
+        var fd = new FormData();
+        // if(userId == ''){
+        //     userId = 0;
+        // }
+        // Append data 
+        // var files = $('#profilepic')[0].files;
+        // if(files.length > 0)
+        // {
+        //     fd.append('profilepic',files[0]);
+        // }
+        
+        fd.append('message', message);
+        fd.append('hostessCredit', hostessCredit);
+        fd.append('userCredit', userCredit);
+        // fd.append('surname', surname);
+        // fd.append('services', services);
+        // fd.append('email', email);
+        // fd.append('mobilenoprefix', mobilenoprefix);
+        // fd.append('mobileno', mobileno);
+        // fd.append('aboutme', aboutme);
+        // fd.append('birthdate', birthdate);
+        // fd.append('gender', gender);
+        // fd.append('city', city);
+        // fd.append('userId', userId);
+        // fd.append('user_type', user_type);
+
+        if (message == '' || message == null) 
+        {
+            flag = 0;
+            $("#messageError").html('<span class="errorMessage" style="color:red;">Message is Required</span>');
+        }
+
+        if(userCredit < hostessCredit)
+        {
+            flag = 0;
+            
+            $("#lowCreditModal").show();
+            $(".close").click(function(){
+                $("#lowCreditModal").hide();
+            });
+        }
+        
+        // if (surname == '' || surname == null)
+        // {
+        // flag = 0;
+        // $("#surnameError").html('<span class="errorMessage" style="color:red;">Surname Required</span>');
+        // }
+        // function chkemail(str) 
+        // {
+        //     var reg_email = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\., ;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        //         if (!reg_email.test(str)) 
+        //         {
+        //             return false;
+        //         }
+        //             return true;
+        // }
+        // if (mobileno == '' || mobileno == null)
+        // {
+        //     flag = 0;
+        //     $("#mobilenoError").html('<span class="errorMessage" style="color:red;">Mobile Required</span>');
+        // }
+        // if (email == '' || email == null) 
+        // {
+        //     flag = 0;
+        //     $("#emailError").html('<span class="errorMessage" style="color:red;">Email Required</span>');
+        // }
+        // if (!chkemail($.trim($('#email').val()))) 
+        // {
+        //     flag = 0;
+        //     $("#emailError").html('<span class="errorMessage" style="color:red;">Invalid email</span>');
+        // }
+        
+        //function for URL validation
+        // function isValidHttpUrl(string) 
+        // {
+        //   let url;
+        //   try {
+        //   url = new URL(string);
+        //   } catch (_) {
+        //   return false;
+        //   }
+        //   return url.protocol === "http:" || url.protocol === "https:";
+        // }
+
+        // if(domainURL != '' && isValidHttpUrl(domainURL) == false)
+        // {
+        //   flag = 0;
+        //   $("#domainURLPatternError").html('<span class="errorMessage" style="color:red;">Domain URL Link is Invalid</span>');
+        // }
+        if(flag == 1) 
+        {
+            var saveBtn                 = document.getElementById("saveBtn");
+            // saveBtn.innerHTML           = "Wait..";
+            $('#saveBtn').addClass('disabled');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('confirmMsg') }}",
+                type: "POST",
+                data:fd,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(result) {
+                    var data = JSON.parse(result);
+                    if (data.success) {
+                        //enable the button
+                        // saveBtn.innerHTML           = "SAVE";
+                        $('#saveBtn').removeClass('disabled');
+                        // Add modal after success
+                        $("#myModal").show();
+                        $(".close").click(function(){
+                            $("#myModal").hide();
+                        });
+                        // alert('Yes done..');
+                    }
+                },
+                error: function(xhr, status, error) {}
+            });
+        }
+    }
+</script>
 @endsection

@@ -4,6 +4,10 @@ use App\Http\Controllers\LangController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HostessController;
+
+
+use App\Http\Controllers\ChatController;
+
 use Illuminate\Support\Facades\Route;
 
 //Admin Controllers
@@ -65,6 +69,8 @@ Route::middleware(['auth', 'user-access:0'])->group(function () {
 // });
 
 Route::get('hostess_profile_new/{id?}', [HostessController::class, 'showHostess'])->name('showHostess');
+Route::post('confirmMsg', [ChatController::class, 'confirmMsg'])->name('confirmMsg');
+
 
     Route::get('logout', function ()
     {

@@ -51,6 +51,7 @@ class User extends Authenticatable
         'smsNotification',
         'privacyProfile',
         'last_seen',
+        'credit',
     ];
 
     /**
