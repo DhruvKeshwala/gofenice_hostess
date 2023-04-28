@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Message;
 
 class ChatController extends Controller
 {
@@ -26,6 +27,27 @@ class ChatController extends Controller
         return json_encode(['success' => 1, 'message' => 'Message Sent Successfully']);
     }
 
+    public function sendMessageToHostess(Request $request)
+    {
+        $messageDetails = [];
+        if($request)
+        {
+            $request->only([
+                'sender_id',
+                'receiver_id',
+                'message',
+            ]);
+
+            $messageDetails['sender_id'] = $request->sender_id;
+            $messageDetails['receiver_id'] = $request->receiver_id;
+            $messageDetails['message'] = $request->message;
+
+            $message = Message::create($messageDetails);
+            return json_encode(['success' => 1, 'message' => 'Message Sent Successfully']);
+
+            // return redirect()->back();
+        }
+    }
     /**
      * Store a newly created resource in storage.
      *

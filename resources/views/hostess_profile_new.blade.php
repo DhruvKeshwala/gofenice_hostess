@@ -312,11 +312,18 @@
                             <div class="mb-20">
                                 <p class="fwSBold">{{__('messages.Unlock the chat and send a personalized message')}} </p>
                                 <div class="tAreaCol">
-                                    <textarea class="form-control"
-                                        placeholder="{{ __('messages.Write your personalized message') }}" name="message" id="message"></textarea>
-                                    <input type="hidden" name="hostessCredit" id="hostessCredit" value="{{@$user->credit}}">
-                                    <input type="hidden" name="userCredit" id="userCredit" value="{{@Auth::user()->credit}}">
-                                        <div id="messageError"></div>
+                                    <form action="" name="formConfirm" method="post">
+                                    @csrf
+                                        {{-- hostess id --}}
+                                        <input type="hidden" name="receiver_id" value="{{$id}}">
+                                        {{-- user id --}}
+                                        <input type="hidden" name="sender_id" value="{{ Auth::user()->id }}">
+                                        
+                                        <textarea class="form-control" placeholder="{{ __('messages.Write your personalized message') }}" name="message" id="message"></textarea>
+                                        <input type="hidden" name="hostessCredit" id="hostessCredit" value="{{@$user->credit}}">
+                                        <input type="hidden" name="userCredit" id="userCredit" value="{{@Auth::user()->credit}}">
+                                            <div id="messageError"></div>
+                                    </form>
                                 </div>
                                 <p><small>{{__('messages.Pay now 3 credits. If the hostess does will be offline for over 72 hours the credits will be refunded to your account.')}}</small></p>
                                 {{-- <button class="btn sendBtn" id="myBtn">{{__('messages.Invia Adess')}}</button> --}}
@@ -324,19 +331,17 @@
                             </div>
                             
                             <!-- The Modal Confirm-->
-                            <div id="myModal" class="modal">
-                            
+                            <div id="myModal" class="modal">                            
                                 <!-- Modal content -->
                                 <div class="modal-content mb-20">
-                                    <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..." class="logoImg1" height="10%" width="10%">
+                                    <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..." class="logoImg1"  height="10%" width="10%">
                                     <span class="close">&times;</span>
                                     <h3><b style="margin-left: 10%;">Use {{@$user->credit}} Credits and send the message</b></h3>
-                                    <form action="{{ route('confirmMsg') }}" method="post">
-                                        @csrf
-                                        <button class="ModalbuttonGreen"><strong>CONFIRM</strong></button>
-                                    </form>
-                                </div>
-                            
+                                    {{-- <form action="" name="formConfirm" method="post">
+                                        @csrf --}}
+                                        <button class="ModalbuttonGreen" id="sendMessageToHostess"><strong>CONFIRM</strong></button>
+                                    {{-- </form> --}}
+                                </div>                            
                             </div>
 
                             <!-- The Modal Buy Credit Modal-->
@@ -1076,6 +1081,8 @@ window.onclick = function(event) {
         var message         = $('#message').val();
         var hostessCredit   = $("input[name='hostessCredit']").val();
         var userCredit      = $("input[name='userCredit']").val();
+        var receiver_id = $("input[name='receiver_id']").val();
+        var sender_id = $("input[name='sender_id']").val();
 
         // var birthdate = $("input[name='birthdate']").val();
         // if(birthdate == null || birthdate == 'undefined')
@@ -1105,6 +1112,8 @@ window.onclick = function(event) {
         fd.append('message', message);
         fd.append('hostessCredit', hostessCredit);
         fd.append('userCredit', userCredit);
+        fd.append('receiver_id', receiver_id);
+        fd.append('sender_id', sender_id);
         // fd.append('surname', surname);
         // fd.append('services', services);
         // fd.append('email', email);
@@ -1215,5 +1224,48 @@ window.onclick = function(event) {
             });
         }
     }
+
+$(document).ready(function () {
+    $('#sendMessageToHostess').click(function(){
+    var message = $('#message').val();
+    var hostessCredit = $("input[name='hostessCredit']").val();
+    var userCredit = $("input[name='userCredit']").val();
+    var receiver_id = $("input[name='receiver_id']").val();
+    var sender_id = $("input[name='sender_id']").val();
+
+    var fd = new FormData();
+    
+    fd.append('message', message);
+    fd.append('hostessCredit', hostessCredit);
+    fd.append('userCredit', userCredit);
+    fd.append('receiver_id', receiver_id);
+    fd.append('sender_id', sender_id);
+
+    $.ajax({
+            url: "{{ route('sendMessageToHostess') }}",
+            type: "POST",
+            data:fd,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function(result) {
+            var data = JSON.parse(result);
+            if (data.success) {
+                //enable the button
+                // saveBtn.innerHTML = "SAVE";
+                $('#saveBtn').removeClass('disabled');
+                // Add modal after success
+                $("#myModal").hide();
+                $.jGrowl("Message sent successfully.", { life: 10000, theme: 'changeCount'});
+                // $("#myModal").show();
+                // $(".close").click(function(){
+                // });
+                // alert('Yes done..');
+            }
+        },
+            error: function(xhr, status, error) {}
+        });
+    });
+});
 </script>
 @endsection

@@ -70,6 +70,8 @@ Route::middleware(['auth', 'user-access:0'])->group(function () {
 
 Route::get('hostess_profile_new/{id?}', [HostessController::class, 'showHostess'])->name('showHostess');
 Route::post('confirmMsg', [ChatController::class, 'confirmMsg'])->name('confirmMsg');
+Route::post('sendMessageToHostess', [ChatController::class, 'sendMessageToHostess'])->name('sendMessageToHostess');
+
 
 
     Route::get('logout', function ()
@@ -77,7 +79,7 @@ Route::post('confirmMsg', [ChatController::class, 'confirmMsg'])->name('confirmM
         if(Auth::user()->role == 'user')
         {
             auth()->logout();
-            Session()->flush();
+            // Session()->flush();
             if(app()->getLocale() == 'en')
                 return redirect('/en/login');
             else if(app()->getLocale() == 'it')
@@ -88,7 +90,7 @@ Route::post('confirmMsg', [ChatController::class, 'confirmMsg'])->name('confirmM
         else if(Auth::user()->role == 'Admin')
         {
             auth()->logout();
-            Session()->flush();
+            // Session()->flush();
             return Redirect::to('admin/login');
         }
 

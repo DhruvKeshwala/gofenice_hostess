@@ -10,6 +10,9 @@
         <link rel="stylesheet" href="{{ URL::asset('assets/user/css/style.css') }}">
         @yield('header')
         <style>
+            .jGrowl .changeCount {
+            background-color: #337ab7;
+            }
             .dropbtn {
                 background-color: #4CAF50;
                 color: white;
@@ -188,7 +191,11 @@
         @yield('content')
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-        
+        {{-- For Message display --}}
+        <link rel="stylesheet" type="text/css"
+            href="//cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.8/jquery.jgrowl.min.css" />
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.8/jquery.jgrowl.min.js"></script>
+        {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> --}}
         @yield('footer')
     </body>
 
