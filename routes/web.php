@@ -71,6 +71,8 @@ Route::middleware(['auth', 'user-access:0'])->group(function () {
 Route::get('hostess_profile_new/{id?}', [HostessController::class, 'showHostess'])->name('showHostess');
 Route::post('confirmMsg', [ChatController::class, 'confirmMsg'])->name('confirmMsg');
 Route::post('sendMessageToHostess', [ChatController::class, 'sendMessageToHostess'])->name('sendMessageToHostess');
+Route::post('sendFreeMessageToHostess', [ChatController::class, 'sendFreeMessageToHostess'])->name('sendFreeMessageToHostess');
+
 
 
 
@@ -109,10 +111,14 @@ Route::post('sendMessageToHostess', [ChatController::class, 'sendMessageToHostes
         // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
-});
+
+
+    });
 
 
 // Admin Routes
+Route::prefix('{locale}')->where(['locale' => '[a-zA-Z]{2}'])
+    ->middleware('setlocale')->group(function() {
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', [AdminUserController::class, 'adminLogin'])->name('admin.login');
     Route::get('login', [AdminUserController::class, 'adminLogin'])->name('admin.login');
@@ -134,9 +140,11 @@ Route::group(['prefix' => 'admin'], function () {
             auth()->logout();
             Session()->flush();
 
-            return Redirect::to('/admin/login');
+            return Redirect::to('en/admin/login');
         })->name('admin.logout');
     });
+
+});
 
 });
 require __DIR__.'/auth.php';

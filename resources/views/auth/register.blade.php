@@ -75,10 +75,10 @@
                         placeholder="" value="{{ old('mobileno') }}">
                     {{-- <label for="floatingInput" style="color: #636161;">Phone</label> --}}
 
+                    @if ($errors->has('mobileno'))
+                        <span class="text-danger">{{ __('messages.Phone field is required') }}</span>
+                    @endif
                 </div>
-                @if ($errors->has('mobileno'))
-                    <span class="text-danger">{{ __('messages.Phone field is required') }}</span>
-                @endif
             </div>
         </div>
         <div class="form-floating">

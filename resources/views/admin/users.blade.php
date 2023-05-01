@@ -638,7 +638,7 @@
                     }
                 });
                 $.ajax({
-                    url: "{{ url('admin/changeStatus') }}",
+                    url: "{{ url(app()->getLocale() . '/admin/changeStatus') }}",
                     type: "POST",
                     data: {
                     id: id,
@@ -681,7 +681,7 @@
                     }
                 });
                 $.ajax({
-                    url: "{{ url('admin/delete_user') }}",
+                    url: "{{url(app()->getLocale() . '/admin/delete_user') }}",
                     type: "POST",
                     data: {
                         id: id,

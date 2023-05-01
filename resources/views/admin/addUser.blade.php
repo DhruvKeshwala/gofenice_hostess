@@ -422,9 +422,9 @@
                         }).then(function(isConfirm) {
                             if (isConfirm) {
                                 if(data.success == 1)
-                                    window.location.href =  "{{ URL::to('admin/users') }}"
+                                    window.location.href =  "{{ URL::to('en/admin/users') }}"
                                 else
-                                   window.location.href = "{{ URL::to('admin/hostess') }}"
+                                   window.location.href = "{{ URL::to('en/admin/hostess') }}"
                             }
                         })
                     }

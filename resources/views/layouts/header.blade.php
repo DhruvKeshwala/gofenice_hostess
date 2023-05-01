@@ -219,16 +219,15 @@
                             </ul>
                         </div>
                     </div>
-                    @if (Auth::id() != null || Auth::id() != '')
-                    <div class="text-end">
-                        <span style="color: #000000;" class="">{{__('messages.Welcome')}}, {{ Auth::user()->name }} |</span>
-                        <a href="{{ route('user.logout') }}" style="color: #000000;" class="">{{__('messages.Logout')}}</a>
-                    </div>
-                    @else
                     <div class="text-end" style="padding-right:50px;">
+                        @if (Auth::id() != null || Auth::id() != '')
+                            <span style="color: #000000;" class="">{{__('messages.Welcome')}}, {{ Auth::user()->name }} |</span>
+                            <a href="{{ route('user.logout') }}" style="color: #000000;" class="">{{__('messages.Logout')}}</a>
+                        @else
                         <a href="{{ route('login') }}"
                             style="color: #ED4B60; font-size: 14px;font-weight:bold!important;text-decoration: none;"
                             class="">{{__('messages.Login')}} </a>
+                        @endif
 
                         {{-- <img src="{{ url('assets/images/italy.png') }}" width="60px" height="60px" alt="Image" /> --}}
                         {{-- <div class="col-md-4"> --}}
@@ -285,11 +284,13 @@
                            
 
                         {{-- </div> --}}
+                        @if (Auth::id() == null || Auth::id() == '')
                         <button type="button" class="btn btn-dark"><a href="{{ route('register') }}"
                                 style="color: white;font-size: 14px;text-decoration: none;" class="">{{__('messages.Sign up free')}}</a></button>
                         {{-- <a href="{{ route('register') }}" style="color: #000000;" class="">Sign up free</a> --}}
+                        @endif
                     </div>
-                    @endif
+                    {{-- @endif --}}
                 </div>
             </nav>
             <script type="text/javascript">

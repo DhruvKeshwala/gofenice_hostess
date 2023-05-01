@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            // $table->longText('role')->nullable();
+            // $table->tinyInteger('type')->default('0');
             $table->string('name')->nullable();
             $table->string('surname')->nullable();
             $table->string('email',150)->unique()->nullable();
@@ -31,15 +33,30 @@ return new class extends Migration
             $table->string('profilepic')->nullable();
             $table->string('city')->nullable();
             $table->string('gender',30)->nullable();
-
+            
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('mobile_verified_at')->nullable();
             $table->string('email_verification_code')->nullable();
             $table->string('mobile_verification_code')->nullable();
             $table->string('password')->nullable();
+
+            $table->longText('height')->nullable();
+            $table->longText('size')->nullable();
+            $table->longText('shoeSize')->nullable();
+            $table->longText('languages')->nullable();
+            $table->longText('nationality')->nullable();
+            $table->longText('hairColor')->nullable();
+            $table->longText('description')->nullable();
+            $table->longText('profileVisibility')->nullable();
+            $table->tinyInteger('smsNotification')->nullable();
+            $table->tinyInteger('privacyProfile')->nullable();
+
             $table->enum('user_type', ['user', 'hostess']);
             $table->rememberToken();
             $table->timestamps();
+            // $table->timestamp('last_seen')->nullable();
+            // $table->integer('credit')->nullable();
+
         });
     }
 

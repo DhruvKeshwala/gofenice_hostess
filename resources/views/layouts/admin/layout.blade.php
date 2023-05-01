@@ -83,7 +83,7 @@ License: For each use you must have a valid license purchased only from above li
 									</div>
 								</div>
 								<div class="menu-item">
-									<a class="menu-link @if(Request::segment(2) == 'dashboard') active @endif" href="{{ route('admin.dashboard') }}">
+									<a class="menu-link @if(Request::segment(3) == 'dashboard') active @endif" href="{{ route('admin.dashboard') }}">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
 											<span class="svg-icon svg-icon-2">
@@ -100,7 +100,7 @@ License: For each use you must have a valid license purchased only from above li
 									</a>
 								</div>
 								<div class="menu-item">
-									<a class="menu-link @if(Request::segment(2) == 'users') active @endif" href="{{route('admin.users')}}">
+									<a class="menu-link @if(Request::segment(3) == 'users') active @endif" href="{{route('admin.users')}}">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
 											<span class="svg-icon svg-icon-2">
@@ -115,7 +115,7 @@ License: For each use you must have a valid license purchased only from above li
 									</a>
 								</div>
 								<div class="menu-item">
-									<a class="menu-link @if(Request::segment(2) == 'hostess') active @endif"
+									<a class="menu-link @if(Request::segment(3) == 'hostess') active @endif"
 										href="{{route('admin.hostessList')}}">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
@@ -1743,18 +1743,18 @@ License: For each use you must have a valid license purchased only from above li
 										<!--begin::Menu-->
 										<div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch" id="#kt_header_menu" data-kt-menu="true">
 											<div class="menu-item me-lg-1">
-												<a class="menu-link @if(Request::segment(2) == 'dashboard') active @endif py-3" href="{{ route('admin.dashboard') }}">
+												<a class="menu-link @if(Request::segment(3) == 'dashboard') active @endif py-3" href="{{ route('admin.dashboard') }}">
 													<span class="menu-title">Dashboard</span>
 												</a>
 											</div>
 
 											<div class="menu-item me-lg-1">
-												<a class="menu-link py-3 @if(Request::segment(2) == 'users') active @endif" href="{{route('admin.users')}}">
+												<a class="menu-link py-3 @if(Request::segment(3) == 'users') active @endif" href="{{route('admin.users')}}">
 													<span class="menu-title">Users</span>
 												</a>
 											</div>
 											<div class="menu-item me-lg-1">
-												<a class="menu-link py-3 @if(Request::segment(2) == 'hostess') active @endif"
+												<a class="menu-link py-3 @if(Request::segment(3) == 'hostess') active @endif"
 													href="{{route('admin.hostessList')}}">
 													<span class="menu-title">Hostess</span>
 												</a>

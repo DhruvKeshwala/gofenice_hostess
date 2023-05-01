@@ -75,8 +75,8 @@ class RegisteredUserController extends Controller
             'surname' => 'required',
             'mobileno' => 'required|unique:users',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:6|confirmed',
-            // 'password_confirmation' => 'required',
+            'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required|same:password',
             'marketing' => 'required',
             'privacy'   => 'required',
             
@@ -111,6 +111,10 @@ class RegisteredUserController extends Controller
             {
                 $userDetails['birthdate'] = $request->birthday_year."-".$request->birthday_month."-".$request->birthday_day;
                 $userDetails['type'] = 2;
+            }
+            else 
+            {
+                $userDetails['type'] = 0;
             }
             $userDetails['user_type'] = $request->user_type;
             $result = User::create($userDetails);

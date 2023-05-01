@@ -61,10 +61,12 @@ class AdminUserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id = null)
+    public function create($lang, $id = null)
     {
+        $getServices = '';
         $user = UserService::getUserById($id);
-        $getServices = explode(",",$user->services);
+        if($user->services != null || $user->services != '')
+            $getServices = explode(",",$user->services);
         $prefix = MobilePrefix::select('prefix')->get();
         return view('admin.addUser', compact('user', 'id', 'prefix', 'getServices'));
     }

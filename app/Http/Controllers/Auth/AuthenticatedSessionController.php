@@ -32,7 +32,7 @@ class AuthenticatedSessionController extends Controller
        
         if (Auth::user()->type == 1) 
         {
-            return redirect('admin/dashboard');
+            return redirect('en/admin/dashboard');
         }
         else if (Auth::user()->type == 0) 
         {

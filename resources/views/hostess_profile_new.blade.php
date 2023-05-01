@@ -156,9 +156,9 @@
                                         <h4>Maddalena, <small>Perugia, 24 anni</small></h4>
                                     {{-- <span class="lcTime">Last connerction: 2 hrs ago</span> --}}
 @php
-                                        $to = Carbon\Carbon::now();
-                                        $from = $user->last_seen;
-                                        $diff_in_minutes = $to->diffInMinutes($from);
+                                        $to = Carbon\Carbon::now(); 
+                                        $from = @$user->last_seen;
+                                        $diff_in_minutes = @$to->diffInMinutes($from);
 @endphp
                                         @if(@$diff_in_minutes >= 0 && @$diff_in_minutes <= 10)
                                             <span class="lcTime">{{__('messages.Last connection:')}} {{__('messages.online')}}</span>
@@ -209,19 +209,17 @@
                             <h4 class="lineTitle"><span>{{__('messages.About me')}}</span></h4>
                             <p>{{__('messages.Hostess text here hostess text here.')}} </p>
                             <ul class="optionList">
-                                @if($user->birthdate != null || $user->birthdate != '')
+                                
                                 <li>
                                     <div class="row">
                                         <div class="col-auto">
                                             <span class="optLbl">{{__('messages.Age:')}}</span>
                                         </div>
                                         <div class="col optionText">
-                                            {{Carbon\Carbon::parse($user->birthdate)->age}}
+                                            {{Carbon\Carbon::parse(@$user->birthdate)->age}}
                                         </div>
                                     </div>
                                 </li>
-                                @endif
-                                @if($user->nationality != null || $user->nationality != '')
                                 <li>
                                     <div class="row">
                                         <div class="col-auto">
@@ -232,8 +230,6 @@
                                         </div>
                                     </div>
                                 </li>
-                                @endif
-                                @if($user->languages != null || $user->languages != '')
                                 <li>
                                     <div class="row">
                                         <div class="col-auto">
@@ -244,8 +240,6 @@
                                         </div>
                                     </div>
                                 </li>
-                                @endif
-                                @if($user->height != null || $user->height != '')
                                 <li>
                                     <div class="row">
                                         <div class="col-auto">
@@ -256,8 +250,6 @@
                                         </div>
                                     </div>
                                 </li>
-                                @endif
-                                @if($user->hairColor != null || $user->hairColor != '')
                                 <li>
                                     <div class="row">
                                         <div class="col-auto">
@@ -268,8 +260,6 @@
                                         </div>
                                     </div>
                                 </li>
-                                @endif
-                                @if($user->shoeSize != null || $user->shoeSize != '')
                                 <li>
                                     <div class="row">
                                         <div class="col-auto">
@@ -280,7 +270,6 @@
                                         </div>
                                     </div>
                                 </li>
-                                @endif
                                 
                                 <li>
                                     <div class="row">
@@ -292,7 +281,6 @@
                                         </div>
                                     </div>
                                 </li>
-                                @if($user->services != null || $user->services != '')
                                 <li>
                                     <div class="row">
                                         <div class="col-auto">
@@ -303,7 +291,6 @@
                                         </div>
                                     </div>
                                 </li>
-                                @endif
                             </ul>
                         </div>
                         <div class="sidebarCard contactHostessCol">
@@ -378,7 +365,7 @@
                        </button>
                     </div> -->
                                 <div class="msgInput">
-                                    <a href="javascript:void(0);" class="btn btn_outline">
+                                    <a href="javascript:void(0);" id="freeMsgBtn" class="btn btn_outline">
                                         <span>{{ __('messages.Hello, congratulations can we chat?') }}</span>
                                         <span><img src="{{ URL::asset('assets/user/images/angle-right.svg') }}"
                                                 alt="..."></span>
@@ -1068,63 +1055,21 @@ window.onclick = function(event) {
     {
         $('.errorMessage').hide();
         var flag = 1;
-        // var categoryName = $("select[name='categoryName']").val();
-        // var services = $("input[name='services[]']:checked").map(function () {
-        //   return this.value;
-        // }).get();
-
-        // var name = $("input[name='name']").val();
-        // var surname = $("input[name='surname']").val();
-        // var email = $("input[name='email']").val();
-        // var mobilenoprefix = $("select[name='mobilenoprefix']").val();
-        // var mobileno = $("input[name='mobileno']").val();
+        
         var message         = $('#message').val();
         var hostessCredit   = $("input[name='hostessCredit']").val();
         var userCredit      = $("input[name='userCredit']").val();
         var receiver_id = $("input[name='receiver_id']").val();
         var sender_id = $("input[name='sender_id']").val();
 
-        // var birthdate = $("input[name='birthdate']").val();
-        // if(birthdate == null || birthdate == 'undefined')
-        //     birthdate = '';
-        
-        // var gender = $("input[name='gender']:checked").val();
-        // if(gender == null || gender == 'undefined')
-        //     gender = '';
-
-        // var city = $("input[name='city']").val();
-        // if(city == null || city == 'undefined')
-        //     city = '';
-        
-        // var userId = $("input[name='userId']").val();
-        // var user_type = $("input[name='user_type']").val();
         var fd = new FormData();
-        // if(userId == ''){
-        //     userId = 0;
-        // }
-        // Append data 
-        // var files = $('#profilepic')[0].files;
-        // if(files.length > 0)
-        // {
-        //     fd.append('profilepic',files[0]);
-        // }
+       
         
         fd.append('message', message);
         fd.append('hostessCredit', hostessCredit);
         fd.append('userCredit', userCredit);
         fd.append('receiver_id', receiver_id);
         fd.append('sender_id', sender_id);
-        // fd.append('surname', surname);
-        // fd.append('services', services);
-        // fd.append('email', email);
-        // fd.append('mobilenoprefix', mobilenoprefix);
-        // fd.append('mobileno', mobileno);
-        // fd.append('aboutme', aboutme);
-        // fd.append('birthdate', birthdate);
-        // fd.append('gender', gender);
-        // fd.append('city', city);
-        // fd.append('userId', userId);
-        // fd.append('user_type', user_type);
 
         if (message == '' || message == null) 
         {
@@ -1135,60 +1080,12 @@ window.onclick = function(event) {
         if(userCredit < hostessCredit)
         {
             flag = 0;
-            
             $("#lowCreditModal").show();
             $(".close").click(function(){
                 $("#lowCreditModal").hide();
             });
         }
         
-        // if (surname == '' || surname == null)
-        // {
-        // flag = 0;
-        // $("#surnameError").html('<span class="errorMessage" style="color:red;">Surname Required</span>');
-        // }
-        // function chkemail(str) 
-        // {
-        //     var reg_email = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\., ;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        //         if (!reg_email.test(str)) 
-        //         {
-        //             return false;
-        //         }
-        //             return true;
-        // }
-        // if (mobileno == '' || mobileno == null)
-        // {
-        //     flag = 0;
-        //     $("#mobilenoError").html('<span class="errorMessage" style="color:red;">Mobile Required</span>');
-        // }
-        // if (email == '' || email == null) 
-        // {
-        //     flag = 0;
-        //     $("#emailError").html('<span class="errorMessage" style="color:red;">Email Required</span>');
-        // }
-        // if (!chkemail($.trim($('#email').val()))) 
-        // {
-        //     flag = 0;
-        //     $("#emailError").html('<span class="errorMessage" style="color:red;">Invalid email</span>');
-        // }
-        
-        //function for URL validation
-        // function isValidHttpUrl(string) 
-        // {
-        //   let url;
-        //   try {
-        //   url = new URL(string);
-        //   } catch (_) {
-        //   return false;
-        //   }
-        //   return url.protocol === "http:" || url.protocol === "https:";
-        // }
-
-        // if(domainURL != '' && isValidHttpUrl(domainURL) == false)
-        // {
-        //   flag = 0;
-        //   $("#domainURLPatternError").html('<span class="errorMessage" style="color:red;">Domain URL Link is Invalid</span>');
-        // }
         if(flag == 1) 
         {
             var saveBtn                 = document.getElementById("saveBtn");
@@ -1226,13 +1123,13 @@ window.onclick = function(event) {
     }
 
 $(document).ready(function () {
+    
     $('#sendMessageToHostess').click(function(){
     var message = $('#message').val();
     var hostessCredit = $("input[name='hostessCredit']").val();
     var userCredit = $("input[name='userCredit']").val();
     var receiver_id = $("input[name='receiver_id']").val();
     var sender_id = $("input[name='sender_id']").val();
-
     var fd = new FormData();
     
     fd.append('message', message);
@@ -1240,7 +1137,12 @@ $(document).ready(function () {
     fd.append('userCredit', userCredit);
     fd.append('receiver_id', receiver_id);
     fd.append('sender_id', sender_id);
-
+    
+    $.ajaxSetup({
+    headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    });
     $.ajax({
             url: "{{ route('sendMessageToHostess') }}",
             type: "POST",
@@ -1265,6 +1167,55 @@ $(document).ready(function () {
         },
             error: function(xhr, status, error) {}
         });
+    });
+
+    $('#freeMsgBtn').click(function(){
+        $('.errorMessage').hide();
+        var flag = 1;
+        var message = $('#message').val();
+        // var hostessCredit = $("input[name='hostessCredit']").val();
+        // var userCredit = $("input[name='userCredit']").val();
+        var receiver_id = $("input[name='receiver_id']").val();
+        var sender_id = $("input[name='sender_id']").val();
+
+        if (message == '' || message == null)
+        {
+            flag = 0;
+            $("#messageError").html('<span class="errorMessage" style="color:red;">Message is Required</span>');
+        }
+        
+        var fd = new FormData();
+        
+        fd.append('message', message);
+        // fd.append('hostessCredit', hostessCredit);
+        // fd.append('userCredit', userCredit);
+        fd.append('receiver_id', receiver_id);
+        fd.append('sender_id', sender_id);
+        
+        if (flag == 1)
+        {
+       
+            $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+            });
+            $.ajax({
+            url: "{{ route('sendFreeMessageToHostess') }}",
+            type: "POST",
+            data:fd,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function(result) {
+            var data = JSON.parse(result);
+                if (data.success) {
+                    $.jGrowl("Your free message sent successfully.", { life: 10000, theme: 'changeCount'});
+                }
+            },
+            error: function(xhr, status, error) {}
+            });
+        }
     });
 });
 </script>

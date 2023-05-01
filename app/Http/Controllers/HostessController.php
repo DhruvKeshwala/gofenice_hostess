@@ -80,7 +80,6 @@ class HostessController extends Controller
                 $imageUpload->order = 1;
             $imageUpload->status    = 'Public';
             $imageUpload->save();
-            // return response()->json(['success'=>$avatarName]);
             return json_encode(['success' => 1, 'message' => 'Image has been uploaded successfully']);
         }
         $projectDetails = [];
@@ -109,7 +108,6 @@ class HostessController extends Controller
         }
         elseif($request->form == 2)
         {
-            // dd($request->all());
             $request->only([
                 'services',
                 'profileVisibility',
@@ -131,7 +129,6 @@ class HostessController extends Controller
                 $projectDetails['smsNotification'] =  0;
 
             if($request->privacyProfile == 'on')
-                // dd('rgreg');
                 $projectDetails['privacyProfile']  =  1;
             else
                 $projectDetails['privacyProfile'] =  0;

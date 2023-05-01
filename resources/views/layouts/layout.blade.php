@@ -8,7 +8,75 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <title>@yield('title')</title>
         <link rel="stylesheet" href="{{ URL::asset('assets/user/css/style.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://kit.fontawesome.com/61ebb60581.js" crossorigin="anonymous"></script>
         @yield('header')
+        <style>
+            a.fa-comments {
+            position: relative;
+            font-size: 2em;
+            color: grey;
+            cursor: pointer;
+            }
+            span.fa-comment {
+            position: absolute;
+            font-size: 0.6em;
+            top: -4px;
+            color: red;
+            right: -64px;
+            }
+            span.num {
+            position: absolute;
+            font-size: 0.3em;
+            top: 1px;
+            color: #fff;
+            right: 2px;
+            left: 44px;
+            }
+        </style>
+        <style>
+            .dropbtn1 {
+                background-color: #fff;
+                color: white;
+                padding: 16px;
+                font-size: 16px;
+                border: none;
+                cursor: pointer;
+            }
+        
+            .dropdown1 {
+                position: relative;
+                display: inline-block;
+            }
+        
+            .dropdown-content1 {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                z-index: 1;
+            }
+        
+            .dropdown-content1 a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+        
+            .dropdown-content1 a:hover {
+                background-color: #f1f1f1
+            }
+        
+            .dropdown1:hover .dropdown-content1 {
+                display: block;
+            }
+        
+            .dropdown1:hover .dropbtn1 {
+                background-color: #3e8e41;
+            }
+        </style>
         <style>
             .jGrowl .changeCount {
             background-color: #337ab7;
@@ -76,13 +144,34 @@
                                                 <li><a href="javascript:void(0)">{{ __('messages.Fence')}}</a></li>
                                                 <li><a href="javascript:void(0)">{{ __('messages.How does it work')}}</a></li>
                                                 <li><a href="javascript:void(0)">{{ __('messages.Are you a Hostess/Model?')}}</a></li>
-                                                @if (Auth::id() != null || Auth::id() != '')
-                                                    <li class="d-lg-none">
+                                                @if (Auth::id() == null || Auth::id() == '')
+                                                    {{-- <li class="d-lg-none">
                                                         <span style="color: #000000;" class="">{{__('messages.Welcome')}}, {{ Auth::user()->name }} |</span>
-                                                        <a href="{{ route('user.logout') }}" style="color: #000000;" class="">{{__('messages.Logout')}}</a></li>
-                                                @else
+                                                        <a href="{{ route('user.logout') }}" style="color: #000000;" class="">{{__('messages.Logout')}}</a></li> --}}
+                                                {{-- @else --}}
                                                     <li class="d-lg-none"><a href="{{ route('login') }}">{{__('messages.Login')}}</a></li>
                                                     <li class="d-lg-none"><a href="{{ route('register') }}">{{__('messages.Sign up free')}}</a></li>
+                                                @else
+                                                
+                                                <li>
+                                                    <div class="dropdown1" style="margin-left: 850%;">
+                                                        <a class="  "><i class="fas fa-user" style="font-size: 50px;"></i></a>
+                                                        <div class="dropdown-content1" style="width: 100%;">
+                                                            <a href="{{ route('profile.edit') }}">My Profile</a>
+                                                            <a href="#">Credits: {{@Auth::user()->credit != null || @Auth::user()->credit != '' ? @Auth::user()->credit : 0 }}</a>
+                                                            <a href="javascript::void(0)" id="buyCredits">Buy Credits</a>
+                                                            <a href="{{ route('user.logout') }}">{{ __('messages.Logout') }}</a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                {{-- <li><a><i class="fas fa-comments" style="font-size: 50px; margin-left: 650%;"></i></a></li> --}}
+                                                <li>
+                                                    
+                                                    <a class="fas fa-comments" style="font-size: 50px; margin-left: 680%;">
+                                                        <span class="fas fa-comment"></span>
+                                                        <span class="num">2</span>
+                                                    </a>    
+                                                </li>
                                                 @endif
                                                 
                                             </ul>
@@ -134,8 +223,8 @@
                                         @if(Auth::id() == null || Auth::id() == '')
                                             <li><a href="{{ route('login') }}">{{ __('messages.Login') }}</a></li>
                                         @else
-                                            <span>{{__('messages.Welcome')}}, {{ Auth::user()->name }} |</span>
-                                            <a href="{{ route('user.logout') }}">{{__('messages.Logout')}}</a></li>
+                                            {{-- <span>{{__('messages.Welcome')}}, {{ Auth::user()->name }} |</span>
+                                            <a href="{{ route('user.logout') }}">{{__('messages.Logout')}}</a></li> --}}
                                         @endif
                                         <li>
                                             
@@ -176,6 +265,8 @@
                                         </li>
                                         @if(Auth::id() == null || Auth::id() == '')
                                             <li><a href="{{ route('register') }}" class="btn btnDark">{{__('messages.Sign up free')}}</a></li>
+                                        {{-- @else
+                                            <li><a><i class="fas fa-camera"></i></a> --}}
                                         @endif
                                     </ul>
 
@@ -197,6 +288,37 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.8/jquery.jgrowl.min.js"></script>
         {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> --}}
         @yield('footer')
+        <!-- The Modal Buy Credit Modal-->
+        <div id="lowCreditModal-top" class="modal">
+        
+            <!-- Modal content -->
+            <div class="modal-content mb-20">
+                <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..." class="logoImg1" height="10%"
+                    width="10%">
+                <span class="close">&times;</span>
+                {{-- <h3><b style="margin-left: 10%;margin-left: 23%;">You don't have enough credits.</b></h3> --}}
+                <p style="margin-left: 10%;margin-left: 35%;">Buy your credits now:</p>
+                {{-- <form action="{{ route('confirmMsg') }}" method="post"> --}}
+                {{-- @csrf --}}
+                {{-- <button class="ModalbuttonPink"><strong>Buy {{@$user->credit}} credits (for 3 €) and start the
+                        chat</strong></button> --}}
+                {{-- </form> --}}
+        
+                <button class="ModalbuttonOrange"><strong>Buy a pack of 100 credits for €80 (save 20%!)</strong></button>
+        
+            </div>
+        
+        </div>
+        <script>
+            $(document).ready(function () {
+                $('#buyCredits').click(function(){
+                    $("#lowCreditModal-top").show();
+                    $(".close").click(function(){
+                        $("#lowCreditModal-top").hide();
+                    });
+                });
+            });
+        </script>
     </body>
 
 </html>

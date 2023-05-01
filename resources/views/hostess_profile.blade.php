@@ -686,7 +686,7 @@ multiple:true,
         }
     });
     $.ajax({
-        url: "{{ url('update_gallery') }}",
+        url: "{{ url(app()->getLocale() . '/update_gallery') }}",
         type: "POST",
         data: {
             galleryId: galleryId,
