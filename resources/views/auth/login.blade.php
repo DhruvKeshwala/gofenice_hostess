@@ -1,15 +1,22 @@
 @include('layouts.header')
 <style>
 .form-signin{
-max-width:400px;
+/* max-width:500px; */
+}
+.login-container{
+    display: flex;
+    justify-content: space-evenly;
 }
 
 </style>
+
 @section('title', 'Sign in | Hostess')
+<div class="container login-container">
     <main class="form-signin w-100 mx-auto">
         @if(Session::has('success'))
         <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('success') }}</p>
         @endif
+        <div class="row">
         <form name="signup" method="POST" action="{{ route('login') }}" autocomplete="off">
             @csrf
             <h1 style="color:#000000;text-align: left;font-weight:bold!important;" class="h3 mb-3 fw-normal">{{ __('messages.Sign-in') }}</h1>
@@ -51,10 +58,14 @@ max-width:400px;
             <p style="color: #636161;text-align:center;" class="mt-2 mb-3">{{ __('messages.New User?') }}&nbsp;<a href="{{ route('register')}}"
                     style="color: #ED4B60;">{{ __('messages.Sign up') }}</a></p>
         </form>
+        
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    </div>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script> --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="{{ URL::asset('js/script.js') }}"></script>
 </body>
 
 </html>

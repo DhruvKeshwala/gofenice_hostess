@@ -36,7 +36,7 @@ Route::get('lang/change', [LangController::class, 'change'])->name('changeLang')
     });
 
     Route::get('/en', function () {
-        return Redirect::to('/en/login');
+        return Redirect::to('/en/home');
     });
 
 
@@ -67,7 +67,7 @@ Route::middleware(['auth', 'user-access:0'])->group(function () {
 //     // return view('hostess_profile_new', compact('user', 'id', 'prefix', 'getServices'));
 //     return view('hostess_profile_new' , compact('user'));
 // });
-
+Route::get('home', [HostessController::class, 'home'])->name('home');
 Route::get('hostess_profile_new/{id?}', [HostessController::class, 'showHostess'])->name('showHostess');
 Route::post('confirmMsg', [ChatController::class, 'confirmMsg'])->name('confirmMsg');
 Route::post('sendMessageToHostess', [ChatController::class, 'sendMessageToHostess'])->name('sendMessageToHostess');

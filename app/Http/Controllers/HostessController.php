@@ -10,6 +10,10 @@ use Auth, DB, Session;
 
 class HostessController extends Controller
 {
+    public function home()
+    {
+        return view('home');
+    }
     public function updateProfile()
     {
         $getUser = User::where('id', Auth::id())->get();
