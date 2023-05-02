@@ -309,6 +309,7 @@
             </div>
         
         </div>
+        <script src="{{ URL::asset('js/script.js') }}"></script>
         <script>
             $(document).ready(function () {
                 $('#buyCredits').click(function(){

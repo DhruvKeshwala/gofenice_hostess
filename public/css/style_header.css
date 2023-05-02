@@ -348,8 +348,8 @@ ul {
 }
 .selectedLang, .langDD a {
 	display: block;
-	width: 30px;
-	height: 30px;
+	width: 35px;
+	height: 35px;
   cursor: pointer;
 }
 .selectedLang img, .langDD img {
