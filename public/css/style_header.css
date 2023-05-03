@@ -344,7 +344,7 @@ ul {
   text-decoration: none!important;
 }
 .langCol {
-	position: relative;
+	/* position: relative; */
 }
 .selectedLang, .langDD a {
 	display: block;

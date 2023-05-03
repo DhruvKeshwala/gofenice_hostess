@@ -102,21 +102,14 @@
         max-width: 100%!important;
         border-style: dotted!important;
     }
-    .offcanvas-body a {
-        font-family: 'Montserrat', sans-serif;
+    .offcanvas-body a, .text-end > a, button.btn.btn-dark > a, span {
+        font-family: 'Poppins', sans-serif;
     }
-    .text-end > a {
-        font-family: 'Montserrat', sans-serif;
-    }
-    button.btn.btn-dark > a {
-        font-family: 'Montserrat', sans-serif;
-    }
+
     .form-check.py-2 span {
         font-size: 14px;
     }
-    span {
-        font-family: 'Montserrat', sans-serif;
-    }
+
     .form-check.py-2 {
         padding-bottom: 0px!important;
         padding-top: 0px!important;

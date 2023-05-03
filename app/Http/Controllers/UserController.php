@@ -57,6 +57,10 @@ class UserController extends Controller
         return redirect()->back();
     }
 
+    public function paymentSuccess(){
+        return view('payment-success');
+    }
+
     // public function index()
     // {
     //     $prefix = MobilePrefix::select('prefix')->get();

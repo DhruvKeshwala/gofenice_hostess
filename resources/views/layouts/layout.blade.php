@@ -33,8 +33,6 @@
             right: 2px;
             left: 44px;
             }
-        </style>
-        <style>
             .dropbtn1 {
                 background-color: #fff;
                 color: white;
@@ -94,16 +92,16 @@
                 position: relative;
                 display: inline-block;
             }
-        
+
             .dropdown-content {
-                display: none;
-                position: absolute;
-                background-color: #f9f9f9;
-                min-width: 100px;
-                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-                z-index: 1;
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
             }
         
+            /* 
             .dropdown-content a {
                 color: black;
                 padding: 12px 16px;
@@ -113,7 +111,7 @@
         
             .dropdown-content a:hover {
                 background-color: #f1f1f1
-            }
+            } */
         
             .dropdown:hover .dropdown-content {
                 display: block;
@@ -132,7 +130,8 @@
                     <div class="row g-2 align-items-center">
                         <div class="col-auto">
                             <div class="logoCol">
-                                <a href="index.html"><img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..." class="logoImg"></a>
+                                <a href="{{ route('home') }}"><img src="{{ URL::asset('images/logo@3x.png') }}" alt="..."
+                                        class="logoImg"></a>
                             </div>
                         </div>
                         <div class="col">
@@ -143,37 +142,7 @@
                                             <ul>
                                                 <li><a href="javascript:void(0)">{{ __('messages.Fence')}}</a></li>
                                                 <li><a href="javascript:void(0)">{{ __('messages.How does it work')}}</a></li>
-                                                <li><a href="javascript:void(0)">{{ __('messages.Are you a Hostess/Model?')}}</a></li>
-                                                @if (Auth::id() == null || Auth::id() == '')
-                                                    {{-- <li class="d-lg-none">
-                                                        <span style="color: #000000;" class="">{{__('messages.Welcome')}}, {{ Auth::user()->name }} |</span>
-                                                        <a href="{{ route('user.logout') }}" style="color: #000000;" class="">{{__('messages.Logout')}}</a></li> --}}
-                                                {{-- @else --}}
-                                                    <li class="d-lg-none"><a href="{{ route('login') }}">{{__('messages.Login')}}</a></li>
-                                                    <li class="d-lg-none"><a href="{{ route('register') }}">{{__('messages.Sign up free')}}</a></li>
-                                                @else
-                                                
-                                                <li>
-                                                    <div class="dropdown1" style="margin-left: 850%;">
-                                                        <a class="  "><i class="fas fa-user" style="font-size: 50px;"></i></a>
-                                                        <div class="dropdown-content1" style="width: 100%;">
-                                                            <a href="{{ route('profile.edit') }}">My Profile</a>
-                                                            <a href="#">Credits: {{@Auth::user()->credit != null || @Auth::user()->credit != '' ? @Auth::user()->credit : 0 }}</a>
-                                                            <a href="javascript::void(0)" id="buyCredits">Buy Credits</a>
-                                                            <a href="{{ route('user.logout') }}">{{ __('messages.Logout') }}</a>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                {{-- <li><a><i class="fas fa-comments" style="font-size: 50px; margin-left: 650%;"></i></a></li> --}}
-                                                <li>
-                                                    
-                                                    <a class="fas fa-comments" style="font-size: 50px; margin-left: 680%;">
-                                                        <span class="fas fa-comment"></span>
-                                                        <span class="num">2</span>
-                                                    </a>    
-                                                </li>
-                                                @endif
-                                                
+                                                <li><a href="javascript:void(0)">{{ __('messages.Are you a Hostess/Model?')}}</a></li>                                                
                                             </ul>
                                         </div>
                                     </div>
@@ -181,34 +150,41 @@
                                 <div class="col-auto">
                                     <div class="row g-2 align-items-center d-lg-none">
                                         <div class="col-auto">
-                                            <div class="langCol">
-                                                <div class="dropdown">
+                                            {{-- <div class="langCol">
+                                                <span class="selectedLang"><img src="images/Italy-flag.svg" alt="..."></span>
+                                                <ul class="langDD">
+                                                    <li><a href="javascript:void(0)"><img src="images/Italy-flag.svg"
+                                                                alt="..."></a></li>
+                                                    <li><a href="javascript:void(0)"><img src="images/Italy-flag.svg"
+                                                                alt="..."></a></li>
+                                                </ul>
+                                            </div> --}}
+                                            <div class="dropdown langCol">
                                                 <a href="javascript:;void(0)">
-                                                    @if(app()->getLocale() == 'en')
-                                                        <img src="{{URL::asset('assets/images/1.png')}}" height="70px" width="70px" />
+                                                    @if (app()->getLocale() == 'en')
+                                                    <span class="selectedLang"><img src="{{ URL::asset('assets/images/1.png') }}" /></span>
                                                     @elseif(app()->getLocale() == 'it')
-                                                        <img src="{{URL::asset('assets/images/2.png')}}" height="70px" width="70px" />
+                                                    <span class="selectedLang"><img src="{{ URL::asset('images/Italy-flag.svg') }}" /></span>
                                                     @elseif(app()->getLocale() == 'sp')
-                                                        <img src="{{URL::asset('assets/images/3.png')}}" height="70px" width="70px" />
+                                                    <span class="selectedLang"><img src="{{ URL::asset('assets/images/3.png') }}" /></span>
                                                     @endif
                                                 </a>
-                                                {{-- @dd(route(\Illuminate\Support\Facades\Route::currentRouteName(), ['locale' => 'en', 'id' => \Request::segment(3)])) --}}
-                                                <div class="dropdown-content">
+                                                <div class="dropdown-content langCol">
                                                     {{-- <x-nav-link href="#"><img src="https://img.icons8.com/color/256/brazil-circular.png" height="100%" width="100%" /></a> --}}
-@php
-                                                        @$i = 1;
-@endphp
-                                                    @foreach(config('app.available_locales') as $locale)
-                                                        <x-nav-link :href="route(\Illuminate\Support\Facades\Route::currentRouteName(), ['locale' => $locale, 'id' => \Request::segment(3)])"
-                                                            :active="app()->getLocale() == $locale">
-                                                            <img src="{{URL::asset('assets/images/' . @$i . '.png')}}" height="70px" width="70px" />
+                                                    @php
+                                                    @$i = 1;
+                                                    @endphp
+                                                    @foreach (config('app.available_locales') as $locale)
+                                                    <span class="selectedLang">
+                                                        <x-nav-link :href="route(\Illuminate\Support\Facades\Route::currentRouteName(),['locale' => $locale],)" :active="app()->getLocale() == $locale">
+                                                            <img src="{{ URL::asset('assets/images/' . @$i . '.png') }}" height="70px" width="70px" />
                                                         </x-nav-link>
-@php
-                                                        @$i++
-@endphp
+                                                    </span>
+                                                    @php
+                                                    @$i++;
+                                                    @endphp
                                                     @endforeach
                                                 </div>
-                                            </div>
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -220,56 +196,72 @@
                                         </div>
                                     </div>
                                     <ul class="headerRightCol d-none d-lg-block">
-                                        @if(Auth::id() == null || Auth::id() == '')
-                                            <li><a href="{{ route('login') }}">{{ __('messages.Login') }}</a></li>
+                                        @if (Auth::id() == null || Auth::id() == '')
+                                        <li><a href="{{ route('login') }}">{{__('messages.Login')}}</a></li>
+                                        <li><a href="{{ route('register') }}">{{__('messages.Sign up free')}}</a></li>
                                         @else
-                                            {{-- <span>{{__('messages.Welcome')}}, {{ Auth::user()->name }} |</span>
-                                            <a href="{{ route('user.logout') }}">{{__('messages.Logout')}}</a></li> --}}
+                                        <li>
+                                            <div class="dropdown1">
+                                                <a class=""><i class="fas fa-user"></i></a>
+                                                <div class="dropdown-content1">
+                                                    <a href="{{ route('profile.edit') }}">My Profile</a>
+                                                    <a href="#">Credits:
+                                                        {{@Auth::user()->credit != null || @Auth::user()->credit != '' ? @Auth::user()->credit : 0 }}</a>
+                                                    <a href="javascript::void(0)" id="buyCredits">Buy Credits</a>
+                                                    <a href="{{ route('user.logout') }}">{{ __('messages.Logout') }}</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a class="fas fa-comments">
+                                                {{-- <span class="fas fa-comment"></span> --}}
+                                                <span class="num">2</span>
+                                            </a>
+                                        </li>
                                         @endif
                                         <li>
-                                            
-                                            <div class="dropdown">
+                                            {{-- <div class="langCol">
+                                                <span class="selectedLang"><img src="{{ URL::asset('images/Italy-flag.svg') }}"
+                                                        alt="..."></span>
+                                                <ul class="langDD">
+                                                    <li><a href="javascript:void(0)"><img
+                                                                src="{{ URL::asset('images/Italy-flag.svg') }}" alt="..."></a>
+                                                    </li>
+                                                    <li><a href="javascript:void(0)"><img
+                                                                src="{{ URL::asset('images/Italy-flag.svg') }}" alt="..."></a>
+                                                    </li>
+                                                </ul>
+                                            </div> --}}
+                                            <div class="dropdown langCol">
                                                 <a href="javascript:;void(0)">
-                                                    @if(app()->getLocale() == 'en')
-                                                        <img src="{{URL::asset('assets/images/1.png')}}" height="70px" width="70px" />
+                                                    @if (app()->getLocale() == 'en')
+                                                    <span class="selectedLang"><img src="{{ URL::asset('assets/images/1.png') }}" /></span>
                                                     @elseif(app()->getLocale() == 'it')
-                                                        <img src="{{URL::asset('assets/images/2.png')}}" height="70px" width="70px" />
+                                                    <span class="selectedLang"><img src="{{ URL::asset('images/Italy-flag.svg') }}" /></span>
                                                     @elseif(app()->getLocale() == 'sp')
-                                                        <img src="{{URL::asset('assets/images/3.png')}}" height="70px" width="70px" />
+                                                    <span class="selectedLang"><img src="{{ URL::asset('assets/images/3.png') }}" /></span>
                                                     @endif
                                                 </a>
-                                                {{-- @dd(route(\Illuminate\Support\Facades\Route::currentRouteName(), ['locale' => 'en', 'id' => \Request::segment(3)])) --}}
-                                                <div class="dropdown-content">
-                                                    {{-- <x-nav-link href="#"><img src="https://img.icons8.com/color/256/brazil-circular.png" height="100%" width="100%" /></a> --}}
-@php
-                                                        @$i = 1;
-@endphp
-                                                    @foreach(config('app.available_locales') as $locale)
-                                                        <x-nav-link :href="route(\Illuminate\Support\Facades\Route::currentRouteName(), ['locale' => $locale, 'id' => \Request::segment(3)])"
+                                                <div class="dropdown-content langCol">
+                                                    @php
+                                                    @$i = 1;
+                                                    @endphp
+                                                    @foreach (config('app.available_locales') as $locale)
+                                                    <span class="selectedLang">
+                                                        <x-nav-link :href="route(\Illuminate\Support\Facades\Route::currentRouteName(),['locale' => $locale],)"
                                                             :active="app()->getLocale() == $locale">
-                                                            <img src="{{URL::asset('assets/images/' . @$i . '.png')}}" height="70px" width="70px" />
+                                                            <img src="{{ URL::asset('assets/images/' . @$i . '.png') }}" height="70px" width="70px" />
                                                         </x-nav-link>
-@php
-                                                        @$i++
-@endphp
+                                                    </span>
+                                                    @php
+                                                    @$i++;
+                                                    @endphp
                                                     @endforeach
                                                 </div>
                                             </div>
-                                            {{-- <div class="langCol">
-                                                <span class="selectedLang"><img src="{{ URL::asset('assets/user/images/Italy-flag.svg') }}"  alt="..."></span>
-                                                <ul class="langDD">
-                                                    <li><a href="javascript:void(0)"><img src="{{ URL::asset('assets/user/images/Italy-flag.svg') }}"  alt="..."></a></li>
-                                                    <li><a href="javascript:void(0)"><img src="{{ URL::asset('assets/user/images/Italy-flag.svg') }}"  alt="..."></a></li>
-                                                </ul>
-                                            </div> --}}
                                         </li>
-                                        @if(Auth::id() == null || Auth::id() == '')
-                                            <li><a href="{{ route('register') }}" class="btn btnDark">{{__('messages.Sign up free')}}</a></li>
-                                        {{-- @else
-                                            <li><a><i class="fas fa-camera"></i></a> --}}
-                                        @endif
-                                    </ul>
-
+                                        {{-- <li><a href="{{ route('register') }}" class="btn btnDark">Sign up free</a></li> --}}
+                                    </ul>        
                                 </div>
                             </div>
                             <div class="menuBackdrop"></div>

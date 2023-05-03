@@ -1,6 +1,5 @@
 @extends('layouts.layout')
 @section('title', 'Hostess Profile | Hostess')
-
 @section('content')
 <style>
     .ModalbuttonGreen {
@@ -326,7 +325,9 @@
                                     <h3><b style="margin-left: 10%;">Use {{@$user->credit}} Credits and send the message</b></h3>
                                     {{-- <form action="" name="formConfirm" method="post">
                                         @csrf --}}
-                                        <button class="ModalbuttonGreen" id="sendMessageToHostess"><strong>CONFIRM</strong></button>
+                                        <a class="ModalbuttonGreen" id="sendMessageToHostess"
+                                            href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>CONFIRM</strong></a>
+                                        {{-- <button class="ModalbuttonGreen" id="sendMessageToHostess"><strong>CONFIRM</strong></button> --}}
                                     {{-- </form> --}}
                                 </div>                            
                             </div>

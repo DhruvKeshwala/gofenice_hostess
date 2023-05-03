@@ -1,5 +1,6 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 @include('layouts.header')
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="{{ URL::asset('css/style_header.css') }}">
 <style>
     .container-fluid:before,
     .navbar:before,
@@ -16,6 +17,9 @@
     .card__img {
         width: 150px;
         border-radius: 50%;
+        border: 2px solid;
+        padding: 5px;
+        margin-bottom: 10px;
     }
 
     img {
@@ -31,6 +35,15 @@
         display: grid;
         place-items: center;
         margin: 0 auto 0.75rem;
+    }
+
+    .modal-dialog {
+        position: unset;
+        width: unset;
+        margin: auto;
+    }
+    .modal-content {
+        margin-top: 15%;
     }
 </style>
 <main class="form-signin w-100 mx-auto">
@@ -209,27 +222,32 @@
         <div class="modal-content" style="background-color:#FFFEFF;">
             <div class="modal-header border-0 mt-4">
                 <h4 class="modal-title" style="font-weight:bold!important;font-size:30px">
-                    {{__('messages.Create your profile for free')}} </h4>
+                    {{__('messages.Create your profile for free')}}
+                </h4>
             </div>
-            
+
             <div class="modal-body" id="selectcard">
                 <div class="col-md-12" style="text-align: center">
-                    <p style="font-size:17px">{{__('messages.It only takes a few minutes and you can start interacting with our community right away')}}</p>
+                    <p style="font-size:17px">
+                        {{__('messages.It only takes a few minutes and you can start interacting with our community right away')}}
+                    </p>
                     <!--<p style="font-weight:bold!important;font-size:17px">First of all, tell us who you are</p>-->
                 </div>
-                <div class="col-md-6" style="text-align:center;">
-                    <div onclick="changeStyle('user');checkUserType('user');" class="">
-                        <img src="https://t4.ftcdn.net/jpg/04/50/60/51/360_F_450605101_Rc8xz4hnMtuePmpZA1i6RZMwREwcqaZI.jpg"
-                            alt="card image" class="card__img" />
+                <div class="row">
+                    <div class="col-md-6" style="text-align:center;">
+                        <div onclick="changeStyle('user');checkUserType('user');" class="">
+                            <img src="https://t4.ftcdn.net/jpg/04/50/60/51/360_F_450605101_Rc8xz4hnMtuePmpZA1i6RZMwREwcqaZI.jpg"
+                                alt="card image" class="card__img" />
+                        </div>
+                        <h4 class="card__name" whoIs="user">{{__('messages.Client')}}</h4>
                     </div>
-                    <h4 class="card__name" whoIs="user">{{__('messages.Client')}}</h4>
-                </div>
-                <div class="col-md-6" style="text-align:center;">
-                    <div class="" onclick="checkUserType('hostess');">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYodX4PS5R7aKD07Tli-JcxLDvuKv5PZOFZHpuihWbTu63e-riirBBrvu8IqOJz7XjaSQ&usqp=CAU"
-                            alt="card image" class="card__img" />
+                    <div class="col-md-6" style="text-align:center;">
+                        <div class="" onclick="checkUserType('hostess');">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYodX4PS5R7aKD07Tli-JcxLDvuKv5PZOFZHpuihWbTu63e-riirBBrvu8IqOJz7XjaSQ&usqp=CAU"
+                                alt="card image" class="card__img" />
+                        </div>
+                        <h4 class="card__name" whoIs="hostess">{{__('messages.Hostess')}}</h4>
                     </div>
-                    <h4 class="card__name" whoIs="hostess">{{__('messages.Hostess')}}</h4>
                 </div>
                 <button type="button" class="btn btn-secondary" style="display:none;" id="chooseregmodalclosebtn"
                     data-dismiss="modal">{{__('messages.Close')}}</button>
@@ -244,7 +262,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="{{ URL::asset('js/script.js') }}"></script>
 <script>
     // $("#chooseregmodal").modal('show');
