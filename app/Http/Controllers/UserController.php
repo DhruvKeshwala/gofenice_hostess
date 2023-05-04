@@ -7,6 +7,7 @@ use App\Models\MobilePrefix;
 use App\Models\User;
 use Session, Hash, Auth;
 use Carbon\Carbon;
+use App\Models\Response;
 
 class UserController extends Controller
 {
@@ -59,6 +60,24 @@ class UserController extends Controller
 
     public function paymentSuccess(){
         return view('payment-success');
+    }
+
+    public function saveResponse(Request $request)
+    {
+        if($request)
+        {
+            $responseDetails = new Response();
+            $response = json_decode($request->response);
+            if($response != null || $response != '')
+            {
+                $responseDetails->user_id          =  Auth::id();
+                $responseDetails->payment_id       =  $response->id;
+                $responseDetails->amount           =  $response->amount;
+                $responseDetails->status           =  $response->status;
+                $responseDetails->save();
+                return json_encode(['success' => 1, 'message' => 'Your Payment done successfully..!']);
+            }
+        }
     }
 
     // public function index()

@@ -1,6 +1,11 @@
 @extends('layouts.layout')
 @section('title', 'Hostess Profile | Hostess')
 @section('content')
+<style>
+    .jGrowl .changeCount {
+    background-color: #4BB543 !important;
+    }
+</style>
 <script src="https://js.stripe.com/v3/"></script>
 <script src="https://phpstack-957459-3413409.cloudwaysapps.com/stripe-sample-code/public/checkout.js" defer></script>
 <style>
@@ -409,12 +414,19 @@
                         <span><img src="{{ URL::asset('assets/user/images/angle-right.svg') }}" alt="..." ></span>
                        </button>
                     </div> -->
-                                <div class="msgInput">
+                                {{-- <div class="msgInput">
                                     <a href="javascript:void(0);" id="freeMsgBtn" class="btn btn_outline">
                                         <span>{{ __('messages.Hello, congratulations can we chat?') }}</span>
                                         <span><img src="{{ URL::asset('assets/user/images/angle-right.svg') }}"
                                                 alt="..."></span>
                                     </a>
+                                </div> --}}
+                                <div class="msgInput">
+                                    <input type="freeMsgBtn" id="freeMsgBtn" class="btn btn_outline" placeholder="{{ __('messages.Hello, congratulations can we chat?') }}" style="width: 100%">
+                                    <div id="freeMessageError"></div>
+                                        {{-- <span></span>
+                                        <span><img src="{{ URL::asset('assets/user/images/angle-right.svg') }}" alt="..."></span> --}}
+                                    {{-- </a> --}}
                                 </div>
                             </div>
                         </div>
@@ -1074,9 +1086,9 @@ var btn = document.getElementById("myBtn");
 var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button, open the modal 
-btn.onclick = function() {
-    modal.style.display = "block";
-}
+// btn.onclick = function() {
+//     modal.style.display = "block";
+// }
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
@@ -1104,8 +1116,8 @@ window.onclick = function(event) {
         var message         = $('#message').val();
         var hostessCredit   = $("input[name='hostessCredit']").val();
         var userCredit      = $("input[name='userCredit']").val();
-        var receiver_id = $("input[name='receiver_id']").val();
-        var sender_id = $("input[name='sender_id']").val();
+        var receiver_id     = $("input[name='receiver_id']").val();
+        var sender_id       = $("input[name='sender_id']").val();
 
         var fd = new FormData();
        
@@ -1214,54 +1226,108 @@ $(document).ready(function () {
         });
     });
 
-    $('#freeMsgBtn').click(function(){
-        $('.errorMessage').hide();
-        var flag = 1;
-        var message = $('#message').val();
-        // var hostessCredit = $("input[name='hostessCredit']").val();
-        // var userCredit = $("input[name='userCredit']").val();
-        var receiver_id = $("input[name='receiver_id']").val();
-        var sender_id = $("input[name='sender_id']").val();
-
-        if (message == '' || message == null)
+    $('#freeMsgBtn').keypress(function (e) {
+        var key = e.which;
+        if(key == 13)  // the enter key code
         {
-            flag = 0;
-            $("#messageError").html('<span class="errorMessage" style="color:red;">Message is Required</span>');
-        }
-        
-        var fd = new FormData();
-        
-        fd.append('message', message);
-        // fd.append('hostessCredit', hostessCredit);
-        // fd.append('userCredit', userCredit);
-        fd.append('receiver_id', receiver_id);
-        fd.append('sender_id', sender_id);
-        
-        if (flag == 1)
-        {
-       
-            $.ajaxSetup({
-            headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            $('.errorMessage').hide();
+            var flag = 1;
+            var message = $('#freeMsgBtn').val();
+            // var hostessCredit = $("input[name='hostessCredit']").val();
+            // var userCredit = $("input[name='userCredit']").val();
+            var receiver_id = $("input[name='receiver_id']").val();
+            var sender_id = $("input[name='sender_id']").val();
+            
+            if (message == '' || message == null)
+            {
+                flag = 0;
+                $("#freeMessageError").html('<span class="errorMessage" style="color:red;">Message is Required</span>');
             }
-            });
-            $.ajax({
-            url: "{{ route('sendFreeMessageToHostess') }}",
-            type: "POST",
-            data:fd,
-            cache: false,
-            processData: false,
-            contentType: false,
-            success: function(result) {
-            var data = JSON.parse(result);
-                if (data.success) {
-                    $.jGrowl("Your free message sent successfully.", { life: 10000, theme: 'changeCount'});
+        
+            var fd = new FormData();
+            
+            fd.append('message', message);
+            // fd.append('hostessCredit', hostessCredit);
+            // fd.append('userCredit', userCredit);
+            fd.append('receiver_id', receiver_id);
+            fd.append('sender_id', sender_id);
+            
+            if (flag == 1)
+            {
+        
+                $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-            },
-            error: function(xhr, status, error) {}
-            });
+                });
+                $.ajax({
+                url: "{{ route('sendFreeMessageToHostess') }}",
+                type: "POST",
+                data:fd,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(result) {
+                var data = JSON.parse(result);
+                    if (data.success) {
+                        $.jGrowl("Your free message sent successfully.", { life: 10000, theme: 'changeCount'});
+                        $('#freeMsgBtn').val('');
+                    }
+                },
+                error: function(xhr, status, error) {}
+                });
+            }  
         }
     });
+
+    // $('#freeMsgBtn').click(function(){
+    //     $('.errorMessage').hide();
+    //     var flag = 1;
+    //     var message = $('#freeMsgBtn').val();
+    //     // var hostessCredit = $("input[name='hostessCredit']").val();
+    //     // var userCredit = $("input[name='userCredit']").val();
+    //     var receiver_id = $("input[name='receiver_id']").val();
+    //     var sender_id = $("input[name='sender_id']").val();
+
+    //     if (message == '' || message == null)
+    //     {
+    //         flag = 0;
+    //         $("#messageError").html('<span class="errorMessage" style="color:red;">Message is Required</span>');
+    //     }
+        
+    //     var fd = new FormData();
+        
+    //     fd.append('message', message);
+    //     // fd.append('hostessCredit', hostessCredit);
+    //     // fd.append('userCredit', userCredit);
+    //     fd.append('receiver_id', receiver_id);
+    //     fd.append('sender_id', sender_id);
+        
+    //     if (flag == 1)
+    //     {
+       
+    //         $.ajaxSetup({
+    //         headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //         });
+    //         $.ajax({
+    //         url: "{{ route('sendFreeMessageToHostess') }}",
+    //         type: "POST",
+    //         data:fd,
+    //         cache: false,
+    //         processData: false,
+    //         contentType: false,
+    //         success: function(result) {
+    //         var data = JSON.parse(result);
+    //             if (data.success) {
+    //                 $.jGrowl("Your free message sent successfully.", { life: 10000, theme: 'changeCount'});
+    //             }
+    //         },
+    //         error: function(xhr, status, error) {}
+    //         });
+    //     }
+    // });
 });
 </script>
 @endsection
