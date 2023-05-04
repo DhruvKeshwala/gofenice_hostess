@@ -1,9 +1,11 @@
 @extends('layouts.layout')
 @section('title', 'Hostess Profile | Hostess')
 @section('content')
+<script src="https://js.stripe.com/v3/"></script>
+<script src="https://phpstack-957459-3413409.cloudwaysapps.com/stripe-sample-code/public/checkout.js" defer></script>
 <style>
     .ModalbuttonGreen {
-    background-color: #4CAF50;
+        background-color: #4CAF50;
         border: none;
         color: white;
         padding: 16px 1px;
@@ -19,35 +21,35 @@
     }
 
     .ModalbuttonPink {
-    background-color: #de2352;
-    border: none;
-    color: white;
-    padding: 16px 1px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin-top: 5%;
-    /* margin-left: 3%; */
-    /* margin-right: 5% !important; */
-    width: 100% !important;
-    cursor: pointer;
+        background-color: #de2352;
+        border: none;
+        color: white;
+        padding: 16px 1px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 5%;
+        /* margin-left: 3%; */
+        /* margin-right: 5% !important; */
+        width: 100% !important;
+        cursor: pointer;
     }
 
     .ModalbuttonOrange {
-    background-color: #f39b03;
-    border: none;
-    color: white;
-    padding: 16px 1px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin-top: 5%;
-    /* margin-left: 3%; */
-    /* margin-right: 5% !important; */
-    width: 100% !important;
-    cursor: pointer;
+        background-color: #f39b03;
+        border: none;
+        color: white;
+        padding: 16px 1px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 5%;
+        /* margin-left: 3%; */
+        /* margin-right: 5% !important; */
+        width: 100% !important;
+        cursor: pointer;
     }
 
     .logoImg1 {
@@ -57,6 +59,7 @@
         margin-bottom: 5%;
         padding-top: 5%;
     }
+
     /* The Modal (background) */
     .modal {
         display: none;
@@ -105,6 +108,10 @@
         text-decoration: none;
         cursor: pointer;
     }
+
+    a:hover {
+        color: #fff;
+    }
 </style>
 <section>
     <div class="container">
@@ -135,11 +142,18 @@
                     <ul class="tabs">
                         <li data-tab="tab-1" class="tab-link current active"><a
                                 href="javascript:void(0)"><span>{{__('messages.All')}}</span></a></li>
-                        <li data-tab="tab-2" class="tab-link"><a href="javascript:void(0)"><img src="{{ URL::asset('assets/user/images/wh-icon.png') }}" alt="..."> <span>{{__('messages.Wing Hostess')}}</span></a></li>
-                        <li data-tab="tab-3" class="tab-link"><a href="javascript:void(0)"><img src="{{ URL::asset('assets/user/images/pm-icon.png') }}" alt="..."> <span>{{__('messages.Photo Models')}}</span></a></li>
-                        <li data-tab="tab-4" class="tab-link"><a href="javascript:void(0)"><img src="{{ URL::asset('assets/user/images/new-icon.png') }}" alt="...">
-                        <span>{{ __('messages.New') }}</span></a></li>
-                        <li data-tab="tab-5" class="tab-link"><a href="javascript:void(0)"><img src="{{ URL::asset('assets/user/images/online-icon.svg') }}" alt="..."><span>{{__('messages.Online Now')}}</span></a></li>
+                        <li data-tab="tab-2" class="tab-link"><a href="javascript:void(0)"><img
+                                    src="{{ URL::asset('assets/user/images/wh-icon.png') }}" alt="...">
+                                <span>{{__('messages.Wing Hostess')}}</span></a></li>
+                        <li data-tab="tab-3" class="tab-link"><a href="javascript:void(0)"><img
+                                    src="{{ URL::asset('assets/user/images/pm-icon.png') }}" alt="...">
+                                <span>{{__('messages.Photo Models')}}</span></a></li>
+                        <li data-tab="tab-4" class="tab-link"><a href="javascript:void(0)"><img
+                                    src="{{ URL::asset('assets/user/images/new-icon.png') }}" alt="...">
+                                <span>{{ __('messages.New') }}</span></a></li>
+                        <li data-tab="tab-5" class="tab-link"><a href="javascript:void(0)"><img
+                                    src="{{ URL::asset('assets/user/images/online-icon.svg') }}"
+                                    alt="..."><span>{{__('messages.Online Now')}}</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -153,28 +167,34 @@
                                 <div class="col-sm">
                                     <div class="topInfoCol">
                                         <h4>Maddalena, <small>Perugia, 24 anni</small></h4>
-                                    {{-- <span class="lcTime">Last connerction: 2 hrs ago</span> --}}
-@php
-                                        $to = Carbon\Carbon::now(); 
+                                        {{-- <span class="lcTime">Last connerction: 2 hrs ago</span> --}}
+                                        @php
+                                        $to = Carbon\Carbon::now();
                                         $from = @$user->last_seen;
                                         $diff_in_minutes = @$to->diffInMinutes($from);
-@endphp
-                                        @if(@$diff_in_minutes >= 0 && @$diff_in_minutes <= 10)
-                                            <span class="lcTime">{{__('messages.Last connection:')}} {{__('messages.online')}}</span>
+                                        @endphp
+                                        @if(@$diff_in_minutes >= 0 && @$diff_in_minutes <= 10) <span class="lcTime">
+                                            {{__('messages.Last connection:')}} {{__('messages.online')}}</span>
                                             {{-- {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }} --}}
-                                        @elseif(@$diff_in_minutes > 10 && @$diff_in_minutes <= 119)
-                                            <span class="lcTime2"></span> {{__('messages.Last connection:')}} {{__('messages.just now')}}</span>
-                                            {{-- {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }} --}}
-                                        @elseif(@$diff_in_minutes > 119 && @$diff_in_minutes <= 1440) 
-                                            <span>{{__('messages.Last connection:')}} {{__('messages.from a few hours')}}</span>
-                                            {{-- {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }} --}}
-                                        @elseif(@$diff_in_minutes > 1440 && @$diff_in_minutes <= 2880) 
-                                            <span>{{__('messages.Last connection:')}}{{__('messages.1 day')}}</span>
-                                            {{-- {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }} --}}
-                                        @elseif(@$diff_in_minutes > 2880)
-                                            <span>{{__('messages.Last connection:')}}{{__('messages.for a few days')}}</span>
-                                            {{-- {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }} --}}
-                                        @endif
+                                            @elseif(@$diff_in_minutes > 10 && @$diff_in_minutes <= 119) <span
+                                                class="lcTime2"></span> {{__('messages.Last connection:')}}
+                                                {{__('messages.just now')}}</span>
+                                                {{-- {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }} --}}
+                                                @elseif(@$diff_in_minutes > 119 && @$diff_in_minutes <= 1440) <span>
+                                                    {{__('messages.Last connection:')}}
+                                                    {{__('messages.from a few hours')}}</span>
+                                                    {{-- {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }}
+                                                    --}}
+                                                    @elseif(@$diff_in_minutes > 1440 && @$diff_in_minutes <= 2880)
+                                                        <span>
+                                                        {{__('messages.Last connection:')}}{{__('messages.1 day')}}</span>
+                                                        {{-- {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }}
+                                                        --}}
+                                                        @elseif(@$diff_in_minutes > 2880)
+                                                        <span>{{__('messages.Last connection:')}}{{__('messages.for a few days')}}</span>
+                                                        {{-- {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }}
+                                                        --}}
+                                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-sm-auto">
@@ -208,7 +228,7 @@
                             <h4 class="lineTitle"><span>{{__('messages.About me')}}</span></h4>
                             <p>{{__('messages.Hostess text here hostess text here.')}} </p>
                             <ul class="optionList">
-                                
+
                                 <li>
                                     <div class="row">
                                         <div class="col-auto">
@@ -269,7 +289,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                
+
                                 <li>
                                     <div class="row">
                                         <div class="col-auto">
@@ -293,68 +313,92 @@
                             </ul>
                         </div>
                         <div class="sidebarCard contactHostessCol">
-                            <h4 class="lineTitle"><span>{{__('messages.CONTACT')}} {{__('messages.HOSTESS')}} </span></h4>
+                            <h4 class="lineTitle"><span>{{__('messages.CONTACT')}} {{__('messages.HOSTESS')}} </span>
+                            </h4>
                             @if(Auth::id() != null || Auth::id() != '')
                             <div class="mb-20">
-                                <p class="fwSBold">{{__('messages.Unlock the chat and send a personalized message')}} </p>
+                                <p class="fwSBold">{{__('messages.Unlock the chat and send a personalized message')}}
+                                </p>
                                 <div class="tAreaCol">
                                     <form action="" name="formConfirm" method="post">
-                                    @csrf
+                                        @csrf
                                         {{-- hostess id --}}
                                         <input type="hidden" name="receiver_id" value="{{$id}}">
                                         {{-- user id --}}
                                         <input type="hidden" name="sender_id" value="{{ Auth::user()->id }}">
-                                        
-                                        <textarea class="form-control" placeholder="{{ __('messages.Write your personalized message') }}" name="message" id="message"></textarea>
-                                        <input type="hidden" name="hostessCredit" id="hostessCredit" value="{{@$user->credit}}">
-                                        <input type="hidden" name="userCredit" id="userCredit" value="{{@Auth::user()->credit}}">
-                                            <div id="messageError"></div>
+
+                                        <textarea class="form-control"
+                                            placeholder="{{ __('messages.Write your personalized message') }}"
+                                            name="message" id="message"></textarea>
+                                        <input type="hidden" name="hostessCredit" id="hostessCredit"
+                                            value="{{@$user->credit}}">
+                                        <input type="hidden" name="userCredit" id="userCredit"
+                                            value="{{@Auth::user()->credit}}">
+                                        <div id="messageError"></div>
                                     </form>
                                 </div>
-                                <p><small>{{__('messages.Pay now 3 credits. If the hostess does will be offline for over 72 hours the credits will be refunded to your account.')}}</small></p>
+                                <p><small>{{__('messages.Pay now 3 credits. If the hostess does will be offline for over 72 hours the credits will be refunded to your account.')}}</small>
+                                </p>
                                 {{-- <button class="btn sendBtn" id="myBtn">{{__('messages.Invia Adess')}}</button> --}}
-                                <button class="btn sendBtn" onclick="sendMessage()" id="saveBtn">{{__('messages.Invia Adess')}}</button>
+                                <button class="btn sendBtn" onclick="sendMessage()"
+                                    id="saveBtn">{{__('messages.Invia Adess')}}</button>
                             </div>
-                            
+
                             <!-- The Modal Confirm-->
-                            <div id="myModal" class="modal">                            
+                            <div id="myModal" class="modal">
                                 <!-- Modal content -->
                                 <div class="modal-content mb-20">
-                                    <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..." class="logoImg1"  height="10%" width="10%">
+                                    <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..."
+                                        class="logoImg1" height="10%" width="10%">
                                     <span class="close">&times;</span>
-                                    <h3><b style="margin-left: 10%;">Use {{@$user->credit}} Credits and send the message</b></h3>
+                                    <h3><b style="margin-left: 10%;">Use {{@$user->credit}} Credits and send the
+                                            message</b></h3>
                                     {{-- <form action="" name="formConfirm" method="post">
                                         @csrf --}}
-                                        <a class="ModalbuttonGreen" id="sendMessageToHostess"
+                                    {{-- <a class="ModalbuttonGreen" id="sendMessageToHostess"
                                             href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>CONFIRM</strong></a>
-                                        {{-- <button class="ModalbuttonGreen" id="sendMessageToHostess"><strong>CONFIRM</strong></button> --}}
+                                    --}}
+                                    <button class="ModalbuttonGreen"
+                                        id="sendMessageToHostess"><strong>CONFIRM</strong></button>
                                     {{-- </form> --}}
-                                </div>                            
+                                </div>
                             </div>
 
                             <!-- The Modal Buy Credit Modal-->
                             <div id="lowCreditModal" class="modal">
-                            
+
                                 <!-- Modal content -->
                                 <div class="modal-content mb-20">
-                                    <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..." class="logoImg1" height="10%"
-                                        width="10%">
+                                    <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..."
+                                        class="logoImg1" height="10%" width="10%">
                                     <span class="close">&times;</span>
-                                    <h3><b style="margin-left: 10%;margin-left: 23%;">You don't have enough credits.</b></h3>
+                                    <h3><b style="margin-left: 10%;margin-left: 23%;">You don't have enough credits.</b>
+                                    </h3>
                                     <p style="margin-left: 10%;margin-left: 35%;">Buy your credits now:</p>
                                     {{-- <form action="{{ route('confirmMsg') }}" method="post"> --}}
-                                        {{-- @csrf --}}
-                                        <button class="ModalbuttonPink"><strong>Buy {{@$user->credit}} credits (for 3 €) and start the chat</strong></button>
+                                    {{-- @csrf --}}
+                                    {{-- <button class="ModalbuttonPink"><strong>Buy {{@$user->credit}} credits (for 3
+                                    €) and start the chat</strong></button> --}}
+                                    <a class="ModalbuttonPink"
+                                        href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>Buy
+                                            {{@$user->credit}} credits (for 3 €) and start the chat</strong></a>
                                     {{-- </form> --}}
-                                
-                                    <button class="ModalbuttonOrange"><strong>Buy a pack of 100 credits for €80 (save 20%!)</strong></button>
-                        
+
+                                    {{-- <button class="ModalbuttonOrange"><strong>Buy a pack of 100 credits for €80 (save 20%!)</strong></button> --}}
+                                    <a class="ModalbuttonOrange"
+                                        href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>Buy a
+                                            pack of 100 credits for €80 (save 20%!)</strong></a>
+
                                 </div>
-                            
+
                             </div>
 
                             @else
-                                <h4><a style="color:#3B71CA;" href="{{ route('register') }}" target="_blank">{{ __('messages.Signup for free') }}</a> {{__('messages.or')}} <a style="color:#3B71CA;" href="{{ route('login') }}" target="_blank">{{__('messages.login')}}</a> {{__('messages.to contact this hostess')}}.</h4>
+                            <h4><a style="color:#3B71CA;" href="{{ route('register') }}"
+                                    target="_blank">{{ __('messages.Signup for free') }}</a> {{__('messages.or')}} <a
+                                    style="color:#3B71CA;" href="{{ route('login') }}"
+                                    target="_blank">{{__('messages.login')}}</a>
+                                {{__('messages.to contact this hostess')}}.</h4>
                             @endif
                             <div class="btmForm">
                                 <p class="fwSBold">{{__('messages.Alternatively send a free message')}}</p>

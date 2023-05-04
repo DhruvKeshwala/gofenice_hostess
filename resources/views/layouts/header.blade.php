@@ -187,13 +187,11 @@
                                     <div class="navigationColMain">
                                         <div class="menuCol">
                                             <ul>
-                                                <li><a href="javascript:void(0)">{{__('messages.Explore')}}</a></li>
-                                                <li><a href="javascript:void(0)">{{__('messages.Plans')}}</a></li>
-                                                <li><a href="javascript:void(0)">{{__('messages.Upload')}}</a></li>
-                                                <li class="d-lg-none"><a
-                                                        href="{{ route('login') }}">{{__('messages.Login')}}</a></li>
-                                                <li class="d-lg-none"><a
-                                                        href="{{ route('register') }}">{{__('messages.Sign up free')}}</a>
+                                                <li><a href="javascript:void(0)">{{__('messages.Near')}}</a></li>
+                                                <li><a href="javascript:void(0)">{{__('messages.How_does_it_work')}}</a></li>
+                                                <li><a href="javascript:void(0)">{{__('messages.are_you_a_hostess_model')}}</a></li>
+                                                <li class="d-lg-none"><a href="{{ route('login') }}">{{__('messages.Login')}}</a></li>
+                                                <li class="d-lg-none"><a href="{{ route('register') }}">{{__('messages.Sign up free')}}</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -258,14 +256,35 @@
                                 </div>
                                 <ul class="headerRightCol d-none d-lg-block">
                                     @if (Auth::id() != null || Auth::id() != '')
-                                    <li><span style="color: #000000;" class="">{{ __('messages.Welcome') }},
-                                            {{ Auth::user()->name }} |</span>
-                                        <a href="{{ route('user.logout') }}" style="color: #000000;"
-                                            class="">{{ __('messages.Logout') }}</a>
+                                    @if(Auth::user()->user_type == 'user')
+                                    <li>
+                                        <div class="dropdown langCol">
+                                            <span style="color: #000000;" class="">{{ __('messages.Welcome') }}, {{ Auth::user()->name }}</span>
+                                            <div class="dropdown-content langCol">
+                                                <span class="dropdown-profile">
+                                                    <a class="dropdown-item" href="{{ route('profile.edit') }}">My Profile</a>
+                                                    <a class="dropdown-item" href="#">Credits: {{@Auth::user()->credit != null || @Auth::user()->credit != '' ? @Auth::user()->credit : 0 }}</a>
+                                                    <a class="dropdown-item" href="javascript::void(0)" id="buyCredits">Buy Credits</a>
+                                                    <a href="{{ route('user.logout') }}">{{ __('messages.Logout') }}</a>
+                                                </span>
+                                            </div>
+                                        </div>
                                     </li>
                                     @else
-                                    <li><a style="color:black;"
-                                            href="{{ route('login') }}">{{ __('messages.Login') }}</a></li>
+                                    <li>
+                                        <div class="dropdown langCol">
+                                            <span style="color: #000000;" class="">{{ __('messages.Welcome') }}, {{ Auth::user()->name }}</span>
+                                            <div class="dropdown-content langCol">
+                                                <span class="dropdown-profile">
+                                                    <a class="dropdown-item" href="{{ route('profile.edit') }}">My Profile</a>
+                                                    <a href="{{ route('user.logout') }}">{{ __('messages.Logout') }}</a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    @endif
+                                    @else
+                                    <li><a style="color:black;" href="{{ route('login') }}">{{ __('messages.Login') }}</a></li>
                                     @endif
                                     <li>
                                         {{-- <div class="langCol">
@@ -317,8 +336,7 @@
                             </div>
                             </li>
                             @if (Auth::id() == null || Auth::id() == '')
-                            <li><a href="{{ route('register') }}" class="signupbtn signupbtnDark">Sign up
-                                    free</a></li>
+                            <li><a href="{{ route('register') }}" class="signupbtn signupbtnDark">Sign up free</a></li>
                             @endif
                             </ul>
 

@@ -73,6 +73,7 @@ Route::post('confirmMsg', [ChatController::class, 'confirmMsg'])->name('confirmM
 Route::post('sendMessageToHostess', [ChatController::class, 'sendMessageToHostess'])->name('sendMessageToHostess');
 Route::post('sendFreeMessageToHostess', [ChatController::class, 'sendFreeMessageToHostess'])->name('sendFreeMessageToHostess');
 Route::get('payment-success', [UserController::class, 'paymentSuccess'])->name('payment-success');
+Route::get('hostess-search-result', [HostessController::class, 'hostessSearchResult'])->name('hostess-search-result');
 
 
 

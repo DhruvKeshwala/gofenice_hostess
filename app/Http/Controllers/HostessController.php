@@ -185,5 +185,9 @@ class HostessController extends Controller
         return view('hostess_profile_new', compact('user', 'id'));
     }
 
+    public function hostessSearchResult()
+    {
+        return view('hostess_search_result');
+    }
     
 }
