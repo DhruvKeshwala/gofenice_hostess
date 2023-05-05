@@ -16,7 +16,7 @@ document
 let emailAddress = '';
 // Fetches a payment intent and captures the client secret
 async function initialize() {
-  const { clientSecret } = await fetch("http://localhost/stripe-sample-code/public/create.php", {
+  const { clientSecret } = await fetch("http://localhost/gofenice_hostess/stripe-sample-code/public/create.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ items }),
@@ -43,6 +43,7 @@ async function handleSubmit(e) {
     elements,
     confirmParams: {
       // Make sure to change this to your payment completion page
+      // return_url: "http://localhost/gofenice_hostess/stripe-sample-code/public/checkout.html",
       return_url: "http://localhost/gofenice_hostess/public/en/payment-success",
       receipt_email: emailAddress,
     },
@@ -72,11 +73,10 @@ async function checkStatus() {
     return;
   }
 
-  const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
+  const { paymentIntent }  = await stripe.retrievePaymentIntent(clientSecret);
   // Set Item
   localStorage.setItem("payment_response", JSON.stringify(paymentIntent));
-  // console.log('paymentIntent', paymentIntent);
-  // document.querySelector("#payment-details").textContent = JSON.stringify(paymentIntent);
+
   switch (paymentIntent.status) {
     case "succeeded":
       showMessage("Payment succeeded!");
@@ -100,7 +100,6 @@ function showMessage(messageText) {
   messageContainer.classList.remove("hidden");
   messageContainer.textContent = messageText;
 
-  window.location.href="http://localhost/gofenice_hostess/public/en/payment-success";
   setTimeout(function () {
     messageContainer.classList.add("hidden");
     messageText.textContent = "";
