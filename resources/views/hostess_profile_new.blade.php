@@ -1334,16 +1334,18 @@ function showPaymentModal(val) {
     $("#lowCreditModal").hide();
     if (val == '3') {
         $("#credits_count").html(3);
-        $("#credits_amount").html(val);
     }else{
         $("#credits_count").html(100);
-        $("#credits_amount").html(val);
     }
+    $("#credits_amount").html(val);
+    localStorage.setItem("credit_amount",val*100);
     $("#paymentModal").show();
     
 }
 $(".close-payment-modal").click(function(){
     $("#paymentModal").hide();
 });
+localStorage.removeItem("payment_response");
+// localStorage.setItem("credit_amount",50);
 </script>
 @endsection

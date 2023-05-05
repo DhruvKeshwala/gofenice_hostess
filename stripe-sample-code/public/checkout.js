@@ -2,7 +2,8 @@
 const stripe = Stripe("pk_test_51N2pinSCV0iZjrj5blt0YABNaPlUO4SwtsbQNfkgA8wAanyOWYhg8yc3l8jT9AT5MP9XkjKoHcTx4k22grJlpLgT00GKZtdzK0");
 
 // The items the customer wants to buy
-const items = [{ id: "xl-tshirt" }];
+var amount = localStorage.getItem("credit_amount");
+const items = [{ id: "x-shirt",amount: amount}];
 
 let elements;
 
@@ -16,7 +17,7 @@ document
 let emailAddress = '';
 // Fetches a payment intent and captures the client secret
 async function initialize() {
-  const { clientSecret } = await fetch("http://localhost/gofenice_hostess/stripe-sample-code/public/create.php", {
+  const { clientSecret } = await fetch("https://phpstack-957459-3413409.cloudwaysapps.com/stripe-sample-code/public/create.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ items }),
@@ -43,8 +44,9 @@ async function handleSubmit(e) {
     elements,
     confirmParams: {
       // Make sure to change this to your payment completion page
-      // return_url: "http://localhost/gofenice_hostess/stripe-sample-code/public/checkout.html",
-      return_url: "http://localhost/gofenice_hostess/public/en/payment-success",
+      return_url: "https://phpstack-957459-3413409.cloudwaysapps.com/stripe-sample-code/public/checkout.html",
+      //return_url: "https://phpstack-957459-3413409.cloudwaysapps.com/public/en/payment-success",
+      //return_url: "https://phpstack-957459-3413409.cloudwaysapps.com/stripe-sample-code/public/checkout.php",
       receipt_email: emailAddress,
     },
   });
