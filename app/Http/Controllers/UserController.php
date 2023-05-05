@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MobilePrefix;
 use App\Models\User;
+use App\Models\Message;
 use Session, Hash, Auth;
 use Carbon\Carbon;
 use App\Models\Response;
@@ -78,6 +79,38 @@ class UserController extends Controller
                 return json_encode(['success' => 1, 'message' => 'Your Payment done successfully..!']);
             }
         }
+    }
+
+    public function userChat($lang, $id = null)
+    {
+        // For User list
+        $user = auth()->user(); 
+        $selectedUser = User::where('id',$id)->first();
+        
+        $users = User::whereHas('messages', function ($query) use ($user) {
+        $query->where('receiver_id', $user->id);
+        })->orWhereHas('messages', function ($query) use ($user) {
+            $query->where('sender_id', $user->id);
+        })->get();
+        // dd($users);
+        
+        // $users = User::whereHas('messages', function ($query) use ($user) {
+        // $query->where('sender_id', $user->id);
+        // })->orWhereHas('messages', function ($query) use ($user) {
+        //     $query->where('receiver_id', $user->id);
+        // })->get();
+
+        // For message
+        $authUser = auth()->user();
+        $messages = Message::where(function ($query) use ($authUser, $id) {
+        $query->where('sender_id', $authUser->id)
+              ->where('receiver_id', $id);
+        })->orWhere(function ($query) use ($authUser, $id) {
+            $query->where('sender_id', $id)
+                ->where('receiver_id', $authUser->id);
+        })->get();
+
+        return view('userChat', compact('users', 'selectedUser', 'messages'));
     }
 
     // public function index()

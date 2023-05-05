@@ -76,6 +76,7 @@ Route::get('payment-success', [UserController::class, 'paymentSuccess'])->name('
 Route::post('save_response', [UserController::class, 'saveResponse'])->name('save_response');
 Route::get('hostess-search-result', [HostessController::class, 'hostessSearchResult'])->name('hostess-search-result');
 
+Route::get('user-chat/{id?}', [UserController::class, 'userChat'])->name('userChat');
 
 
 
