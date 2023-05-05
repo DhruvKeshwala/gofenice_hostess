@@ -25,5 +25,15 @@
       <div id="payment-message" class="hidden"></div>
       <div id="payment-details"></div>
     </form>
+<script>
+setTimeout(function(){
+var payment_response = localStorage.getItem("payment_response");
+  var data = JSON.parse(payment_response);
+  if(data.status == 'succeeded'){
+window.location.href = "https://phpstack-957459-3413409.cloudwaysapps.com/public/en/payment-success";
+}
+}, 500);
+  
+</script>
   </body>
 </html>

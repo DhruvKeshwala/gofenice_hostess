@@ -17,9 +17,11 @@
         </main>
     </div>
 </div>
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+{{-- <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> --}}
 <script>
-    // console.log('response', localStorage.getItem("payment_response"));
+    console.log('response', localStorage.getItem("payment_response"));
+    console.log('response1', localStorage.getItem("payment_response1"));
+    console.log('paymentIntent', localStorage.getItem("paymentIntent"));
     document.querySelector("#demo").textContent = localStorage.getItem("payment_response");
     $.ajaxSetup({
     headers: {

@@ -7,10 +7,9 @@
     }
 </style>
 <script src="https://js.stripe.com/v3/"></script>
-<script src="https://phpstack-957459-3413409.cloudwaysapps.com/stripe-sample-code/public/checkout.js" defer></script>
+<script src="{{URL::to('../stripe-sample-code/public/checkout.js')}}" defer></script>
 <style>
-    .ModalbuttonGreen {
-        background-color: #4CAF50;
+    .Modalbutton{
         border: none;
         color: white;
         padding: 16px 1px;
@@ -23,38 +22,18 @@
         /* margin-right: 5% !important; */
         width: 100% !important;
         cursor: pointer;
+    }
+
+    .ModalbuttonGreen {
+        background-color: #4CAF50;        
     }
 
     .ModalbuttonPink {
         background-color: #de2352;
-        border: none;
-        color: white;
-        padding: 16px 1px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin-top: 5%;
-        /* margin-left: 3%; */
-        /* margin-right: 5% !important; */
-        width: 100% !important;
-        cursor: pointer;
     }
 
     .ModalbuttonOrange {
         background-color: #f39b03;
-        border: none;
-        color: white;
-        padding: 16px 1px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin-top: 5%;
-        /* margin-left: 3%; */
-        /* margin-right: 5% !important; */
-        width: 100% !important;
-        cursor: pointer;
     }
 
     .logoImg1 {
@@ -68,43 +47,35 @@
     /* The Modal (background) */
     .modal {
         display: none;
-        /* Hidden by default */
         position: fixed;
-        /* Stay in place */
         z-index: 1;
-        /* Sit on top */
         padding-top: 100px;
-        /* Location of the box */
         left: 0;
         top: 0;
         width: 100%;
-        /* Full width */
         height: 100%;
-        /* Full height */
         overflow: auto;
-        /* Enable scroll if needed */
         background-color: rgb(0, 0, 0);
-        /* Fallback color */
         background-color: rgba(0, 0, 0, 0.4);
-        /* Black w/ opacity */
     }
 
     /* Modal Content */
     .modal-content {
         background-color: #fefefe;
         margin-top: 147px;
-        margin: 258px 700px;
+        margin: 50px auto;
         padding: 19px;
         border: 1px solid #888;
         width: 25%;
     }
 
     /* The Close Button */
-    .close {
+    .close, .close-payment-modal {
         color: #aaaaaa;
         float: right;
         font-size: 28px;
         font-weight: bold;
+        cursor: pointer;
     }
 
     .close:hover,
@@ -360,10 +331,10 @@
                                             message</b></h3>
                                     {{-- <form action="" name="formConfirm" method="post">
                                         @csrf --}}
-                                    {{-- <a class="ModalbuttonGreen" id="sendMessageToHostess"
+                                    {{-- <a class="ModalbuttonGreen Modalbutton" id="sendMessageToHostess"
                                             href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>CONFIRM</strong></a>
                                     --}}
-                                    <button class="ModalbuttonGreen"
+                                    <button class="ModalbuttonGreen Modalbutton"
                                         id="sendMessageToHostess"><strong>CONFIRM</strong></button>
                                     {{-- </form> --}}
                                 </div>
@@ -382,21 +353,51 @@
                                     <p style="margin-left: 10%;margin-left: 35%;">Buy your credits now:</p>
                                     {{-- <form action="{{ route('confirmMsg') }}" method="post"> --}}
                                     {{-- @csrf --}}
-                                    {{-- <button class="ModalbuttonPink"><strong>Buy {{@$user->credit}} credits (for 3
-                                    €) and start the chat</strong></button> --}}
-                                    <a class="ModalbuttonPink"
-                                        href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>Buy
-                                            {{@$user->credit}} credits (for 3 €) and start the chat</strong></a>
+                                    <button class="ModalbuttonPink Modalbutton" onclick="showPaymentModal(3)"><strong>Buy {{@$user->credit}} credits (for 3 €) and start the chat</strong></button>
+                                    {{-- <a class="ModalbuttonPink Modalbutton" href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>Buy {{@$user->credit}} credits (for 3 €) and start the chat</strong></a> --}}
                                     {{-- </form> --}}
 
-                                    {{-- <button class="ModalbuttonOrange"><strong>Buy a pack of 100 credits for €80 (save 20%!)</strong></button> --}}
-                                    <a class="ModalbuttonOrange"
-                                        href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>Buy a
-                                            pack of 100 credits for €80 (save 20%!)</strong></a>
-
+                                    <button class="ModalbuttonOrange Modalbutton" onclick="showPaymentModal(80)"><strong>Buy a pack of 100 credits for €80 (save 20%!)</strong></button>
+                                    {{-- <a class="ModalbuttonOrange Modalbutton"  href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>Buy a pack of 100 credits for €80 (save 20%!)</strong></a> --}}
                                 </div>
 
                             </div>
+
+                            {{-- payment modal --}}                            
+                            <div id="paymentModal" class="modal">
+                                <!-- Modal content -->
+                                <div class="modal-content mb-20">
+                                    <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..."
+                                        class="logoImg1" height="10%" width="10%">
+                                    <span class="close-payment-modal">&times;</span>
+                                    <h3><b style="margin-left: 10%;margin-left: 23%;">You are buying <span id="credits_count"></span> credits : </b> </h3>
+                                    <h3><b style="margin-left: 10%;margin-left: 23%;">Total : €<span id="credits_amount"></span></b></h3>
+                                    {{-- payment form --}}
+                                    <form id="payment-form">
+                                        @csrf
+                                        <div id="link-authentication-element">
+                                          <!--Stripe.js injects the Link Authentication Element-->
+                                        </div>
+                                        <div id="payment-element">
+                                          <!--Stripe.js injects the Payment Element-->
+                                        </div>
+                                        <button id="submit" class="ModalbuttonGreen Modalbutton">
+                                            <div class="spinner hidden" id="spinner"></div>
+                                            <span id="button-text"><strong>Pay Now</strong></span>
+                                        </button>
+
+                                        <div id="payment-message" class="hidden"></div>
+                                        <div id="payment-details"></div>
+                                    </form>
+                                    {{-- payment form --}}
+                                    {{-- <form action="{{ route('confirmMsg') }}" method="post"> --}}
+                                    {{-- @csrf --}}
+                                    {{-- <button class="ModalbuttonPink Modalbutton"><strong>Buy {{@$user->credit}} credits (for 3 €) and start the chat</strong></button> --}}
+                                    {{-- </form> --}}
+                                    {{-- <button class="ModalbuttonOrange Modalbutton"><strong>Buy a pack of 100 credits for €80 (save 20%!)</strong></button> --}}
+                                </div>
+                            </div>
+                            {{-- payment modal --}}
 
                             @else
                             <h4><a style="color:#3B71CA;" href="{{ route('register') }}"
@@ -1329,5 +1330,22 @@ $(document).ready(function () {
     //     }
     // });
 });
+function showPaymentModal(val) {
+    $("#lowCreditModal").hide();
+    if (val == '3') {
+        $("#credits_count").html(3);
+    }else{
+        $("#credits_count").html(100);
+    }
+    $("#credits_amount").html(val);
+    localStorage.setItem("credit_amount",val*100);
+    $("#paymentModal").show();
+    
+}
+$(".close-payment-modal").click(function(){
+    $("#paymentModal").hide();
+});
+localStorage.removeItem("payment_response");
+// localStorage.setItem("credit_amount",50);
 </script>
 @endsection
