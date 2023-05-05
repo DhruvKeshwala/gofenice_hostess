@@ -213,7 +213,7 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <a class="fas fa-comments">
+                                            <a href="{{ route('userChat') }}" class="fas fa-comments">
                                                 {{-- <span class="fas fa-comment"></span> --}}
                                                 <span class="num">2</span>
                                             </a>
