@@ -1331,16 +1331,19 @@ $(document).ready(function () {
 function showPaymentModal(val) {
     localStorage.setItem("message_body",$('#message').val());
     localStorage.setItem("receiver_hostess_id",$("input[name='receiver_id']").val());
+    var credits = 0;
     $("#lowCreditModal").hide();
     if (val == '3') {
         $("#credits_count").html(3);
         $("#credits_amount").html(val);
+        credits = 3;
     }else{
         $("#credits_count").html(100);
         $("#credits_amount").html(val);
+        credits = 100;
     }
+    localStorage.setItem("credits",credits);
     $("#credits_amount").html(val);
-    alert('val', val);
     localStorage.setItem("credit_amount",val*100);
     $("#paymentModal").show();
     // alert(localStorage.getItem("message_body"));    
