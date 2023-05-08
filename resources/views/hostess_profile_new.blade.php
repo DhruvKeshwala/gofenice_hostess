@@ -327,15 +327,14 @@
                                     <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..."
                                         class="logoImg1" height="10%" width="10%">
                                     <span class="close">&times;</span>
-                                    <h3><b style="margin-left: 10%;">Use {{@$user->credit}} Credits and send the
-                                            message</b></h3>
+                                    <h3><b style="margin-left: 10%;">{{__('messages.Use') }} {{@$user->credit}} {{__('messages.Credits and send the message') }}</b></h3>
                                     {{-- <form action="" name="formConfirm" method="post">
                                         @csrf --}}
                                     {{-- <a class="ModalbuttonGreen Modalbutton" id="sendMessageToHostess"
                                             href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>CONFIRM</strong></a>
                                     --}}
                                     <button class="ModalbuttonGreen Modalbutton"
-                                        id="sendMessageToHostess"><strong>CONFIRM</strong></button>
+                                        id="sendMessageToHostess"><strong>{{__('messages.CONFIRM') }}</strong></button>
                                     {{-- </form> --}}
                                 </div>
                             </div>
@@ -348,16 +347,16 @@
                                     <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..."
                                         class="logoImg1" height="10%" width="10%">
                                     <span class="close">&times;</span>
-                                    <h3><b style="margin-left: 10%;margin-left: 23%;">You don't have enough credits.</b>
+                                    <h3><b style="margin-left: 10%;margin-left: 23%;">{{__('messages.You don\'t have enough credits')}}.</b>
                                     </h3>
-                                    <p style="margin-left: 10%;margin-left: 35%;">Buy your credits now:</p>
+                                    <p style="margin-left: 10%;margin-left: 35%;">{{__('messages.Buy your credits now')}}:</p>
                                     {{-- <form action="{{ route('confirmMsg') }}" method="post"> --}}
                                     {{-- @csrf --}}
-                                    <button class="ModalbuttonPink Modalbutton" onclick="showPaymentModal(3)"><strong>Buy {{@$user->credit}} credits (for 3 €) and start the chat</strong></button>
+                                    <button class="ModalbuttonPink Modalbutton" onclick="showPaymentModal(3)"><strong>{{__('messages.Buy')}} {{@$user->credit}} {{__('messages.credits (for 3 €) and start the chat')}}</strong></button>
                                     {{-- <a class="ModalbuttonPink Modalbutton" href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>Buy {{@$user->credit}} credits (for 3 €) and start the chat</strong></a> --}}
                                     {{-- </form> --}}
 
-                                    <button class="ModalbuttonOrange Modalbutton" onclick="showPaymentModal(80)"><strong>Buy a pack of 100 credits for €80 (save 20%!)</strong></button>
+                                    <button class="ModalbuttonOrange Modalbutton" onclick="showPaymentModal(80)"><strong>{{__('messages.Buy a pack of 100 credits for €80 (save 20%!)')}}</strong></button>
                                     {{-- <a class="ModalbuttonOrange Modalbutton"  href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>Buy a pack of 100 credits for €80 (save 20%!)</strong></a> --}}
                                 </div>
 
@@ -370,8 +369,8 @@
                                     <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..."
                                         class="logoImg1" height="10%" width="10%">
                                     <span class="close-payment-modal">&times;</span>
-                                    <h3><b style="margin-left: 10%;margin-left: 23%;">You are buying <span id="credits_count"></span> credits : </b> </h3>
-                                    <h3><b style="margin-left: 10%;margin-left: 23%;">Total : €<span id="credits_amount"></span></b></h3>
+                                    <h3><b style="margin-left: 10%;margin-left: 23%;">{{__('messages.You are buying')}} <span id="credits_count"></span> {{__('messages.credits')}} : </b> </h3>
+                                    <h3><b style="margin-left: 10%;margin-left: 23%;">{{__('messages.Total')}} : €<span id="credits_amount"></span></b></h3>
                                     {{-- payment form --}}
                                     <form id="payment-form">
                                         @csrf
@@ -383,7 +382,7 @@
                                         </div>
                                         <button id="submit" class="ModalbuttonGreen Modalbutton">
                                             <div class="spinner hidden" id="spinner"></div>
-                                            <span id="button-text"><strong>Pay Now</strong></span>
+                                            <span id="button-text"><strong>{{__('messages.Pay Now')}}</strong></span>
                                         </button>
 
                                         <div id="payment-message" class="hidden"></div>
@@ -398,14 +397,6 @@
                                 </div>
                             </div>
                             {{-- payment modal --}}
-
-                            @else
-                            <h4><a style="color:#3B71CA;" href="{{ route('register') }}"
-                                    target="_blank">{{ __('messages.Signup for free') }}</a> {{__('messages.or')}} <a
-                                    style="color:#3B71CA;" href="{{ route('login') }}"
-                                    target="_blank">{{__('messages.login')}}</a>
-                                {{__('messages.to contact this hostess')}}.</h4>
-                            @endif
                             <div class="btmForm">
                                 <p class="fwSBold">{{__('messages.Alternatively send a free message')}}</p>
                                 <!-- <div class="msgInput">
@@ -430,6 +421,13 @@
                                     {{-- </a> --}}
                                 </div>
                             </div>
+                            @else
+                            <h4><a style="color:#3B71CA;" href="{{ route('register') }}" target="_blank">{{ __('messages.Signup for free') }}</a>
+                                {{__('messages.or')}} <a style="color:#3B71CA;" href="{{ route('login') }}"
+                                    target="_blank">{{__('messages.login')}}</a>
+                                {{__('messages.to contact this hostess')}}.
+                            </h4>
+                            @endif
                         </div>
                     </div>
                 </div>

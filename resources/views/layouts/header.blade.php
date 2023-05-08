@@ -147,6 +147,24 @@
         .form-control {
             border: 1px solid #777471 !important;
         }
+
+        .fa-user {
+        color:#333;
+        text-decoration: none !important;
+        }
+        
+        .fa-comments {
+        color: grey;
+        text-decoration: none !important;
+        }
+        .fa-comments:hover {
+        color:grey;
+        }
+        
+        .a-link:hover {
+        text-decoration: none;
+        color: #000;
+        }
     </style>
 
 
