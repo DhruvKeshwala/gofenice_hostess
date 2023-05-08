@@ -17,7 +17,8 @@ document
 let emailAddress = '';
 // Fetches a payment intent and captures the client secret
 async function initialize() {
-  const { clientSecret } = await fetch("https://phpstack-957459-3413409.cloudwaysapps.com/stripe-sample-code/public/create.php", {
+  // const { clientSecret } = await fetch("https://phpstack-957459-3413409.cloudwaysapps.com/stripe-sample-code/public/create.php", { //live link
+    const { clientSecret } = await fetch("http://localhost/gofenice_hostess/stripe-sample-code/public/create.php", { // local link
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ items }),
@@ -44,9 +45,9 @@ async function handleSubmit(e) {
     elements,
     confirmParams: {
       // Make sure to change this to your payment completion page
-      return_url: "https://phpstack-957459-3413409.cloudwaysapps.com/stripe-sample-code/public/checkout.html",
+      // return_url: "https://phpstack-957459-3413409.cloudwaysapps.com/stripe-sample-code/public/checkout.html", // live link
       //return_url: "https://phpstack-957459-3413409.cloudwaysapps.com/public/en/payment-success",
-      //return_url: "https://phpstack-957459-3413409.cloudwaysapps.com/stripe-sample-code/public/checkout.php",
+      return_url: "http://localhost/gofenice_hostess/stripe-sample-code/public/checkout.html", // local link
       receipt_email: emailAddress,
     },
   });

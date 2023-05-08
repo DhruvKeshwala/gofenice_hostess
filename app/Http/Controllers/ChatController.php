@@ -30,6 +30,7 @@ class ChatController extends Controller
 
     public function sendMessageToHostess(Request $request)
     {
+        $auth_id = \Auth::user()->id;
         $messageDetails = [];
         if($request)
         {
@@ -46,7 +47,7 @@ class ChatController extends Controller
             $message = Message::create($messageDetails);
             
             $userRemainingcredits = $request->userCredit - $request->hostessCredit;
-            User::where('id', $request->sender_id)->update(['credit' => $userRemainingcredits]);
+            User::where('id', $auth_id)->where('user_type', 'user')->update(['credit' => $userRemainingcredits]);
             return json_encode(['success' => 1, 'message' => 'Message Sent Successfully']);
 
             // return redirect()->back();

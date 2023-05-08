@@ -71,11 +71,20 @@ class UserController extends Controller
             $response = json_decode($request->response);
             if($response != null || $response != '')
             {
-                $responseDetails->user_id          =  Auth::id();
-                $responseDetails->payment_id       =  $response->id;
-                $responseDetails->amount           =  $response->amount;
-                $responseDetails->status           =  $response->status;
-                $responseDetails->save();
+                $existing = Response::where('payment_id',$response->id)->get();
+                if (count($existing) <= 0) {
+                    $responseDetails->user_id          =  Auth::id();
+                    $responseDetails->payment_id       =  $response->id;
+                    $responseDetails->amount           =  $response->amount;
+                    $responseDetails->status           =  $response->status;
+                    $responseDetails->save();
+                    
+                    $messageDetails['sender_id'] = Auth::id();
+                    $messageDetails['receiver_id'] = $request->receiver_hostess_id;
+                    $messageDetails['message'] = $request->message_body;
+                    Message::create($messageDetails);
+                }
+
                 return json_encode(['success' => 1, 'message' => 'Your Payment done successfully..!']);
             }
         }
