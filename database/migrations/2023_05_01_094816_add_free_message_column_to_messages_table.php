@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('messages', function (Blueprint $table) {
-            $table->longText('free_message')->after('message')->nullable();
+            $table->tinyInteger('free_message')->after('message')->default('0');
         });
     }
 

@@ -59,15 +59,17 @@ class ChatController extends Controller
         $messageDetails = [];
         if($request)
         {
+            $auth_id = \Auth::user()->id;
             $request->only([
                 'sender_id',
                 'receiver_id',
                 'message',
             ]);
 
-            $messageDetails['sender_id'] = $request->sender_id;
-            $messageDetails['receiver_id'] = $request->receiver_id;
-            $messageDetails['free_message'] = $request->message;
+            $messageDetails['sender_id'] = $auth_id;
+            $messageDetails['receiver_id'] = (int)$request->receiver_id;
+            $messageDetails['message'] = $request->message;
+            $messageDetails['free_message'] = 1;
 
             $message = Message::create($messageDetails);
             return json_encode(['success' => 1, 'message' => 'Your Free Message Sent Successfully']);

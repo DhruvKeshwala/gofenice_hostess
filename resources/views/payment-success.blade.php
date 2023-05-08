@@ -25,6 +25,7 @@
     // document.querySelector("#demo").textContent = localStorage.getItem("payment_response");
     var message_body = localStorage.getItem("message_body");
     var receiver_hostess_id = localStorage.getItem("receiver_hostess_id");
+    var credits = localStorage.getItem("credits");
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -36,7 +37,8 @@
         data: {
             response: localStorage.getItem("payment_response"),
             message_body:message_body,
-            receiver_hostess_id:receiver_hostess_id
+            receiver_hostess_id:receiver_hostess_id,
+            credits:credits,
         },
         success: function(result) {},
         error: function(xhr, status, error) {}

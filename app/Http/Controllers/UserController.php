@@ -83,6 +83,11 @@ class UserController extends Controller
                     $messageDetails['receiver_id'] = $request->receiver_hostess_id;
                     $messageDetails['message'] = $request->message_body;
                     Message::create($messageDetails);
+                   
+                    $users = User::where('id', Auth::id())->first();
+                    $total_credits = (int)$request->credits + $users-> credit;
+                    $credits = ['credit' => $total_credits];
+                    $user = User::where('id', Auth::id())->update($credits);
                 }
 
                 return json_encode(['success' => 1, 'message' => 'Your Payment done successfully..!']);

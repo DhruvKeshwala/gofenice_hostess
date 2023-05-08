@@ -36,7 +36,8 @@ class AuthenticatedSessionController extends Controller
         }
         else if (Auth::user()->type == 0) 
         {
-            return redirect()->route('profile.edit');
+            // return redirect()->route('profile.edit');
+            return redirect()->route('home');
         }
         else
         {
