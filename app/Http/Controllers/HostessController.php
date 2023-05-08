@@ -181,8 +181,11 @@ class HostessController extends Controller
 
     public function showHostess($lang, $id = null)
     {
+        $images = '';
         $user = UserService::getUserById($id);
-        return view('hostess_profile_new', compact('user', 'id'));
+        if($user)
+            $images = Gallery::where('userId', $user->id)->get();
+        return view('hostess_profile_new', compact('user', 'id', 'images'));
     }
 
     public function hostessSearchResult()

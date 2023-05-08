@@ -9,110 +9,7 @@
 <script src="https://js.stripe.com/v3/"></script>
 <script src="https://phpstack-957459-3413409.cloudwaysapps.com/stripe-sample-code/public/checkout.js" defer></script>
 <style>
-    .ModalbuttonGreen {
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 16px 1px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin-top: 5%;
-        /* margin-left: 3%; */
-        /* margin-right: 5% !important; */
-        width: 100% !important;
-        cursor: pointer;
-    }
-
-    .ModalbuttonPink {
-        background-color: #de2352;
-        border: none;
-        color: white;
-        padding: 16px 1px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin-top: 5%;
-        /* margin-left: 3%; */
-        /* margin-right: 5% !important; */
-        width: 100% !important;
-        cursor: pointer;
-    }
-
-    .ModalbuttonOrange {
-        background-color: #f39b03;
-        border: none;
-        color: white;
-        padding: 16px 1px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin-top: 5%;
-        /* margin-left: 3%; */
-        /* margin-right: 5% !important; */
-        width: 100% !important;
-        cursor: pointer;
-    }
-
-    .logoImg1 {
-        height: 50%;
-        width: 42%;
-        margin-left: 30%;
-        margin-bottom: 5%;
-        padding-top: 5%;
-    }
-
-    /* The Modal (background) */
-    .modal {
-        display: none;
-        /* Hidden by default */
-        position: fixed;
-        /* Stay in place */
-        z-index: 1;
-        /* Sit on top */
-        padding-top: 100px;
-        /* Location of the box */
-        left: 0;
-        top: 0;
-        width: 100%;
-        /* Full width */
-        height: 100%;
-        /* Full height */
-        overflow: auto;
-        /* Enable scroll if needed */
-        background-color: rgb(0, 0, 0);
-        /* Fallback color */
-        background-color: rgba(0, 0, 0, 0.4);
-        /* Black w/ opacity */
-    }
-
-    /* Modal Content */
-    .modal-content {
-        background-color: #fefefe;
-        margin-top: 147px;
-        margin: 258px 700px;
-        padding: 19px;
-        border: 1px solid #888;
-        width: 25%;
-    }
-
-    /* The Close Button */
-    .close {
-        color: #aaaaaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
-    }
+    
 
     a:hover {
         color: #fff;
@@ -183,9 +80,9 @@
         color:grey;
     }
 
-    .a-link:hover {
-        text-decoration: none;
-        color: #000;
+    a:hover {
+    color:black !important;
+    text-decoration: none !important;
     }
 
 </style>

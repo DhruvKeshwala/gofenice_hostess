@@ -175,7 +175,7 @@ return [
     'You' => 'Tú',
     'Send' => 'Enviar',
     'Search' => 'Buscar',
-    'email' => 'Email',
+    'anni' => 'años',
     'email' => 'Email',
     'email' => 'Email',
     'email' => 'Email',

@@ -85,12 +85,13 @@
         cursor: pointer;
     }
 
-    a:hover {
+    /* a:hover {
         color: #fff;
-    }
+    } */
 </style>
 <section>
     <div class="container">
+        
         <div class="topFilterOptions">
             <div class="searchLikeCol">
                 <div class="row g-2 g-lg-3 align-items-center">
@@ -142,7 +143,7 @@
                             <div class="row">
                                 <div class="col-sm">
                                     <div class="topInfoCol">
-                                        <h4>Maddalena, <small>Perugia, 24 anni</small></h4>
+                                        <h4>{{@$user->name}}, <small>{{@$user->city}}, {{Carbon\Carbon::parse(@$user->birthdate)->age}} {{__('messages.anni')}}</small></h4>
                                         {{-- <span class="lcTime">Last connerction: 2 hrs ago</span> --}}
                                         @php
                                         $to = Carbon\Carbon::now();
@@ -187,22 +188,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="proLeftImgCol">
-                            <img src="{{ URL::asset('assets/user/images/img-1.jpg') }}" alt="...">
-                        </div>
-                        <div class="proLeftImgCol">
-                            <img src="{{ URL::asset('assets/user/images/img-1.jpg') }}" alt="...">
-                        </div>
-                        <div class="proLeftImgCol">
-                            <img src="{{ URL::asset('assets/user/images/img-1.jpg') }}" alt="...">
-                        </div>
+                        @if(@$images != null || @$images != '')
+                            @foreach ($images as $image)
+                                <div class="proLeftImgCol">
+                                    <img src="{{ URL::asset('images/' . @$image->image) }}" alt="...">
+                                </div>
+                            @endforeach
+                        @endif
+            
                     </div>
                 </div>
                 <div class="col-lg-auto">
                     <div class="profileRightCol stickyTop">
                         <div class="sidebarCard aboutMe">
                             <h4 class="lineTitle"><span>{{__('messages.About me')}}</span></h4>
-                            <p>{{__('messages.Hostess text here hostess text here.')}} </p>
+                            <p>{{@$user->description}} </p>
                             <ul class="optionList">
 
                                 <li>
@@ -211,7 +211,7 @@
                                             <span class="optLbl">{{__('messages.Age:')}}</span>
                                         </div>
                                         <div class="col optionText">
-                                            {{Carbon\Carbon::parse(@$user->birthdate)->age}}
+                                            {{ Carbon\Carbon::parse(@$user->birthdate)->age }}
                                         </div>
                                     </div>
                                 </li>
