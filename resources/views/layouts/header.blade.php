@@ -270,6 +270,12 @@
                                             </div>
                                         </div>
                                     </li>
+                                    <li>
+                                        <a href="{{ route('userChat') }}" class="fas fa-comments">
+                                            {{-- <span class="fas fa-comment"></span> --}}
+                                            <span class="num">2</span>
+                                        </a>
+                                    </li>
                                     @else
                                     <li>
                                         <div class="dropdown langCol">
@@ -281,6 +287,12 @@
                                                 </span>
                                             </div>
                                         </div>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('userChat') }}" class="fas fa-comments">
+                                            {{-- <span class="fas fa-comment"></span> --}}
+                                            <span class="num">2</span>
+                                        </a>
                                     </li>
                                     @endif
                                     @else

@@ -197,21 +197,20 @@
                                     </div>
                                 </div>
                             </div>
-                            
                             @if($users)
                             @foreach($users as $user)
-                                <a href="{{ route('userChat', ['id' => @$user->id]) }}" class="list-group-item list-group-item-action border-0">
+                                <a href="{{ route('userChat', ['id' => @$user['id']]) }}" class="list-group-item list-group-item-action border-0">
                                     {{-- <div class="badge bg-success float-right">5</div> --}}
                                     <div class="d-flex align-items-start">
-                                        @if(@$user->profilepic != null || @$user->profilepic != '')
-                                            <img src="{{ URL::asset('upload/user/profile/' . @$user->profilepic) }}" class="rounded-circle mr-1"
+                                        @if(@$user['profilepic'] != null || @$user['profilepic'] != '')
+                                            <img src="{{ URL::asset('upload/user/profile/' . @$user['profilepic']) }}" class="rounded-circle mr-1"
                                                 alt="Profile Picture" width="40" height="40">
                                         @else
                                             <img src="{{ URL::asset('upload/user/profile/default.png') }}" class="rounded-circle mr-1"
                                                 alt="Profile Picture" width="40" height="40">
                                         @endif
                                         <div class="flex-grow-1 ml-3">
-                                            {{ @$user->name }}
+                                            {{ @$user['name'] }}
                                             <div class="small"><span class="fas fa-circle chat-online"></span> Online</div>
                                         </div>
                                     </div>
@@ -307,8 +306,6 @@
                                     @endforeach
                                     </div>
                                     @endif
-        
-        
                                 </div>
                             </div>
         
@@ -400,5 +397,9 @@
     }
     });
 });
+setInterval(function () {
+    $( "#div-reload-messages").load(" #div-reload-messages");
+}, 5000);
+
 </script>
 @endsection
