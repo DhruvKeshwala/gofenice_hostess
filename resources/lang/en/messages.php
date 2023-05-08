@@ -179,7 +179,7 @@ return [
     'Send' => 'Send',
     'Search' => 'Search',
     'anni' => 'years',
-    'email' => 'Email',
+    'chat_now' => 'Chat Now',
     'email' => 'Email',
     'email' => 'Email',
     'email' => 'Email',

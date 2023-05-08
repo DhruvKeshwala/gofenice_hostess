@@ -247,6 +247,7 @@ return [
     'email' => 'Email',
     'email' => 'Email',
     'email' => 'Email',
+    'chat_now' => 'Chatta adesso',
 
 
 ];

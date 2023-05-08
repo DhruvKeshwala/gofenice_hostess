@@ -458,7 +458,8 @@
                                     @if(Auth::user()->user_type == 'user')
                                     <li>
                                         <div class="dropdown langCol">
-                                            <span style="color: #000000;" class="">{{ __('messages.Welcome') }}, {{ Auth::user()->name }}</span>
+                                            {{-- <span style="color: #000000;" class="">{{ __('messages.Welcome') }}, {{ Auth::user()->name }}</span> --}}
+                                            <a class="a-link"><i class="fas fa-user"></i></a>
                                             <div class="dropdown-content langCol">
                                                 <span class="dropdown-profile">
                                                     <a class="dropdown-item" href="{{ route('profile.edit') }}">My Profile</a>
@@ -472,7 +473,7 @@
                                     <li>
                                         <a href="{{ route('userChat') }}" class="fas fa-comments">
                                             {{-- <span class="fas fa-comment"></span> --}}
-                                            <span class="num">2</span>
+                                            {{-- <span class="num">2</span> --}}
                                         </a>
                                     </li>
                                     @else
@@ -490,7 +491,7 @@
                                     <li>
                                         <a href="{{ route('userChat') }}" class="fas fa-comments">
                                             {{-- <span class="fas fa-comment"></span> --}}
-                                            <span class="num">2</span>
+                                            {{-- <span class="num">2</span> --}}
                                         </a>
                                     </li>
                                     @endif

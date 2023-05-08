@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Services\UserService;
 use App\Models\Gallery;
+use App\Models\Message;
 use Auth, DB, Session;
 
 class HostessController extends Controller
@@ -181,11 +182,17 @@ class HostessController extends Controller
 
     public function showHostess($lang, $id = null)
     {
+        $auth_id = Auth::user()->id;
         $images = '';
         $user = UserService::getUserById($id);
+        $conversion = Message::where('sender_id', $auth_id)->where('receiver_id', $id)->get();
+        $is_chat_option = false;
+        if (count($conversion)) {
+            $is_chat_option = true;
+        }
         if($user)
             $images = Gallery::where('userId', $user->id)->get();
-        return view('hostess_profile_new', compact('user', 'id', 'images'));
+        return view('hostess_profile_new', compact('user', 'id', 'images', 'is_chat_option'));
     }
 
     public function hostessSearchResult()

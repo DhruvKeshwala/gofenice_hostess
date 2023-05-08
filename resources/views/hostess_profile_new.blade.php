@@ -84,6 +84,9 @@
         text-decoration: none;
         cursor: pointer;
     }
+    .direct-chat-btn {
+        margin-bottom: 15px;
+    }
 
     /* a:hover {
         color: #fff;
@@ -292,6 +295,7 @@
                             <h4 class="lineTitle"><span>{{__('messages.CONTACT')}} {{__('messages.HOSTESS')}} </span>
                             </h4>
                             @if(Auth::id() != null || Auth::id() != '')
+                            @if (!$is_chat_option)
                             <div class="mb-20">
                                 <p class="fwSBold">{{__('messages.Unlock the chat and send a personalized message')}}
                                 </p>
@@ -316,9 +320,11 @@
                                 <p><small>{{__('messages.Pay now 3 credits. If the hostess does will be offline for over 72 hours the credits will be refunded to your account.')}}</small>
                                 </p>
                                 {{-- <button class="btn sendBtn" id="myBtn">{{__('messages.Invia Adess')}}</button> --}}
-                                <button class="btn sendBtn" onclick="sendMessage()"
-                                    id="saveBtn">{{__('messages.Invia Adess')}}</button>
+                                <button class="btn sendBtn" onclick="sendMessage()" id="saveBtn">{{__('messages.Invia Adess')}}</button>
                             </div>
+                            @else                            
+                                <button class="btn sendBtn direct-chat-btn" onclick="window.location.href='../user-chat/{{ $id }}'">{{__('messages.chat_now')}}</button>
+                            @endif
 
                             <!-- The Modal Confirm-->
                             <div id="myModal" class="modal">

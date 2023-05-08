@@ -231,7 +231,7 @@
     .modal-content1 {
         background-color: #fefefe;
         margin-top: 147px;
-        margin: auto;
+        margin: 258px 700px;
         padding: 19px;
         border: 1px solid #888;
         width: 25%;
@@ -271,9 +271,12 @@
                                     <div class="navigationColMain">
                                         <div class="menuCol">
                                             <ul>
-                                                <li><a href="javascript:void(0)">{{ __('messages.Fence')}}</a></li>
-                                                <li><a href="javascript:void(0)">{{ __('messages.How does it work')}}</a></li>
-                                                <li><a href="javascript:void(0)">{{ __('messages.Are you a Hostess/Model?')}}</a></li>                                                
+                                                <li><a href="javascript:void(0)">{{__('messages.Near')}}</a></li>
+                                                <li><a href="javascript:void(0)">{{__('messages.How_does_it_work')}}</a></li>
+                                                <li><a href="javascript:void(0)">{{__('messages.are_you_a_hostess_model')}}</a></li>
+                                                <li class="d-lg-none"><a href="{{ route('login') }}">{{__('messages.Login')}}</a></li>
+                                                <li class="d-lg-none"><a href="{{ route('register') }}">{{__('messages.Sign up free')}}</a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -347,7 +350,7 @@
                                         <li>
                                             <a href="{{ route('userChat') }}" class="fas fa-comments" class="a-link">
                                                 {{-- <span class="fas fa-comment"></span> --}}
-                                                <span class="num">2</span>
+                                                {{-- <span class="num">2</span> --}}
                                             </a>
                                         </li>
                                         @endif
@@ -380,9 +383,13 @@
                                                     @endphp
                                                     @foreach (config('app.available_locales') as $locale)
                                                     <span class="selectedLang">
-                                                        <x-nav-link :href="route(\Illuminate\Support\Facades\Route::currentRouteName(),['locale' => $locale],)"
+                                                        {{-- <x-nav-link :href="route(\Illuminate\Support\Facades\Route::currentRouteName(),['locale' => $locale],)"
                                                             :active="app()->getLocale() == $locale">
                                                             <img src="{{ URL::asset('assets/images/' . @$i . '.png') }}" height="70px" width="70px" />
+                                                        </x-nav-link> --}}
+                                                        <x-nav-link :href="route(\Illuminate\Support\Facades\Route::currentRouteName(), ['locale' => $locale, 'id' => \Request::segment(3)])"
+                                                            :active="app()->getLocale() == $locale">
+                                                            <img src="{{URL::asset('assets/images/' . @$i . '.png')}}" height="70px" width="70px" />
                                                         </x-nav-link>
                                                     </span>
                                                     @php
