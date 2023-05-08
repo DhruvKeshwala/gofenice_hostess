@@ -4,7 +4,7 @@
     <div class="bannerSection">
         <div class="container">
             <div class="bannerContent">
-                <h1>Trova la compagnia perfetta per una cena o un evento.</h1>
+                <h1>{{__('messages.Find the perfect company for a dinner or an event')}}.</h1>
                 <div class="bannerSearch">
                     <div class="searchCol">
                         <form action="{{route('hostess-search-result')}}">
@@ -22,8 +22,8 @@
     <div class="sectionSpace">
         <div class="container">
             <div class="titleCol text-center">
-                <h3 class="lgTitle">Wing Hostess e Modelle Indipendenti </h3>
-                <p>Contatti diretti e massima</p>
+                <h3 class="lgTitle">{{__('messages.Wing Hostesses and Independent Models')}} </h3>
+                <p>{{__('messages.Direct contacts and maximum')}}</p>
             </div>
             <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-2 g-lg-3 g-xl-4 justify-content-center">
                 <div class="col">
@@ -32,7 +32,7 @@
                             <img src="{{ URL::asset('images/icon-1.png') }}" alt="...">
                         </div>
                         <div class="cs2ContentCol">
-                            <p>Compagnia per Pranzi e Cene</p>
+                            <p>{{ __('messages.Company for lunches and dinners')}}</p>
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                             <img src="{{ URL::asset('images/icon-2.png') }}" alt="...">
                         </div>
                         <div class="cs2ContentCol">
-                            <p>Compagnia per serate in locali</p>
+                            <p>{{__('messages.Company for evenings in clubs')}}</p>
                         </div>
                     </div>
                 </div>

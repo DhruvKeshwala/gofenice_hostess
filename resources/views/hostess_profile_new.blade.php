@@ -344,7 +344,6 @@
                                     {{-- </form> --}}
                                 </div>
                             </div>
-
                             <!-- The Modal Buy Credit Modal-->
                             <div id="lowCreditModal" class="modal">
 

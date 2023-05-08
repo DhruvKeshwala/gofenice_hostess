@@ -108,7 +108,7 @@
                             <div class="px-4 d-none d-md-block">
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1">
-                                        <input type="text" class="form-control my-3" placeholder="Search...">
+                                        <input type="text" class="form-control my-3" placeholder="{{__('messages.Search')}}...">
                                     </div>
                                 </div>
                             </div>
@@ -240,7 +240,7 @@
                                     {{-- user id --}}
                                     <input type="hidden" name="sender_id" value="{{ Auth::user()->id }}">
                                     <input type="text" id="message" name="message" class="form-control"
-                                        placeholder="Type your message">
+                                        placeholder="{{__('messages.Type your message')}}">
                                     <button class="btn btn-primary"
                                         id="sendMessageToHostess">{{__('messages.Send')}}</button>
                                 </div>

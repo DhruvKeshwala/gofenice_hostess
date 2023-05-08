@@ -462,9 +462,9 @@
                                             <a class="a-link"><i class="fas fa-user"></i></a>
                                             <div class="dropdown-content langCol">
                                                 <span class="dropdown-profile">
-                                                    <a class="dropdown-item" href="{{ route('profile.edit') }}">My Profile</a>
-                                                    <a class="dropdown-item" href="#">Credits: {{@Auth::user()->credit != null || @Auth::user()->credit != '' ? @Auth::user()->credit : 0 }}</a>
-                                                    <a class="dropdown-item" href="javascript::void(0)" id="buyCredits">Buy Credits</a>
+                                                    <a class="dropdown-item" href="{{ route('profile.edit') }}">{{__('messages.My Profile')}}</a>
+                                                    <a class="dropdown-item" href="#">{{__('messages.Credits')}}: {{@Auth::user()->credit != null || @Auth::user()->credit != '' ? @Auth::user()->credit : 0 }}</a>
+                                                    <a class="dropdown-item" href="javascript::void(0)" id="buyCredits">{{__('messages.Buy Credits')}}</a>
                                                     <a href="{{ route('user.logout') }}">{{ __('messages.Logout') }}</a>
                                                 </span>
                                             </div>
@@ -482,7 +482,7 @@
                                             <span style="color: #000000;" class="">{{ __('messages.Welcome') }}, {{ Auth::user()->name }}</span>
                                             <div class="dropdown-content langCol">
                                                 <span class="dropdown-profile">
-                                                    <a class="dropdown-item" href="{{ route('hostess_profile') }}">My Profile</a>
+                                                    <a class="dropdown-item" href="{{ route('hostess_profile') }}">{{__('messages.My Profile')}}</a>
                                                     <a href="{{ route('user.logout') }}">{{ __('messages.Logout') }}</a>
                                                 </span>
                                             </div>
@@ -569,15 +569,15 @@
                         width="10%">
                     <span class="close">&times;</span>
                     {{-- <h3><b style="margin-left: 10%;margin-left: 23%;">You don't have enough credits.</b></h3> --}}
-                    <p style="margin-left: 10%;margin-left: 35%;">Buy your credits now:</p>
+                    <p style="margin-left: 10%;margin-left: 35%;">{{__('messages.Buy your credits now')}}:</p>
                     {{-- <form action="{{ route('confirmMsg') }}" method="post"> --}}
                     {{-- @csrf --}}
                     {{-- <button class="ModalbuttonPink"><strong>Buy {{@$user->credit}} credits (for 3 €) and start the
                     chat</strong></button> --}}
                     {{-- </form> --}}
             
-                    <button class="ModalbuttonOrange" onclick="showPaymentModal(80)"><strong>Buy a pack of 100 credits for €80 (save
-                            20%!)</strong></button>
+                    <button class="ModalbuttonOrange" onclick="showPaymentModal(80)"><strong>{{__('messages.Buy a pack of 100 credits for €80 (save
+                    20%!)')}}</strong></button>
             
                 </div>
             
