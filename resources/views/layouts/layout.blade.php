@@ -120,6 +120,24 @@
             .dropdown:hover .dropbtn {
                 background-color: #3e8e41;
             }
+
+            .fa-user {
+            color:#333;
+            text-decoration: none !important;
+            }
+            
+            .fa-comments {
+            color: grey;
+            text-decoration: none !important;
+            }
+            .fa-comments:hover {
+            color:grey;
+            }
+            
+            .a-link:hover {
+            text-decoration: none;
+            color: #000;
+            }
         </style>
     </head>
 
@@ -202,18 +220,18 @@
                                         @else
                                         <li>
                                             <div class="dropdown1">
-                                                <a class=""><i class="fas fa-user"></i></a>
+                                                <a class="a-link"><i class="fas fa-user"></i></a>
                                                 <div class="dropdown-content1">
-                                                    <a href="{{ route('profile.edit') }}">My Profile</a>
-                                                    <a href="#">Credits:
+                                                    <a href="{{ route('profile.edit') }}" class="a-link">My Profile</a>
+                                                    <a href="#" class="a-link">Credits:
                                                         {{@Auth::user()->credit != null || @Auth::user()->credit != '' ? @Auth::user()->credit : 0 }}</a>
-                                                    <a href="javascript::void(0)" id="buyCredits">Buy Credits</a>
-                                                    <a href="{{ route('user.logout') }}">{{ __('messages.Logout') }}</a>
+                                                    <a href="javascript::void(0)" id="buyCredits" class="a-link">Buy Credits</a>
+                                                    <a href="{{ route('user.logout') }}" class="a-link">{{ __('messages.Logout') }}</a>
                                                 </div>
                                             </div>
                                         </li>
                                         <li>
-                                            <a href="{{ route('userChat') }}" class="fas fa-comments">
+                                            <a href="{{ route('userChat') }}" class="fas fa-comments" class="a-link">
                                                 {{-- <span class="fas fa-comment"></span> --}}
                                                 <span class="num">2</span>
                                             </a>

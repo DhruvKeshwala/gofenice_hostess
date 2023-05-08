@@ -94,48 +94,55 @@ class UserController extends Controller
     {
         // For User list
         $user = auth()->user(); 
-        $selectedUser = User::where('id',$id)->first();
-        
-        $messages = Message::where('sender_id', $user->id)->orWhere('receiver_id', $user->id)->get();
-        $chat_list=[];
-        foreach($messages as $message){
-            if($message->receiver_id != $user->id)
-            { 
-                $chat_list[$message->receiver_id][]=$message ;
-            }elseif($message->sender_id !=$user->id){
-                $chat_list[$message->sender_id][]=$message ;
-            }
-        }
-        $users=[];
-        foreach($chat_list as $user_id => $messages)
+        if(@$user->id != null || @$user->id != '')
         {
-            $user=User::find($user_id);
-            $users[]= [
-                'id'=> $user->id ,
-                'name'=> $user->name ,
-                'profilepic'=>$user->profilepic ,
-                'last_message' =>last($messages)->message ,
-                'created_at'=> last($messages)->created_at
-            ];
+            $selectedUser = User::where('id',$id)->first();
+            
+            $messages = Message::where('sender_id', $user->id)->orWhere('receiver_id', $user->id)->get();
+            $chat_list=[];
+            foreach($messages as $message){
+                if($message->receiver_id != $user->id)
+                { 
+                    $chat_list[$message->receiver_id][]=$message ;
+                }elseif($message->sender_id !=$user->id){
+                    $chat_list[$message->sender_id][]=$message ;
+                }
+            }
+            $users=[];
+            foreach($chat_list as $user_id => $messages)
+            {
+                $user=User::find($user_id);
+                $users[]= [
+                    'id'=> $user->id ,
+                    'name'=> $user->name ,
+                    'profilepic'=>$user->profilepic ,
+                    'last_message' =>last($messages)->message ,
+                    'created_at'=> last($messages)->created_at
+                ];
+            }
+                
+            // $users = User::whereHas('messages', function ($query) use ($user) {
+            // $query->where('sender_id', $user->id);
+            // })->orWhereHas('messages', function ($query) use ($user) {
+            //     $query->where('receiver_id', $user->id);
+            // })->get();
+
+            // For message
+            $authUser = auth()->user();
+            $messages = Message::where(function ($query) use ($authUser, $id) {
+            $query->where('sender_id', $authUser->id)
+                ->where('receiver_id', $id);
+            })->orWhere(function ($query) use ($authUser, $id) {
+                $query->where('sender_id', $id)
+                    ->where('receiver_id', $authUser->id);
+            })->orderBy('id')->get();
+
+            return view('userChat', compact('users', 'selectedUser', 'messages'));
         }
-        
-        // $users = User::whereHas('messages', function ($query) use ($user) {
-        // $query->where('sender_id', $user->id);
-        // })->orWhereHas('messages', function ($query) use ($user) {
-        //     $query->where('receiver_id', $user->id);
-        // })->get();
-
-        // For message
-        $authUser = auth()->user();
-        $messages = Message::where(function ($query) use ($authUser, $id) {
-        $query->where('sender_id', $authUser->id)
-              ->where('receiver_id', $id);
-        })->orWhere(function ($query) use ($authUser, $id) {
-            $query->where('sender_id', $id)
-                ->where('receiver_id', $authUser->id);
-        })->get();
-
-        return view('userChat', compact('users', 'selectedUser', 'messages'));
+        else
+        {
+            return redirect(app()->getLocale() . '/login');
+        }
     }
 
     // public function index()
