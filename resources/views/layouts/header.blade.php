@@ -282,7 +282,7 @@
                                             <span style="color: #000000;" class="">{{ __('messages.Welcome') }}, {{ Auth::user()->name }}</span>
                                             <div class="dropdown-content langCol">
                                                 <span class="dropdown-profile">
-                                                    <a class="dropdown-item" href="{{ route('profile.edit') }}">My Profile</a>
+                                                    <a class="dropdown-item" href="{{ route('hostess_profile') }}">My Profile</a>
                                                     <a href="{{ route('user.logout') }}">{{ __('messages.Logout') }}</a>
                                                 </span>
                                             </div>

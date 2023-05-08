@@ -134,7 +134,7 @@
     .chat-messages {
         display: flex;
         flex-direction: column;
-        max-height: 800px;
+        max-height: 500px;
         overflow-y: scroll
     }
 
@@ -271,7 +271,7 @@
                                     @if(@$selectedUser->id == @$message->receiver_id)
                                     <div class="chat-message-right pb-4">
                                         <div>
-                                            @if(@$selectedUser->profilepic != null || @$selectedUser->profilepic != '')
+                                            @if(@Auth::user()->profilepic != null || @Auth::user()->profilepic != '')
                                                 <img src="{{ URL::asset('upload/user/profile/' . @Auth::user()->profilepic) }}" class="rounded-circle mr-1"
                                                 alt="No Img" width="40" height="40">
                                             @else
