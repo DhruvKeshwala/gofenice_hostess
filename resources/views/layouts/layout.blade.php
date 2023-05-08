@@ -238,7 +238,7 @@
     }
 
     /* The Close Button */
-    .close1 {
+    .close1,.close-payment-modal {
         color: #aaaaaa;
         float: right;
         font-size: 28px;
@@ -246,7 +246,7 @@
     }
 
     .close1:hover,
-    .close1:focus {
+    .close1:focus,.close-payment-modal:hover, .close-payment-modal:focus {
         color: #000;
         text-decoration: none;
         cursor: pointer;
@@ -307,7 +307,7 @@
                                                     @endphp
                                                     @foreach (config('app.available_locales') as $locale)
                                                     <span class="selectedLang">
-                                                        <x-nav-link :href="route(\Illuminate\Support\Facades\Route::currentRouteName(),['locale' => $locale],)" :active="app()->getLocale() == $locale">
+                                                        <x-nav-link :href="route(\Illuminate\Support\Facades\Route::currentRouteName(),['locale' => $locale,Request::segment(3)])" :active="app()->getLocale() == $locale">
                                                             <img src="{{ URL::asset('assets/images/' . @$i . '.png') }}" height="70px" width="70px" />
                                                         </x-nav-link>
                                                     </span>
@@ -335,11 +335,11 @@
                                             <div class="dropdown1">
                                                 <a class="a-link"><i class="fas fa-user"></i></a>
                                                 <div class="dropdown-content1">
-                                                    <a href="{{ Auth::user()->user_type == 'user' ? route('profile.edit') : route('hostess_profile') }}" class="a-link">My Profile</a>
+                                                    <a href="{{ Auth::user()->user_type == 'user' ? route('profile.edit') : route('hostess_profile') }}" class="a-link">{{__('messages.My Profile')}}</a>
 
-                                                    <a href="#" class="a-link">Credits:
+                                                    <a href="#" class="a-link">{{__('messages.Credits')}}:
                                                         {{@Auth::user()->credit != null || @Auth::user()->credit != '' ? @Auth::user()->credit : 0 }}</a>
-                                                    <a href="javascript::void(0)" id="buyCredits" class="a-link">Buy Credits</a>
+                                                    <a href="javascript::void(0)" id="buyCredits" class="a-link">{{__('messages.Buy Credits')}}</a>
                                                     <a href="{{ route('user.logout') }}" class="a-link">{{ __('messages.Logout') }}</a>
                                                 </div>
                                             </div>
@@ -421,14 +421,14 @@
                     width="10%">
                 <span class="close1">&times;</span>
                 {{-- <h3><b style="margin-left: 10%;margin-left: 23%;">You don't have enough credits.</b></h3> --}}
-                <p style="margin-left: 10%;margin-left: 35%;">Buy your credits now:</p>
+                <p style="margin-left: 10%;margin-left: 35%;">{{__('messages.Buy your credits now')}}:</p>
                 {{-- <form action="{{ route('confirmMsg') }}" method="post"> --}}
                 {{-- @csrf --}}
                 {{-- <button class="ModalbuttonPink"><strong>Buy {{@$user->credit}} credits (for 3 €) and start the
                         chat</strong></button> --}}
                 {{-- </form> --}}
         
-                <button class="ModalbuttonOrange" onclick="showPaymentModal(80)"><strong>Buy a pack of 100 credits for €80 (save 20%!)</strong></button>
+                <button class="ModalbuttonOrange" onclick="showPaymentModal(80)"><strong>{{__('messages.Buy a pack of 100 credits for €80 (save 20%!)')}}</strong></button>
         
             </div>
         
@@ -440,7 +440,7 @@
             <div class="modal-content1 mb-20">
                 <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..." class="logoImg1" height="10%"
                     width="10%">
-                <span class="close1">&times;</span>
+                <span class="close-payment-modal">&times;</span>
                 <h3><b style="margin-left: 10%;margin-left: 23%;">{{__('messages.You are buying')}} <span
                             id="credits_count"></span> {{__('messages.credits')}} : </b> </h3>
                 <h3><b style="margin-left: 10%;margin-left: 23%;">{{__('messages.Total')}} : €<span
