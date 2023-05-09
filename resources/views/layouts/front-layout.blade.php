@@ -45,9 +45,11 @@
         .dropdown:hover .dropbtn {
             background-color: #3e8e41;
         }
-        .fa-comments {
+        a.fa-comments {
+            position: relative;
+            font-size: 1.5em;
             color: grey;
-            text-decoration: none !important;
+            cursor: pointer;
         }
         .fa-comments:hover {
             color:grey;

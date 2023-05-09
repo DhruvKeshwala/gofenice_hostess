@@ -8,7 +8,7 @@
                 <div class="bannerSearch">
                     <div class="searchCol">
                         <form action="{{route('hostess-search-result')}}">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" class="form-control" placeholder="{{__('messages.Search')}}">
                             <span class="searchIcon"><img src="{{URL::asset('images/search-icon.svg')}}" alt="..."></span>
                         </form>
                     </div>
@@ -72,7 +72,7 @@
                             <img src="{{ URL::asset('images/icon-5.png') }}" alt="...">
                         </div>
                         <div class="cs2ContentCol">
-                            <p>Modelle per shooting</p>
+                            <p>{{__('messages.Modelle per shooting')}}</p>
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
     <div class="sectionSpace lightBg">
         <div class="container">
             <div class="titleCol text-center">
-                <h3 class="lgTitle">Come funziona? Semplice e veloce.</h3>
+                <h3 class="lgTitle">{{__('messages.How does it work? Simple and fast.')}}</h3>
             </div>
             <div class="placeholderConent"></div>
         </div>
@@ -103,13 +103,12 @@
                 </div>
                 <div class="col-md">
                     <div class="titleCol">
-                        <h3 class="lgTitle">Hostess o Modella?</h3>
-                        <h5>Guadagna con il tuo tempo.</h5>
+                        <h3 class="lgTitle">{{__('messages.Hostess or Model?')}}</h3>
+                        <h5>{{__('messages.Earn with your time.')}}</h5>
                     </div>
                     <div class="contentCol">
-                        <p>Lavora in modo indipendente e quando vuoi accopagnando clienti a cena, eventi o
-                            viaggi.</p>
-                        <p>Wostess non è un’agenzia e non prende nessuna commissione o percentuale. </p>
+                        <p>{{__('messages.Work independently and whenever you want, accompanying clients to dinners, events or trips.')}}</p>
+                        <p>{{__('messages.Wostess is not an agency and does not take any commission or percentage.')}} </p>
                     </div>
                 </div>
             </div>
@@ -121,7 +120,7 @@
     <div class="sectionSpace lightBg">
         <div class="container">
             <div class="titleCol">
-                <h3 class="lgTitle">Domande?</h3>
+                <h3 class="lgTitle">{{__('messages.Requests?')}}</h3>
             </div>
 
             <div class="accordionStyle">
