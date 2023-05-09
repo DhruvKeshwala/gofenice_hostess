@@ -65,7 +65,9 @@
 .dropdown-contentlang{
     min-height: 100px !important;
 }
-.ModalbuttonGreen {
+</style>
+<style>
+    .ModalbuttonGreen {
             background-color: #4CAF50;
             border: none;
             color: white;
@@ -80,89 +82,106 @@
             width: 100% !important;
             cursor: pointer;
         }
-    
-        .ModalbuttonPink {
-            background-color: #de2352;
-            border: none;
-            color: white;
-            padding: 16px 1px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin-top: 5%;
-            /* margin-left: 3%; */
-            /* margin-right: 5% !important; */
-            width: 100% !important;
-            cursor: pointer;
-        }
 
-        .logoImg1 {
+    .ModalbuttonPink {
+        background-color: #de2352;
+        border: none;
+        color: white;
+        padding: 16px 1px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 5%;
+        /* margin-left: 3%; */
+        /* margin-right: 5% !important; */
+        width: 100% !important;
+        cursor: pointer;
+    }
+
+    .ModalbuttonOrange {
+        background-color: #f39b03;
+        border: none;
+        color: white;
+        padding: 16px 1px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 5%;
+        /* margin-left: 3%; */
+        /* margin-right: 5% !important; */
+        width: 100% !important;
+        cursor: pointer;
+    }
+
+    .logoImg1 {
         height: 50%;
         width: 42%;
         margin-left: 30%;
         margin-bottom: 5%;
         padding-top: 5%;
-        }
-    
-        .ModalbuttonOrange {
-            background-color: #f39b03;
-            border: none;
-            color: white;
-            padding: 16px 1px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin-top: 5%;
-            /* margin-left: 3%; */
-            /* margin-right: 5% !important; */
-            width: 100% !important;
-            cursor: pointer;
-        }
+    }
 
-/* The Modal (background) */
-            .modal1 {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            padding-top: 100px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0, 0, 0);
-            background-color: rgba(0, 0, 0, 0.4);
-            }
-            
-            /* Modal Content */
-            .modal-content1 {
-            background-color: #fefefe;
-            margin-top: 10%!important;
-            margin: auto;
-            padding: 19px;
-            border: 1px solid #888;
-            width: 25%;
-            }
-            
-            /* The Close Button */
-            .close,.close-payment-modal {
-            color: #aaaaaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            }
-            
-            .close:hover,
-            .close:focus
-            ,.close-payment-modal:hover,
-            .close-payment-modal:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-            }
+    /* The Modal (background) */
+    .modal1 {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        padding-top: 100px;
+        /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+    }
 
+    /* Modal Content */
+    .modal-content1 {
+        background-color: #fefefe;
+        margin-top: 10%!important;
+        margin: auto;
+        padding: 19px;
+        border: 1px solid #888;
+        width: 25%;
+    }
+
+    /* The Close Button */
+    .close1,.close-payment-modal {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close1:hover,
+    .close1:focus,.close-payment-modal:hover, .close-payment-modal:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .direct-chat-btn {
+        margin-bottom: 15px;
+    }
+
+    /* a:hover {
+        color: #fff;
+    } */
+</style>
+
+<style>
             .dropdown-contentlang a {
             padding: 6px 6px !important;
             }
@@ -281,8 +300,8 @@
                                                 <div class="dropdown-content langCol" style="width:140px;">
                                                     <span class="dropdown-profile">
                                                         <a class="dropdown-item" href="{{ route('profile.edit') }}">My Profile</a>
-                                                        <a class="dropdown-item" href="#">Credits: {{@Auth::user()->credit != null || @Auth::user()->credit != '' ? @Auth::user()->credit : 0 }}</a>
-                                                        <a class="dropdown-item" href="#" id="buyCredits">Buy Credits</a>
+                                                        <a class="dropdown-item" href="javascript:;void(0)">Credits: {{@Auth::user()->credit != null || @Auth::user()->credit != '' ? @Auth::user()->credit : 0 }}</a>
+                                                        <a class="dropdown-item" href="javascript:;void(0)" id="buyCreditsMobile">Buy Credits</a>
                                                         <a href="{{ route('user.logout') }}">{{ __('messages.Logout') }}</a>
                                                     </span>
                                                 </div>
@@ -386,7 +405,7 @@
             <div class="modal-content1 mb-20">
                 <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..." class="logoImg1" height="10%"
                     width="10%">
-                <span class="close">&times;</span>
+                <span class="close1">&times;</span>
                 {{-- <h3><b style="margin-left: 10%;margin-left: 23%;">You don't have enough credits.</b></h3> --}}
                 <p style="margin-left: 10%;margin-left: 35%;">{{__('messages.Buy your credits now')}}:</p>
                 {{-- <form action="{{ route('confirmMsg') }}" method="post"> --}}
@@ -444,31 +463,31 @@
         <script src="{{ URL::asset('js/script.js') }}"></script>
         <script>
             $(document).ready(function () {
-                                    $('#buyCredits').click(function(){
-                                        $("#lowCreditModal1").show();
-                                        $(".close").click(function(){
-                                            $("#lowCreditModal1").hide();
-                                        });
-                                    });
-                                });
+                $('#buyCredits, #buyCreditsMobile').click(function(){
+                    $("#lowCreditModal1").show();
+                    $(".close1").click(function(){
+                        $("#lowCreditModal1").hide();
+                    });
+                });
+            });
                     
-                                function showPaymentModal(val) {
-                                    $("#lowCreditModal1").hide();
-                                    if (val == '3') {
-                                        $("#credits_count").html(3);
-                                    }else{
-                                        $("#credits_count").html(100);
-                                    }
-                                    $("#credits_amount").html(val);
-                                    localStorage.setItem("credit_amount",val*100);
-                                    $("#paymentModal").show();
-                                    
-                                }
-                                $(".close-payment-modal").click(function(){
-                                    $("#paymentModal").hide();
-                                });
-                                localStorage.removeItem("payment_response");
-                                // localStorage.setItem("credit_amount",50);
+            function showPaymentModal(val) {
+                $("#lowCreditModal1").hide();
+                if (val == '3') {
+                    $("#credits_count").html(3);
+                }else{
+                    $("#credits_count").html(100);
+                }
+                $("#credits_amount").html(val);
+                localStorage.setItem("credit_amount",val*100);
+                $("#paymentModal").show();
+                
+            }
+            $(".close-payment-modal").click(function(){
+                $("#paymentModal").hide();
+            });
+            localStorage.removeItem("payment_response");
+            // localStorage.setItem("credit_amount",50);
         </script>
     </body>
 
