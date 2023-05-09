@@ -52,7 +52,7 @@
                             <img src="{{ URL::asset('images/icon-3.png') }}" alt="...">
                         </div>
                         <div class="cs2ContentCol">
-                            <p>Compagnia per Aperitivi</p>
+                            <p>{{__('messages.Company for Aperitifs')}}</p>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                             <img src="{{ URL::asset('images/icon-4.png') }}" alt="...">
                         </div>
                         <div class="cs2ContentCol">
-                            <p>Compagnia per weekend e viaggi</p>
+                            <p>{{__('messages.Company for weekends and trips')}}</p>
                         </div>
                     </div>
                 </div>

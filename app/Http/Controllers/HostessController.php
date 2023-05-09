@@ -144,7 +144,7 @@ class HostessController extends Controller
             $projectDetails['profileVisibility'] =  $request->profileVisibility;
 
         $user = User::where('id', Auth::id())->update($projectDetails);
-        return redirect()->back();
+        return back()->with('success',trans('messages.Saved successfully'));
     }
 
     public function destroy(Request $request)
@@ -182,17 +182,27 @@ class HostessController extends Controller
 
     public function showHostess($lang, $id = null)
     {
-        $auth_id = Auth::user()->id;
         $images = '';
-        $user = UserService::getUserById($id);
-        $conversion = Message::where('sender_id', $auth_id)->where('receiver_id', $id)->get();
-        $is_chat_option = false;
-        if (count($conversion)) {
-            $is_chat_option = true;
+        if(Auth::id() != null || Auth::id() != '')
+        {
+            $auth_id = Auth::user()->id;
+            $user = UserService::getUserById($id);
+            $conversion = Message::where('sender_id', $auth_id)->where('receiver_id', $id)->get();
+            $is_chat_option = false;
+            if (count($conversion)) {
+                $is_chat_option = true;
+            }
+            if($user)
+                $images = Gallery::where('userId', $user->id)->get();
+            return view('hostess_profile_new', compact('user', 'id', 'images', 'is_chat_option'));
         }
-        if($user)
-            $images = Gallery::where('userId', $user->id)->get();
-        return view('hostess_profile_new', compact('user', 'id', 'images', 'is_chat_option'));
+        else
+        {
+            $user = UserService::getUserById($id);
+            if($user)
+                $images = Gallery::where('userId', $user->id)->get();
+            return view('hostess_profile_new', compact('user', 'id'));
+        }
     }
 
     public function hostessSearchResult()

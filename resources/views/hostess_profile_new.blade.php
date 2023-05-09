@@ -62,8 +62,8 @@
     /* Modal Content */
     .modal-content {
         background-color: #fefefe;
-        margin-top: 147px;
-        margin: 50px auto;
+        margin-top: 10%!important;
+        margin: auto;
         padding: 19px;
         border: 1px solid #888;
         width: 25%;

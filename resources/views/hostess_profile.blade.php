@@ -247,6 +247,7 @@
 </style>
 <div class="container-fluid">
     <div class="row">
+        
         <div class="col-md-3">
             <main class="w-100 mx-auto text-center" id="profile"
                 style="max-width: 800px;padding: 5px;background-color: white;">
@@ -304,6 +305,14 @@
                             aria-labelledby="pills-home-tab">
                             <main class="w-100 mx-auto " id="remove-margins"
                                 style="max-width: 1500px;padding: 50px;background-color: white;">
+
+                                @if ($message = Session::get('success'))
+                                    <div class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                        <strong>{{@$message}}.</strong>
+                                    </div>    
+                                @endif
+                                
                                 <form name="profile" action="{{ route('save_hostess_profile') }}" method="POST">
                                     @csrf
                                     <h3 style="text-align: left">{{ __('messages.Features') }}</h3>
@@ -430,7 +439,7 @@ if(Auth::user()->languages != '' && Auth::user()->languages != null)
                                     <div class="text-white text-right">
                                         {{-- <a href="javascript:;" class="btn btn-success mt-2"
                                             style="float:right" onclick="saveProfile()">Save</a> --}}
-                                        <input type="submit" name="save" value="{{ __('messages.Save') }}" class="btn btn-success mt-2"
+                                        <input type="submit" name="save" value="{{ __('messages.Save') }}" class="btn btn-danger mt-2"
                                             style="float:right">  
                                             
                                     </div>
@@ -616,7 +625,7 @@ if(Auth::user()->languages != '' && Auth::user()->languages != null)
                                 </div>
 
                                 <div class="text-white text-right">
-                                    <input type="submit" name="save" value="{{ __('messages.Save') }}" class="btn btn-success mt-2" style="float:right">
+                                    <input type="submit" name="save" value="{{ __('messages.Save') }}" class="btn btn-danger mt-2" style="float:right">
                                     {{-- <button type="button" class="btn btn-success mt-5"
                                         style="float:right;" onclick="">Save</button> --}}
                                     {{-- <a href="javascript:;" style="float:right;" onclick="saveProfile()" id="saveBtn" class="btn btn-success mt-5">Save</a> --}}
