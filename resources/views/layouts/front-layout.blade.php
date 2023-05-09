@@ -44,27 +44,37 @@
             background-color: #3e8e41;
         }
         .fa-comments {
-        color: grey;
-        text-decoration: none !important;
+            color: grey;
+            text-decoration: none !important;
         }
         .fa-comments:hover {
-        color:grey;
+            color:grey;
         }
         .dropdown:hover .dropdown-contentlang {
-    width: 40px !important;
-}
+            width: 40px !important;
+        }
 
- .dropdown-contentlang a {
-    width: 40px !important;
-    height: 40px !important;
-}
+        .dropdown-contentlang a {
+            width: 40px !important;
+            height: 40px !important;
+        }
 
-.dropdown-contentlang a {
-    padding: 6px 6px !important;
-}
-.dropdown-contentlang{
-    min-height: 100px !important;
-}
+        .dropdown-contentlang a {
+            padding: 6px 6px !important;
+        }
+        .dropdown-contentlang{
+            min-height: 100px !important;
+        }
+        .signupbtnDark {
+            background-color: var(--black);
+            color: var(--white) !important;
+        }
+        .signupbtn {
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 5px;
+            padding: 12px 20px;
+        }
 
         </style>
     </head>
@@ -99,15 +109,41 @@
                                 <div class="col-auto">
                                     <div class="row g-2 align-items-center d-lg-none">
                                         <div class="col-auto">
-                                            <div class="langCol">
-                                                <span class="selectedLang"><img src="images/Italy-flag.svg"
-                                                        alt="..."></span>
+                                            {{-- <div class="langCol">
+                                                <span class="selectedLang"><img src="images/Italy-flag.svg" alt="..."></span>
                                                 <ul class="langDD">
                                                     <li><a href="javascript:void(0)"><img src="images/Italy-flag.svg"
                                                                 alt="..."></a></li>
                                                     <li><a href="javascript:void(0)"><img src="images/Italy-flag.svg"
                                                                 alt="..."></a></li>
                                                 </ul>
+                                            </div> --}}
+                                            <div class="dropdown langCol">
+                                                <a href="javascript:;void(0)">
+                                                    @if (app()->getLocale() == 'en')
+                                                    <span class="selectedLang"><img src="{{ URL::asset('assets/images/1.png') }}" /></span>
+                                                    @elseif(app()->getLocale() == 'it')
+                                                    <span class="selectedLang"><img src="{{ URL::asset('images/Italy-flag.svg') }}" /></span>
+                                                    @elseif(app()->getLocale() == 'sp')
+                                                    <span class="selectedLang"><img src="{{ URL::asset('assets/images/3.png') }}" /></span>
+                                                    @endif
+                                                </a>
+                                                <div class="dropdown-content dropdown-contentlang langCol">
+                                                    {{-- <x-nav-link href="#"><img src="https://img.icons8.com/color/256/brazil-circular.png" height="100%" width="100%" /></a> --}}
+                                                    @php
+                                                    @$i = 1;
+                                                    @endphp
+                                                    @foreach (config('app.available_locales') as $locale)
+                                                    <span class="selectedLang">
+                                                        <x-nav-link :href="route(\Illuminate\Support\Facades\Route::currentRouteName(),['locale' => $locale],)" :active="app()->getLocale() == $locale">
+                                                            <img src="{{ URL::asset('assets/images/' . @$i . '.png') }}" height="70px" width="70px" />
+                                                        </x-nav-link>
+                                                    </span>
+                                                    @php
+                                                    @$i++;
+                                                    @endphp
+                                                    @endforeach
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -128,7 +164,7 @@
                                                     <span class="dropdown-profile">
                                                         <a class="dropdown-item" href="{{ route('profile.edit') }}">My Profile</a>
                                                         <a class="dropdown-item" href="#">Credits: {{@Auth::user()->credit != null || @Auth::user()->credit != '' ? @Auth::user()->credit : 0 }}</a>
-                                                        <a class="dropdown-item" href="javascript::void(0)" id="buyCredits">Buy Credits</a>
+                                                        <a class="dropdown-item" href="#" id="buyCredits">Buy Credits</a>
                                                         <a href="{{ route('user.logout') }}">{{ __('messages.Logout') }}</a>
                                                     </span>
                                                 </div>
@@ -228,6 +264,16 @@
         @yield('content')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script src="{{ URL::asset('js/script.js') }}"></script>
+        <script>
+            $(document).ready(function () {
+                $('#buyCredits').click(function(){
+                    $("#lowCreditModal1").show();
+                    $(".close").click(function(){
+                        $("#lowCreditModal1").hide();
+                    });
+                });
+            });
+        </script>
     </body>
 
 </html>
