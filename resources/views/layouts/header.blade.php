@@ -10,20 +10,25 @@
 
         <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
         <!--Bootstrap CSS-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+                integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+                crossorigin="anonymous" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" />
 
         {{-- Added by Dev --}}
-        <script src="https://code.jquery.com/jquery-3.6.4.slim.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.slim.js"
+            integrity="sha256-dWvV84T6BhzO4vG6gWhsWVKVoa4lVmLnpBOZh/CAHU4=" crossorigin="anonymous"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/dropzone.min.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js"></script>
-        <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+        <script src="https://code.jquery.com/jquery-2.2.4.js"
+            integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
         {{-- end --}}
         <link rel="stylesheet" href="{{ URL::asset('css/style_header.css') }}">
-        <script src="https://js.stripe.com/v3/"></script>
-        <script src="{{URL::to('../stripe-sample-code/public/checkout.js')}}" defer></script>
+        {{-- <script src="https://js.stripe.com/v3/"></script>
+        <script src="{{URL::to('../stripe-sample-code/public/checkout.js')}}" defer></script> --}}
         
 
     </head>

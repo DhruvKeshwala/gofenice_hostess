@@ -260,7 +260,7 @@
                     margin-bottom: 15px;
                 }
             
-                @media only screen and (max-width: 600px) and (min-width: 320px) {
+                @media only screen and (max-width: 600px) and (min-width: 240px) {
                 /* @media (max-width:767px) { */
                     .modal-content1, .modal-content {
                         width: 100% !important;

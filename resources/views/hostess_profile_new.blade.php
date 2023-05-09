@@ -85,9 +85,9 @@
         cursor: pointer;
     }
 
-    /* a:hover {
-        color: #fff;
-    } */
+    .stickyTop {
+        z-index: 0 !important;
+    }
 </style>
 <section>
     <div class="container">
