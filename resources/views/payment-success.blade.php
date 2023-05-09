@@ -11,7 +11,7 @@
             <div class="section text-center">
                 {{-- <img src="{{ URL::asset('images/payment-success.png') }}" alt=""> --}}
                 <h1 class="success-body mb-5">Your Payment done successfully..!</h1>
-                <a href="{{ route('profile.edit') }}" class="signupbtn signupbtnDark back-button">Back</a>
+                {{-- <a href="{{ route('profile.edit') }}" class="signupbtn signupbtnDark back-button">Back</a> --}}
                 {{-- <span>Response : </span>
                 <div id="demo"></div> --}}
             </div>
@@ -40,7 +40,9 @@
             receiver_hostess_id:receiver_hostess_id,
             credits:credits,
         },
-        success: function(result) {},
+        success: function(result) {
+            window.location.href='../en/user-chat/'+receiver_hostess_id;
+        },
         error: function(xhr, status, error) {}
     });
 </script>

@@ -370,6 +370,15 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        .modal-content1 {
+            background-color: #fefefe;
+            margin-top: 10%!important;
+            margin: auto;
+            padding: 19px;
+            border: 1px solid #888;
+            width: 25%;
+        }
     </style>
 
     <style>
@@ -645,33 +654,4 @@
                 </div>
             </div>
             {{-- payment modal --}}
-            <script src="{{ URL::asset('js/script.js') }}"></script>
-            <script>
-                $(document).ready(function () {
-                            $('#buyCredits').click(function(){
-                                $("#lowCreditModal1").show();
-                                $(".close").click(function(){
-                                    $("#lowCreditModal1").hide();
-                                });
-                            });
-                        });
-            
-                        function showPaymentModal(val) {
-                            $("#lowCreditModal1").hide();
-                            if (val == '3') {
-                                $("#credits_count").html(3);
-                            }else{
-                                $("#credits_count").html(100);
-                            }
-                            $("#credits_amount").html(val);
-                            localStorage.setItem("credit_amount",val*100);
-                            $("#paymentModal").show();
-                            
-                        }
-                        $(".close-payment-modal").click(function(){
-                            $("#paymentModal").hide();
-                        });
-                        localStorage.removeItem("payment_response");
-                        // localStorage.setItem("credit_amount",50);
-            </script>
         </header>

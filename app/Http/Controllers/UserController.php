@@ -117,13 +117,16 @@ class UserController extends Controller
             foreach($chat_list as $user_id => $messages)
             {
                 $user=User::find($user_id);
-                $users[]= [
-                    'id'=> $user->id ,
-                    'name'=> $user->name ,
-                    'profilepic'=>$user->profilepic ,
-                    'last_message' =>last($messages)->message ,
-                    'created_at'=> last($messages)->created_at
-                ];
+                if($user)
+                {
+                    $users[]= [
+                        'id'=> $user->id ,
+                        'name'=> $user->name ,
+                        'profilepic'=>$user->profilepic ,
+                        'last_message' =>last($messages)->message ,
+                        'created_at'=> last($messages)->created_at
+                    ];
+                }
             }
                 
             // $users = User::whereHas('messages', function ($query) use ($user) {
