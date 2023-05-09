@@ -230,8 +230,8 @@
     /* Modal Content */
     .modal-content1 {
         background-color: #fefefe;
-        margin-top: 147px;
-        /* margin: 258px 700px; */
+        margin-top: 10%!important;
+        margin: auto;
         padding: 19px;
         border: 1px solid #888;
         width: 25%;

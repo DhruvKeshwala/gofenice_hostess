@@ -27,6 +27,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
         {{-- end --}}
         <link rel="stylesheet" href="{{ URL::asset('css/style_header.css') }}">
+        
+
     </head>
     <style>
         .dropbtn {
@@ -376,6 +378,29 @@
             padding: 19px;
             border: 1px solid #888;
             width: 25%;
+        }
+    </style>
+
+    <style>
+        .alert {
+        padding: 20px;
+        background-color: green;
+        color: white;
+        }
+        
+        .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+        }
+        
+        .closebtn:hover {
+        color: black;
         }
     </style>
     <body>
