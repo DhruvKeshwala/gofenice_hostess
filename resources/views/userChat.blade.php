@@ -1,11 +1,6 @@
 @extends('layouts.layout')
 @section('title', 'Hostess Profile | Hostess')
 @section('content')
-<style>
-    .jGrowl .changeCount {
-        background-color: #4BB543 !important;
-    }
-</style>
 <script src="https://js.stripe.com/v3/"></script>
 <script src="https://phpstack-957459-3413409.cloudwaysapps.com/stripe-sample-code/public/checkout.js" defer></script>
 <style>
@@ -14,8 +9,6 @@
     a:hover {
         color: #fff;
     }
-</style>
-<style>
     body {
         margin-top: 20px;
     }
@@ -84,6 +77,17 @@
     color:black !important;
     text-decoration: none !important;
     }
+    .jGrowl .changeCount {
+        background-color: #4BB543 !important;
+    }
+    .content.chat-section {
+        padding-top: 20px;
+    }
+    @media (min-width: 1400px){
+        .container {
+            max-width: 1344px !important;
+        }
+    }
 
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -91,7 +95,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <section>
     <div class="container">
-        <main class="content">
+        <main class="content chat-section">
             <div class="container p-0">
 
                 <h1 class="h3 mb-3">{{__('messages.Messages')}}</h1>

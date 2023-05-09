@@ -163,7 +163,7 @@
                                     </g>
                                 </svg>
                             </div>
-                            <a href="{{ route('showHostess', ['id' => 59]) }}"><img src="{{ URL::asset('images/img-03.jpg') }}" alt="..." class="cs1Img"></a>
+                            <a href="{{ route('showHostess', ['id' => 59]) }}"><img src="{{ URL::asset('images/img-03.jpeg') }}" alt="..." class="cs1Img"></a>
                         </div>
                         <div class="cs1ContentCol">
                             <div class="row g-2">
@@ -383,7 +383,7 @@
                                     </g>
                                 </svg>
                             </div>
-                            <a href="{{ route('showHostess', ['id' => 59]) }}"><img src="{{ URL::asset('images/img-03.jpg') }}" alt="..." class="cs1Img"></a>
+                            <a href="{{ route('showHostess', ['id' => 59]) }}"><img src="{{ URL::asset('images/img-03.jpeg') }}" alt="..." class="cs1Img"></a>
                         </div>
                         <div class="cs1ContentCol">
                             <div class="row g-2">
