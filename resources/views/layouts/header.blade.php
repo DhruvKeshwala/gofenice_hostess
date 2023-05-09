@@ -601,8 +601,7 @@
                     chat</strong></button> --}}
                     {{-- </form> --}}
             
-                    <button class="ModalbuttonOrange" onclick="showPaymentModal(80)"><strong>{{__('messages.Buy a pack of 100 credits for €80 (save
-                    20%!)')}}</strong></button>
+                    <button class="ModalbuttonOrange" onclick="showPaymentModal(80)"><strong>{{__('messages.Buy a pack of 100 credits for €80 (save 20%!)')}}</strong></button>
             
                 </div>
             
