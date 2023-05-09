@@ -189,7 +189,7 @@ return [
     'Company for Aperitifs' => 'Empresa de Aperitivos',
     'Company for weekends and trips' => 'Compañía para fines de semana y viajes',
     'Saved successfully' => 'Guardado exitosamente',
-    'email' => 'Email',
+    'chat' => 'charlar',
     'email' => 'Email',
     'email' => 'Email',
     'email' => 'Email',
