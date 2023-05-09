@@ -423,9 +423,23 @@
                                                 <li><a href="javascript:void(0)">{{__('messages.Near')}}</a></li>
                                                 <li><a href="javascript:void(0)">{{__('messages.How_does_it_work')}}</a></li>
                                                 <li><a href="javascript:void(0)">{{__('messages.are_you_a_hostess_model')}}</a></li>
+                                                @if (Auth::id() != null || Auth::id() != '')
+                                                @if(Auth::user()->user_type == 'user')
+                                                <li class="d-lg-none"><a href="{{ route('userChat') }}">Chat</a></li>
+                                                <li class="d-lg-none"><a href="{{ route('profile.edit') }}">{{__('messages.My Profile')}}</a></li>
+                                                <li class="d-lg-none"><a href="#">{{__('messages.Credits')}}: {{@Auth::user()->credit != null || @Auth::user()->credit != '' ? @Auth::user()->credit : 0 }}</a></li>
+                                                <li class="d-lg-none"><a href="#" id="buyCredits">{{__('messages.Buy Credits')}}</a></li>
+                                                <li class="d-lg-none"><a href="{{ route('user.logout') }}">{{ __('messages.Logout') }}</a></li>
+                                                @else 
+                                                <li class="d-lg-none"><a href="{{ route('userChat') }}">Chat</a></li>
+                                                <li class="d-lg-none"><a href="{{ route('hostess_profile') }}">{{__('messages.My Profile')}}</a></li>
+                                                <li class="d-lg-none"><a href="{{ route('user.logout') }}">{{ __('messages.Logout') }}</a></li>
+                                                @endif 
+                                                @else
                                                 <li class="d-lg-none"><a href="{{ route('login') }}">{{__('messages.Login')}}</a></li>
                                                 <li class="d-lg-none"><a href="{{ route('register') }}">{{__('messages.Sign up free')}}</a>
                                                 </li>
+                                                @endif
                                             </ul>
                                         </div>
                                     </div>
