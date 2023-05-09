@@ -355,15 +355,15 @@
         }
     
         /* The Close Button */
-        .close,.close-payment-modal {
+        .close1,.close-payment-modal {
             color: #aaaaaa;
             float: right;
             font-size: 28px;
             font-weight: bold;
         }
     
-        .close:hover,
-        .close:focus
+        .close1:hover,
+        .close1:focus
         ,.close-payment-modal:hover,
         .close-payment-modal:focus {
             color: #000;
@@ -512,7 +512,7 @@
                                                 <span class="dropdown-profile">
                                                     <a class="dropdown-item" href="{{ route('profile.edit') }}">{{__('messages.My Profile')}}</a>
                                                     <a class="dropdown-item" href="#">{{__('messages.Credits')}}: {{@Auth::user()->credit != null || @Auth::user()->credit != '' ? @Auth::user()->credit : 0 }}</a>
-                                                    <a class="dropdown-item" href="javascript::void(0)" id="buyCredits">{{__('messages.Buy Credits')}}</a>
+                                                    <a class="dropdown-item" href="javascript::void(0)" id="buyCreditsMobile">{{__('messages.Buy Credits')}}</a>
                                                     <a href="{{ route('user.logout') }}">{{ __('messages.Logout') }}</a>
                                                 </span>
                                             </div>
@@ -615,7 +615,7 @@
                 <div class="modal-content1 mb-20">
                     <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..." class="logoImg1" height="10%"
                         width="10%">
-                    <span class="close">&times;</span>
+                    <span class="close1">&times;</span>
                     {{-- <h3><b style="margin-left: 10%;margin-left: 23%;">You don't have enough credits.</b></h3> --}}
                     <p style="margin-left: 10%;margin-left: 35%;">{{__('messages.Buy your credits now')}}:</p>
                     {{-- <form action="{{ route('confirmMsg') }}" method="post"> --}}
@@ -668,4 +668,32 @@
                 </div>
             </div>
             {{-- payment modal --}}
+            <script>
+                $(document).ready(function () {
+                            $('#buyCredits,#buyCreditsMobile').click(function(){
+                                $("#lowCreditModal1").show();
+                                $(".close1").click(function(){
+                                    $("#lowCreditModal1").hide();
+                                });
+                            });
+                        });
+            
+                        function showPaymentModal(val) {
+                            $("#lowCreditModal1").hide();
+                            if (val == '3') {
+                                $("#credits_count").html(3);
+                            }else{
+                                $("#credits_count").html(100);
+                            }
+                            $("#credits_amount").html(val);
+                            localStorage.setItem("credit_amount",val*100);
+                            $("#paymentModal").show();
+                            
+                        }
+                        $(".close-payment-modal").click(function(){
+                            $("#paymentModal").hide();
+                        });
+                        localStorage.removeItem("payment_response");
+                        // localStorage.setItem("credit_amount",50);
+            </script>
         </header>

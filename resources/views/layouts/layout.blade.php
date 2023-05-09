@@ -146,112 +146,124 @@
             color: grey;
             cursor: pointer;
             }
+            </style>
+            <style>
+                .ModalbuttonGreen {
+                    background-color: #4CAF50;
+                    border: none;
+                    color: white;
+                    padding: 16px 1px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin-top: 5%;
+                    /* margin-left: 3%; */
+                    /* margin-right: 5% !important; */
+                    width: 100% !important;
+                    cursor: pointer;
+                }
             
-    .ModalbuttonGreen {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 16px 1px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin-top: 5%;
-            /* margin-left: 3%; */
-            /* margin-right: 5% !important; */
-            width: 100% !important;
-            cursor: pointer;
-        }
-
-    .ModalbuttonPink {
-        background-color: #de2352;
-        border: none;
-        color: white;
-        padding: 16px 1px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin-top: 5%;
-        /* margin-left: 3%; */
-        /* margin-right: 5% !important; */
-        width: 100% !important;
-        cursor: pointer;
-    }
-
-    .ModalbuttonOrange {
-        background-color: #f39b03;
-        border: none;
-        color: white;
-        padding: 16px 1px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin-top: 5%;
-        /* margin-left: 3%; */
-        /* margin-right: 5% !important; */
-        width: 100% !important;
-        cursor: pointer;
-    }
-
-    .logoImg1 {
-        height: 50%;
-        width: 42%;
-        margin-left: 30%;
-        margin-bottom: 5%;
-        padding-top: 5%;
-    }
-
-    /* The Modal (background) */
-    .modal1 {
-        display: none;
-        /* Hidden by default */
-        position: fixed;
-        /* Stay in place */
-        z-index: 1;
-        /* Sit on top */
-        padding-top: 100px;
-        /* Location of the box */
-        left: 0;
-        top: 0;
-        width: 100%;
-        /* Full width */
-        height: 100%;
-        /* Full height */
-        overflow: auto;
-        /* Enable scroll if needed */
-        background-color: rgb(0, 0, 0);
-        /* Fallback color */
-        background-color: rgba(0, 0, 0, 0.4);
-        /* Black w/ opacity */
-    }
-
-    /* Modal Content */
-    .modal-content1 {
-        background-color: #fefefe;
-        margin-top: 10%!important;
-        margin: auto;
-        padding: 19px;
-        border: 1px solid #888;
-        width: 25%;
-    }
-
-    /* The Close Button */
-    .close1,.close-payment-modal {
-        color: #aaaaaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    .close1:hover,
-    .close1:focus,.close-payment-modal:hover, .close-payment-modal:focus {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
-    }
-        </style>
+                .ModalbuttonPink {
+                    background-color: #de2352;
+                    border: none;
+                    color: white;
+                    padding: 16px 1px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin-top: 5%;
+                    /* margin-left: 3%; */
+                    /* margin-right: 5% !important; */
+                    width: 100% !important;
+                    cursor: pointer;
+                }
+            
+                .ModalbuttonOrange {
+                    background-color: #f39b03;
+                    border: none;
+                    color: white;
+                    padding: 16px 1px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin-top: 5%;
+                    /* margin-left: 3%; */
+                    /* margin-right: 5% !important; */
+                    width: 100% !important;
+                    cursor: pointer;
+                }
+            
+                .logoImg1 {
+                    height: 50%;
+                    width: 42%;
+                    margin-left: 30%;
+                    margin-bottom: 5%;
+                    padding-top: 5%;
+                }
+            
+                /* The Modal (background) */
+                .modal1 {
+                    display: none;
+                    /* Hidden by default */
+                    position: fixed;
+                    /* Stay in place */
+                    z-index: 1;
+                    /* Sit on top */
+                    padding-top: 100px;
+                    /* Location of the box */
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    /* Full width */
+                    height: 100%;
+                    /* Full height */
+                    overflow: auto;
+                    /* Enable scroll if needed */
+                    background-color: rgb(0, 0, 0);
+                    /* Fallback color */
+                    background-color: rgba(0, 0, 0, 0.4);
+                    /* Black w/ opacity */
+                }
+            
+                /* Modal Content */
+                .modal-content1 {
+                    background-color: #fefefe;
+                    margin-top: 10% !important;
+                    margin: auto;
+                    padding: 19px;
+                    border: 1px solid #888;
+                    width: 25%;
+                }
+            
+                /* The Close Button */
+                .close1,
+                .close-payment-modal {
+                    color: #aaaaaa;
+                    float: right;
+                    font-size: 28px;
+                    font-weight: bold;
+                }
+            
+                .close1:hover,
+                .close1:focus,
+                .close-payment-modal:hover,
+                .close-payment-modal:focus {
+                    color: #000;
+                    text-decoration: none;
+                    cursor: pointer;
+                }
+            
+                .direct-chat-btn {
+                    margin-bottom: 15px;
+                }
+            
+                /* a:hover {
+                    color: #fff;
+                } */
+            </style>
     </head>
 
     <body>
@@ -275,17 +287,17 @@
                                                 <li><a href="javascript:void(0)">{{__('messages.How_does_it_work')}}</a></li>
                                                 <li><a href="javascript:void(0)">{{__('messages.are_you_a_hostess_model')}}</a></li>
                                                 @if (Auth::id() != null || Auth::id() != '')
-                                                @if(Auth::user()->user_type == 'user')
-                                                <li class="d-lg-none"><a href="{{ route('userChat') }}">Chat</a></li>
-                                                <li class="d-lg-none"><a href="{{ route('profile.edit') }}">{{__('messages.My Profile')}}</a></li>
-                                                <li class="d-lg-none"><a href="#">{{__('messages.Credits')}}: {{@Auth::user()->credit != null || @Auth::user()->credit != '' ? @Auth::user()->credit : 0 }}</a></li>
-                                                <li class="d-lg-none"><a href="#" id="buyCredits">{{__('messages.Buy Credits')}}</a></li>
-                                                <li class="d-lg-none"><a href="{{ route('user.logout') }}">{{ __('messages.Logout') }}</a></li>
-                                                @else 
-                                                <li class="d-lg-none"><a href="{{ route('userChat') }}">Chat</a></li>
-                                                <li class="d-lg-none"><a href="{{ route('hostess_profile') }}">{{__('messages.My Profile')}}</a></li>
-                                                <li class="d-lg-none"><a href="{{ route('user.logout') }}">{{ __('messages.Logout') }}</a></li>
-                                                @endif 
+                                                    @if(Auth::user()->user_type == 'user')
+                                                    <li class="d-lg-none"><a href="{{ route('userChat') }}">Chat</a></li>
+                                                    <li class="d-lg-none"><a href="{{ route('profile.edit') }}">{{__('messages.My Profile')}}</a></li>
+                                                    <li class="d-lg-none"><a href="#">{{__('messages.Credits')}}: {{@Auth::user()->credit != null || @Auth::user()->credit != '' ? @Auth::user()->credit : 0 }}</a></li>
+                                                    <li class="d-lg-none"><a href="#" id="buyCredits">{{__('messages.Buy Credits')}}</a></li>
+                                                    <li class="d-lg-none"><a href="{{ route('user.logout') }}">{{ __('messages.Logout') }}</a></li>
+                                                    @else 
+                                                    <li class="d-lg-none"><a href="{{ route('userChat') }}">Chat</a></li>
+                                                    <li class="d-lg-none"><a href="{{ route('hostess_profile') }}">{{__('messages.My Profile')}}</a></li>
+                                                    <li class="d-lg-none"><a href="{{ route('user.logout') }}">{{ __('messages.Logout') }}</a></li>
+                                                    @endif 
                                                 @else
                                                 <li class="d-lg-none"><a href="{{ route('login') }}">{{__('messages.Login')}}</a></li>
                                                 <li class="d-lg-none"><a href="{{ route('register') }}">{{__('messages.Sign up free')}}</a>
@@ -356,7 +368,7 @@
 
                                                     <a href="#" class="a-link">{{__('messages.Credits')}}:
                                                         {{@Auth::user()->credit != null || @Auth::user()->credit != '' ? @Auth::user()->credit : 0 }}</a>
-                                                    <a href="javascript::void(0)" id="buyCredits" class="a-link">{{__('messages.Buy Credits')}}</a>
+                                                    <a href="javascript::void(0)" id="buyCreditsMobile" class="a-link">{{__('messages.Buy Credits')}}</a>
                                                     <a href="{{ route('user.logout') }}" class="a-link">{{ __('messages.Logout') }}</a>
                                                 </div>
                                             </div>
@@ -492,18 +504,18 @@
                 {{-- <button class="ModalbuttonOrange Modalbutton"><strong>Buy a pack of 100 credits for €80 (save 20%!)</strong></button> --}}
             </div>
         </div>
-        {{-- payment modal --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script src="{{ URL::asset('js/script.js') }}"></script>
         <script>
             $(document).ready(function () {
-                $('#buyCredits').click(function(){
+                $('#buyCredits, #buyCreditsMobile').click(function(){
                     $("#lowCreditModal1").show();
                     $(".close1").click(function(){
                         $("#lowCreditModal1").hide();
                     });
                 });
             });
-
+                    
             function showPaymentModal(val) {
                 $("#lowCreditModal1").hide();
                 if (val == '3') {
