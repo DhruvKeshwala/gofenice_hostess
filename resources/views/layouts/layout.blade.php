@@ -260,9 +260,18 @@
                     margin-bottom: 15px;
                 }
             
-                /* a:hover {
-                    color: #fff;
-                } */
+                @media only screen and (max-width: 600px) and (min-width: 320px) {
+                /* @media (max-width:767px) { */
+                    .modal-content1, .modal-content {
+                        width: 100% !important;
+                    }
+                }
+
+                @media only screen and (max-width: 1040px) and (min-width: 600px) {
+                    .modal-content1, .modal-content {
+                        width: 50% !important;
+                    }
+                }
             </style>
     </head>
 
@@ -288,7 +297,7 @@
                                                 <li><a href="javascript:void(0)">{{__('messages.are_you_a_hostess_model')}}</a></li>
                                                 @if (Auth::id() != null || Auth::id() != '')
                                                     @if(Auth::user()->user_type == 'user')
-                                                    <li class="d-lg-none"><a href="{{ route('userChat') }}">Chat</a></li>
+                                                    <li class="d-lg-none"><a href="{{ route('userChat') }}">{{__('messages.chat')}}</a></li>
                                                     <li class="d-lg-none"><a href="{{ route('profile.edit') }}">{{__('messages.My Profile')}}</a></li>
                                                     <li class="d-lg-none"><a href="#">{{__('messages.Credits')}}: {{@Auth::user()->credit != null || @Auth::user()->credit != '' ? @Auth::user()->credit : 0 }}</a></li>
                                                     <li class="d-lg-none"><a href="#" id="buyCredits">{{__('messages.Buy Credits')}}</a></li>

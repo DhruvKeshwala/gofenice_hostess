@@ -192,7 +192,7 @@ return [
     'Company for Aperitifs' => 'Company for Aperitifs',
     'Company for weekends and trips' => 'Company for weekends and trips',
     'Saved successfully' => 'Saved successfully',
-    'email' => 'Email',
+    'chat' => 'Chat',
     'email' => 'Email',
     'email' => 'Email',
     'email' => 'Email',

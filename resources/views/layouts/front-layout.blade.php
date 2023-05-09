@@ -10,6 +10,8 @@
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
             integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
             crossorigin="anonymous" />
+        <script src="https://js.stripe.com/v3/"></script>
+        <script src="{{URL::to('../stripe-sample-code/public/checkout.js')}}" defer></script>
         <style>
             .dropdown {
             position: relative;
@@ -65,8 +67,7 @@
 .dropdown-contentlang{
     min-height: 100px !important;
 }
-</style>
-<style>
+
     .ModalbuttonGreen {
             background-color: #4CAF50;
             border: none;
@@ -176,12 +177,8 @@
         margin-bottom: 15px;
     }
 
-    /* a:hover {
-        color: #fff;
-    } */
-</style>
+    
 
-<style>
             .dropdown-contentlang a {
             padding: 6px 6px !important;
             }
@@ -197,6 +194,12 @@
             font-weight: 600;
             border-radius: 5px;
             padding: 12px 20px;
+            }
+
+            @media (max-width:767px) {
+                .modal-content1 {
+                    width: 100%;
+                }
             }
 
         </style>
@@ -224,7 +227,7 @@
                                                 <li><a href="javascript:void(0)">{{__('messages.are_you_a_hostess_model')}}</a></li>
                                                 @if (Auth::id() != null || Auth::id() != '')
                                                 @if(Auth::user()->user_type == 'user')
-                                                <li class="d-lg-none"><a href="{{ route('userChat') }}">Chat</a></li>
+                                                <li class="d-lg-none"><a href="{{ route('userChat') }}">{{__('messages.chat')}}</a></li>
                                                 <li class="d-lg-none"><a href="{{ route('profile.edit') }}">{{__('messages.My Profile')}}</a></li>
                                                 <li class="d-lg-none"><a href="#">{{__('messages.Credits')}}: {{@Auth::user()->credit != null || @Auth::user()->credit != '' ? @Auth::user()->credit : 0 }}</a></li>
                                                 <li class="d-lg-none"><a href="#" id="buyCredits">{{__('messages.Buy Credits')}}</a></li>
@@ -299,9 +302,9 @@
                                                 <a class="a-link"><i class="fas fa-user"></i></a>
                                                 <div class="dropdown-content langCol" style="width:140px;">
                                                     <span class="dropdown-profile">
-                                                        <a class="dropdown-item" href="{{ route('profile.edit') }}">My Profile</a>
-                                                        <a class="dropdown-item" href="javascript:;void(0)">Credits: {{@Auth::user()->credit != null || @Auth::user()->credit != '' ? @Auth::user()->credit : 0 }}</a>
-                                                        <a class="dropdown-item" href="javascript:;void(0)" id="buyCreditsMobile">Buy Credits</a>
+                                                        <a class="dropdown-item" href="{{ route('profile.edit') }}">{{__('messages.My Profile')}}</a>
+                                                        <a class="dropdown-item" href="javascript:;void(0)">{{__('messages.Credits')}}: {{@Auth::user()->credit != null || @Auth::user()->credit != '' ? @Auth::user()->credit : 0 }}</a>
+                                                        <a class="dropdown-item" href="javascript:;void(0)" id="buyCreditsMobile">{{__('messages.Buy Credits')}}</a>
                                                         <a href="{{ route('user.logout') }}">{{ __('messages.Logout') }}</a>
                                                     </span>
                                                 </div>
@@ -319,7 +322,7 @@
                                                 <span style="color: #000000;" class="">{{ __('messages.Welcome') }}, {{ Auth::user()->name }}</span>
                                                 <div class="dropdown-content langCol">
                                                     <span class="dropdown-profile">
-                                                        <a class="dropdown-item" href="{{ route('hostess_profile') }}">My Profile</a>
+                                                        <a class="dropdown-item" href="{{ route('hostess_profile') }}">{{__('messages.My Profile')}}</a>
                                                         <a href="{{ route('user.logout') }}">{{ __('messages.Logout') }}</a>
                                                     </span>
                                                 </div>
