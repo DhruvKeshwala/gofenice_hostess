@@ -27,6 +27,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
         {{-- end --}}
         <link rel="stylesheet" href="{{ URL::asset('css/style_header.css') }}">
+        <script src="https://js.stripe.com/v3/"></script>
+        <script src="{{URL::to('../stripe-sample-code/public/checkout.js')}}" defer></script>
         
 
     </head>
