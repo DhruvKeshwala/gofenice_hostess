@@ -11,7 +11,7 @@
     }
 
     main {
-        margin-top: 50px;
+        margin-top: 3%;
     }
 
     .card__img {
@@ -103,13 +103,7 @@
             <input type="hidden" class="form-control" id="user_type" name="user_type" value="{{ old('user_type') }}">
             @if ($errors->has('email'))
                 <span class="text-danger">
-                    @if($errors->has('email') == 'validation.email')  
-                        {{ __('messages.Invalid Email Please enter valid email') }}
-                    @elseif($errors->has('email') == 'validation.unique')
-                        {{ __('messages.Email already exist') }}
-                    @else 
-                    {{ __('messages.Email field is required') }}
-                    @endif 
+                    {{ $errors->first('email') }}  
                 </span>
             @endif
         </div>
@@ -174,8 +168,13 @@
             <input style="" type="password" class="form-control" id="password" name="password"
                 placeholder="Password" value="{{ old('password') }}">
 
-            @if ($errors->has('password'))
+            {{-- @if ($errors->has('password'))
                 <span class="text-danger">{{ __('messages.Password field is required') }}</span>
+            @endif --}}
+            @if ($errors->has('password'))
+                <span class="text-danger">
+                    {{ $errors->first('password') }}  
+                </span>
             @endif
         </div>
 
@@ -186,8 +185,13 @@
             <input style="" type="password" class="form-control" id="password_confirmation"
                 name="password_confirmation" placeholder="Password" value="{{ old('password_confirmation') }}">
 
-            @if ($errors->has('password_confirmation'))
+            {{-- @if ($errors->has('password_confirmation'))
                 <span class="text-danger">{{ __('messages.Password Mismatched Please Enter Valid Confirm Password') }}</span>
+            @endif --}}
+            @if ($errors->has('password_confirmation'))
+                <span class="text-danger">
+                    {{ $errors->first('password_confirmation') }}  
+                </span>
             @endif
         </div>
 
