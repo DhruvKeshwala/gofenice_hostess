@@ -75,7 +75,7 @@ input[type="checkbox"] {
   }
 }
 main{
-  margin-top:100px;
+  margin-top: 5%;
 }
 .navbar-toggler:focus{
   box-shadow: none;
