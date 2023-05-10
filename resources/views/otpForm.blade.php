@@ -1,10 +1,10 @@
 @include('layouts.header')
     <main class="form-signin w-100 mx-auto" style="max-width:400px;">
         @if(Session::has('success'))
-        <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('success') }}</p>
+        <p class="alert-success {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('success') }}</p>
         @endif
         @if(Session::has('error'))
-        <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('error') }}</p>
+        <p class="alert-error {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('error') }}</p>
         @endif
         <form name="otpForm" method="post" action="{{route('user.verifyOtp')}}" autocomplete="off" >
             @csrf

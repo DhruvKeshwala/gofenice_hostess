@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Route;
 
 //Admin Controllers
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Admin\GalleryController;
+use App\Http\Controllers\Admin\PrefixController;
+
+
 
 
 /*
@@ -128,7 +133,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('login', [AdminUserController::class, 'adminLogin'])->name('admin.login');
     Route::middleware(['auth', 'user-access:1'])->group(function () {
 
-
+        // Users routes
         Route::get('users', [AdminUserController::class, 'index'])->name('admin.users');
         Route::post('changeStatus', [AdminUserController::class, 'changeStatusUser'])->name('admin.changeStatusUser');
         Route::post('delete_user', [AdminUserController::class, 'destroy'])->name('delete_contact');  
@@ -139,6 +144,20 @@ Route::group(['prefix' => 'admin'], function () {
         
         Route::get('dashboard', [AdminUserController::class, 'dashboard'])->name('admin.dashboard');        
         
+        // Transaction routes
+        Route::get('transactions', [TransactionController::class, 'index'])->name('admin.transactions');
+        Route::post('delete_transaction', [TransactionController::class, 'destroy'])->name('delete_transaction');
+
+        //Gallery
+        Route::get('gallery', [GalleryController::class, 'index'])->name('admin.gallery');
+        Route::get('list-gallery/{id?}', [GalleryController::class, 'listGallery'])->name('admin.listGallery');
+
+        //Mobile Prefix
+        Route::get('mobile-prefix', [PrefixController::class, 'index'])->name('admin.mobilePrefix');
+        Route::post('save_prefix', [PrefixController::class, 'store'])->name('save_mobilePrefix');
+        Route::post('delete_prefix', [PrefixController::class, 'destroy'])->name('delete_prefix');  
+
+
         Route::get('logout', function ()
         {
             auth()->logout();

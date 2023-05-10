@@ -15,4 +15,9 @@ class Response extends Model
         'amount',
         'status'
     ];
+
+    public function userName()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

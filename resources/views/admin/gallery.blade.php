@@ -1,5 +1,5 @@
 @extends('layouts.admin.layout')
-@section('title', 'Users | Hostess')
+@section('title', 'Gallery | Hostess')
 
 @section('content')
 <div class="toolbar" id="kt_toolbar">
@@ -10,7 +10,7 @@
             data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
             class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
             <!--begin::Title-->
-            <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Users</h1>
+            <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Gallery</h1>
             <!--end::Title-->
             <!--begin::Separator-->
             <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -28,7 +28,7 @@
                 </li>
                 <!--end::Item-->
                 <!--begin::Item-->
-                <li class="breadcrumb-item text-dark">Users</li>
+                <li class="breadcrumb-item text-dark">Gallery</li>
                 <!--end::Item-->
             </ul>
             <!--end::Breadcrumb-->
@@ -552,13 +552,13 @@
                     <thead>
                         <!--begin::Table row-->
                         <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                            
+
                             <th width="2%">#</th>
                             <th width="10%">Image</th>
-                            <th width="23%">Name</th>
-                            <th width="15%">Email</th>
+                            <th width="">Name</th>
+                            {{-- <th width="15%">Email</th>
                             <th width="20%">Mobile</th>
-                            <th width="5%">Gender</th>
+                            <th width="5%">Gender</th> --}}
                             <th width="10%">Status</th>
                             <th width="15%">Actions</th>
                         </tr>
@@ -575,38 +575,49 @@
                                 <!--begin:: Avatar -->
                                 <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                     @if(@$item->profilepic != null || @$item->profilepic != '')
-                                        <a href="{{ URL::asset('upload/user/profile/' . @$item->profilepic) }}">
-                                            <div class="symbol-label">
-                                                <img src="{{ URL::asset('upload/user/profile/' . @$item->profilepic) }}" alt="profile pic"
-                                                class="w-100">
-                                            </div>
-                                        </a>
+                                    <a href="{{ URL::asset('upload/user/profile/' . @$item->profilepic) }}">
+                                        <div class="symbol-label">
+                                            <img src="{{ URL::asset('upload/user/profile/' . @$item->profilepic) }}"
+                                                alt="profile pic" class="w-100">
+                                        </div>
+                                    </a>
                                     @else
-                                        <a href="https://t4.ftcdn.net/jpg/04/50/60/51/360_F_450605101_Rc8xz4hnMtuePmpZA1i6RZMwREwcqaZI.jpg">
-                                            <div class="symbol-label">
-                                                <img src="https://t4.ftcdn.net/jpg/04/50/60/51/360_F_450605101_Rc8xz4hnMtuePmpZA1i6RZMwREwcqaZI.jpg" alt="profile pic" class="w-100">
-                                            </div>
-                                        </a>
+                                    <a
+                                        href="https://t4.ftcdn.net/jpg/04/50/60/51/360_F_450605101_Rc8xz4hnMtuePmpZA1i6RZMwREwcqaZI.jpg">
+                                        <div class="symbol-label">
+                                            <img src="https://t4.ftcdn.net/jpg/04/50/60/51/360_F_450605101_Rc8xz4hnMtuePmpZA1i6RZMwREwcqaZI.jpg"
+                                                alt="profile pic" class="w-100">
+                                        </div>
+                                    </a>
                                     @endif
                                 </div>
                                 <!--end::Avatar-->
                             </td>
-                            <td>{{ @$item->name }}</td>
+                            <td>{{ @$item->name . ' ' . @$item->surname }}</td>
+                            {{-- <td>{{ @$item->name }}</td>
                             <td><a href="mailto:{{@$item->email}}">{{@$item->email}}</a></td>
                             <td><a href="tel:{{@$item->mobileno}}">{{ @$item->mobileno}}</a></td>
-                            <td>@if(@$item->gender != null || @$item->gender != '') {{ @$item->gender }} @endif</td>
+                            <td>@if(@$item->gender != null || @$item->gender != '') {{ @$item->gender }} @endif</td> --}}
                             <td>
-                                <select onchange="changeStatus('{{@$item->id}}', this)" name="status" class="form-control status">
-                                    <option value="Active" @if(@$item->status == 'Active') selected @endif>Active</option>
-                                    <option value="Pending" @if(@$item->status == 'Pending') selected @endif>Pending</option>
-                                    <option value="Approval" @if(@$item->status == 'Approval') selected @endif>Approval</option>
-                                    <option value="Suspended" @if(@$item->status == 'Suspended') selected @endif>Suspended</option>
-                                    <option value="Banned" @if(@$item->status == 'Banned') selected @endif>Banned</option>
-                                    
-                                </select>
+                                {{-- <select onchange="changeStatus('{{@$item->id}}', this)" name="status"
+                                    class="form-control status">
+                                    <option value="Active" @if(@$item->status == 'Active') selected @endif>Active
+                                    </option>
+                                    <option value="Pending" @if(@$item->status == 'Pending') selected @endif>Pending
+                                    </option>
+                                    <option value="Approval" @if(@$item->status == 'Approval') selected @endif>Approval
+                                    </option>
+                                    <option value="Suspended" @if(@$item->status == 'Suspended') selected
+                                        @endif>Suspended</option>
+                                    <option value="Banned" @if(@$item->status == 'Banned') selected @endif>Banned
+                                    </option>
+
+                                </select> --}}
+                                {{ @$item->status }}
                             </td>
-                            <td><a href="{{ route('admin.addUser', ['id' => @$item->id]) }}"><i class="fa fa-edit fa-lg text-primary" style="font-size:24px;" title="Edit"></i></a>
-                                <a href="javascript::void(0)" onclick="deleteUser('{{@$item->id}}')"><i class="fa fa-trash-o text-danger" style="font-size:24px;" title="Delete"></i></a>
+                            <td><a href="{{ route('admin.listGallery', ['id' => @$item->id]) }}"><i
+                                        class="fa fa-eye fa-lg text-success" style="font-size:24px;"
+                                        title="View Gallery"></i></a>
                             </td>
                         </tr>
                         @endforeach
@@ -708,8 +719,4 @@
         });
     }
 </script>
-@endsection
-
-@section('js')
-    <script src="{{URL::asset('assets/admin/js/custom/apps/user-management/users/list/table.js') }}"></script>
 @endsection

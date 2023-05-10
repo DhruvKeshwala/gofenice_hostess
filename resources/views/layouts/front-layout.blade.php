@@ -132,7 +132,7 @@
         /* Hidden by default */
         position: fixed;
         /* Stay in place */
-        z-index: 1;
+        z-index: 99999;
         /* Sit on top */
         padding-top: 100px;
         /* Location of the box */
@@ -224,7 +224,7 @@
                                     <div class="navigationColMain">
                                         <div class="menuCol">
                                             <ul>
-                                                <li><a href="javascript:void(0)">{{__('messages.Near')}}</a></li>
+                                                <li><a href="{{ route('hostess-search-result') }}">{{__('messages.Near')}}</a></li>
                                                 <li><a href="javascript:void(0)">{{__('messages.How_does_it_work')}}</a></li>
                                                 <li><a href="javascript:void(0)">{{__('messages.are_you_a_hostess_model')}}</a></li>
                                                 @if (Auth::id() != null || Auth::id() != '')

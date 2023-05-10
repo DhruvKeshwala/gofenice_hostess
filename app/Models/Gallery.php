@@ -15,4 +15,9 @@ class Gallery extends Model
         'order',
         'status'
     ];
+
+    public function userName()
+    {
+        return $this->belongsTo(User::class, 'userId');
+    }
 }

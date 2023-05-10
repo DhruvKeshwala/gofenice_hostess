@@ -1,8 +1,8 @@
 "use strict";
 var KTUsersList = function() {
-    var e, t, n, r, o = document.getElementById("kt_table_users"),
+    var e, t, n, r, o = document.getElementById("kt_table_transactions"),
         c = () => {
-            o.querySelectorAll('[data-kt-users-table-filter="delete_row"]').forEach((t => {
+            o.querySelectorAll('[data-kt-transactions-table-filter="delete_row"]').forEach((t => {
                 t.addEventListener("click", (function(t) {
                     t.preventDefault();
                     const n = t.target.closest("tr"),
