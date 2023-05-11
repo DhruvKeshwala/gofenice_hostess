@@ -15,9 +15,17 @@ class PrefixController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($lang, $id = null)
     {
-        $mobilePrefix = MobilePrefix::get();
+        if($id != null || $id != '')
+        {
+
+            $mobilePrefix = PrefixService::getPrefixById($id);
+        }
+        else
+        {
+            $mobilePrefix = MobilePrefix::get();
+        }
         return view('admin.mobilePrefix', compact('mobilePrefix'));
     }
 

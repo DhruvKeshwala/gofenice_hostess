@@ -1,8 +1,8 @@
 "use strict";
-var KTTransactionsList = function() {
-    var e, t, n, r, o = document.getElementById("kt_table_transactions"),
+var KTGalleryList = function() {
+    var e, t, n, r, o = document.getElementById("kt_table_gallery"),
         c = () => {
-            o.querySelectorAll('[data-kt-transaction-table-filter="delete_row"]').forEach((t => {
+            o.querySelectorAll('[data-kt-gallery-table-filter="delete_row"]').forEach((t => {
                 t.addEventListener("click", (function(t) {
                     t.preventDefault();
                     const n = t.target.closest("tr"),
@@ -46,8 +46,8 @@ var KTTransactionsList = function() {
         },
         l = () => {
             const c = o.querySelectorAll('[type="checkbox"]');
-            t = document.querySelector('[data-kt-transaction-table-toolbar="base"]'), n = document.querySelector('[data-kt-transaction-table-toolbar="selected"]'), r = document.querySelector('[data-kt-transaction-table-select="selected_count"]');
-            const s = document.querySelector('[data-kt-transaction-table-select="delete_selected"]');
+            t = document.querySelector('[data-kt-gallery-table-toolbar="base"]'), n = document.querySelector('[data-kt-gallery-table-toolbar="selected"]'), r = document.querySelector('[data-kt-gallery-table-select="selected_count"]');
+            const s = document.querySelector('[data-kt-gallery-table-select="delete_selected"]');
             c.forEach((e => {
                 e.addEventListener("click", (function() {
                     setTimeout((function() {
@@ -111,9 +111,9 @@ var KTTransactionsList = function() {
                     o = "minutes";
                 n.includes("yesterday") ? (r = 1, o = "days") : n.includes("mins") ? (r = parseInt(n.replace(/\D/g, "")), o = "minutes") : n.includes("hours") ? (r = parseInt(n.replace(/\D/g, "")), o = "hours") : n.includes("days") ? (r = parseInt(n.replace(/\D/g, "")), o = "days") : n.includes("weeks") && (r = parseInt(n.replace(/\D/g, "")), o = "weeks");
                 const c = moment().subtract(r, o).format();
-                t[3].setAttribute("data-order", c);
-                const l = moment(t[5].innerHTML, "DD MMM YYYY, LT").format();
-                t[5].setAttribute("data-order", l)
+                t[2].setAttribute("data-order", c);
+                const l = moment(t[3].innerHTML, "DD MMM YYYY, LT").format();
+                t[4].setAttribute("data-order", l)
             })), (e = $(o).DataTable({
                 info: !1,
                 order: [],
@@ -124,19 +124,19 @@ var KTTransactionsList = function() {
                     targets: 0
                 }, {
                     orderable: !1,
-                    targets: 5
+                    targets: 4
                 }]
             })).on("draw", (function() {
                 l(), c(), a()
-            })), l(), document.querySelector('[data-kt-transaction-table-filter="search"]').addEventListener("keyup", (function(t) {
+            })), l(), document.querySelector('[data-kt-gallery-table-filter="search"]').addEventListener("keyup", (function(t) {
                 e.search(t.target.value).draw()
-            })), document.querySelector('[data-kt-transaction-table-filter="reset"]').addEventListener("click", (function() {
-                document.querySelector('[data-kt-transaction-table-filter="form"]').querySelectorAll("select").forEach((e => {
+            })), document.querySelector('[data-kt-gallery-table-filter="reset"]').addEventListener("click", (function() {
+                document.querySelector('[data-kt-gallery-table-filter="form"]').querySelectorAll("select").forEach((e => {
                     $(e).val("").trigger("change")
                 })), e.search("").draw()
             })), c(), (() => {
-                const t = document.querySelector('[data-kt-transaction-table-filter="form"]'),
-                    n = t.querySelector('[data-kt-transaction-table-filter="filter"]'),
+                const t = document.querySelector('[data-kt-gallery-table-filter="form"]'),
+                    n = t.querySelector('[data-kt-gallery-table-filter="filter"]'),
                     r = t.querySelectorAll("select");
                 n.addEventListener("click", (function() {
                     var t = "";
@@ -149,5 +149,5 @@ var KTTransactionsList = function() {
     }
 }();
 KTUtil.onDOMContentLoaded((function() {
-    KTTransactionsList.init()
+    KTGalleryList.init()
 }));

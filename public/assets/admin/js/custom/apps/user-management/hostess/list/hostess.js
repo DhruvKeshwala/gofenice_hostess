@@ -1,8 +1,8 @@
 "use strict";
-var KTTransactionsList = function() {
-    var e, t, n, r, o = document.getElementById("kt_table_transactions"),
+var KTHostessList = function() {
+    var e, t, n, r, o = document.getElementById("kt_table_hostess"),
         c = () => {
-            o.querySelectorAll('[data-kt-transaction-table-filter="delete_row"]').forEach((t => {
+            o.querySelectorAll('[data-kt-hostess-table-filter="delete_row"]').forEach((t => {
                 t.addEventListener("click", (function(t) {
                     t.preventDefault();
                     const n = t.target.closest("tr"),
@@ -46,8 +46,8 @@ var KTTransactionsList = function() {
         },
         l = () => {
             const c = o.querySelectorAll('[type="checkbox"]');
-            t = document.querySelector('[data-kt-transaction-table-toolbar="base"]'), n = document.querySelector('[data-kt-transaction-table-toolbar="selected"]'), r = document.querySelector('[data-kt-transaction-table-select="selected_count"]');
-            const s = document.querySelector('[data-kt-transaction-table-select="delete_selected"]');
+            t = document.querySelector('[data-kt-hostess-table-toolbar="base"]'), n = document.querySelector('[data-kt-hostess-table-toolbar="selected"]'), r = document.querySelector('[data-kt-hostess-table-select="selected_count"]');
+            const s = document.querySelector('[data-kt-hostess-table-select="delete_selected"]');
             c.forEach((e => {
                 e.addEventListener("click", (function() {
                     setTimeout((function() {
@@ -128,15 +128,15 @@ var KTTransactionsList = function() {
                 }]
             })).on("draw", (function() {
                 l(), c(), a()
-            })), l(), document.querySelector('[data-kt-transaction-table-filter="search"]').addEventListener("keyup", (function(t) {
+            })), l(), document.querySelector('[data-kt-hostess-table-filter="search"]').addEventListener("keyup", (function(t) {
                 e.search(t.target.value).draw()
-            })), document.querySelector('[data-kt-transaction-table-filter="reset"]').addEventListener("click", (function() {
-                document.querySelector('[data-kt-transaction-table-filter="form"]').querySelectorAll("select").forEach((e => {
+            })), document.querySelector('[data-kt-hostess-table-filter="reset"]').addEventListener("click", (function() {
+                document.querySelector('[data-kt-hostess-table-filter="form"]').querySelectorAll("select").forEach((e => {
                     $(e).val("").trigger("change")
                 })), e.search("").draw()
             })), c(), (() => {
-                const t = document.querySelector('[data-kt-transaction-table-filter="form"]'),
-                    n = t.querySelector('[data-kt-transaction-table-filter="filter"]'),
+                const t = document.querySelector('[data-kt-hostess-table-filter="form"]'),
+                    n = t.querySelector('[data-kt-hostess-table-filter="filter"]'),
                     r = t.querySelectorAll("select");
                 n.addEventListener("click", (function() {
                     var t = "";
@@ -149,5 +149,5 @@ var KTTransactionsList = function() {
     }
 }();
 KTUtil.onDOMContentLoaded((function() {
-    KTTransactionsList.init()
+    KTHostessList.init()
 }));

@@ -153,7 +153,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('list-gallery/{id?}', [GalleryController::class, 'listGallery'])->name('admin.listGallery');
 
         //Mobile Prefix
-        Route::get('mobile-prefix', [PrefixController::class, 'index'])->name('admin.mobilePrefix');
+        Route::get('mobile-prefix/{id?}', [PrefixController::class, 'index'])->name('admin.mobilePrefix');
         Route::post('save_prefix', [PrefixController::class, 'store'])->name('save_mobilePrefix');
         Route::post('delete_prefix', [PrefixController::class, 'destroy'])->name('delete_prefix');  
 

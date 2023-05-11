@@ -69,7 +69,7 @@
                             </svg>
                         </span>
                         <!--end::Svg Icon-->
-                        <input type="text" data-kt-user-table-filter="search"
+                        <input type="text" data-kt-prefix-table-filter="search"
                             class="form-control form-control-solid w-250px ps-14" placeholder="Search" />
                     </div>
                     <!--end::Search-->
@@ -78,7 +78,7 @@
                 <!--begin::Card toolbar-->
                 <div class="card-toolbar">
                     <!--begin::Toolbar-->
-                    <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                    <div class="d-flex justify-content-end" data-kt-prefix-table-toolbar="base">
                         <!--begin::Filter-->
                         {{-- <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
                             data-kt-menu-placement="bottom-end">
@@ -104,13 +104,13 @@
                             <div class="separator border-gray-200"></div>
                             <!--end::Separator-->
                             <!--begin::Content-->
-                            <div class="px-7 py-5" data-kt-user-table-filter="form">
+                            <div class="px-7 py-5" data-kt-prefix-table-filter="form">
                                 <!--begin::Input group-->
                                 <div class="mb-10">
                                     <label class="form-label fs-6 fw-bold">Role:</label>
                                     <select class="form-select form-select-solid fw-bolder" data-kt-select2="true"
                                         data-placeholder="Select option" data-allow-clear="true"
-                                        data-kt-user-table-filter="role" data-hide-search="true">
+                                        data-kt-prefix-table-filter="role" data-hide-search="true">
                                         <option></option>
                                         <option value="Administrator">Administrator</option>
                                         <option value="Analyst">Analyst</option>
@@ -125,7 +125,7 @@
                                     <label class="form-label fs-6 fw-bold">Two Step Verification:</label>
                                     <select class="form-select form-select-solid fw-bolder" data-kt-select2="true"
                                         data-placeholder="Select option" data-allow-clear="true"
-                                        data-kt-user-table-filter="two-step" data-hide-search="true">
+                                        data-kt-prefix-table-filter="two-step" data-hide-search="true">
                                         <option></option>
                                         <option value="Enabled">Enabled</option>
                                     </select>
@@ -135,9 +135,9 @@
                                 <div class="d-flex justify-content-end">
                                     <button type="reset"
                                         class="btn btn-light btn-active-light-primary fw-bold me-2 px-6"
-                                        data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">Reset</button>
+                                        data-kt-menu-dismiss="true" data-kt-prefix-table-filter="reset">Reset</button>
                                     <button type="submit" class="btn btn-primary fw-bold px-6"
-                                        data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Apply</button>
+                                        data-kt-menu-dismiss="true" data-kt-prefix-table-filter="filter">Apply</button>
                                 </div>
                                 <!--end::Actions-->
                             </div>
@@ -184,11 +184,11 @@
                     <!--end::Toolbar-->
                     <!--begin::Group actions-->
                     <div class="d-flex justify-content-end align-items-center d-none"
-                        data-kt-user-table-toolbar="selected">
+                        data-kt-prefix-table-toolbar="selected">
                         <div class="fw-bolder me-5">
-                            <span class="me-2" data-kt-user-table-select="selected_count"></span>Selected
+                            <span class="me-2" data-kt-prefix-table-select="selected_count"></span>Selected
                         </div>
-                        <button type="button" class="btn btn-danger" data-kt-user-table-select="delete_selected">Delete
+                        <button type="button" class="btn btn-danger" data-kt-prefix-table-select="delete_selected">Delete
                             Selected</button>
                     </div>
                     <!--end::Group actions-->
@@ -294,11 +294,11 @@
                                 <!--begin::Modal header-->
                                 <div class="modal-header" id="kt_modal_add_user_header">
                                     <!--begin::Modal title-->
-                                    <h2 class="fw-bolder">Add Mobile Prefix</h2>
+                                    <h2 class="fw-bolder">@if(@$id == null) Add @else Edit @endif Mobile Prefix</h2>
                                     <!--end::Modal title-->
                                     <!--begin::Close-->
                                     <div class="btn btn-icon btn-sm btn-active-icon-primary"
-                                        data-kt-users-modal-action="close">
+                                        data-kt-users-modal-action="close" data-bs-dismiss="modal">
                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                                         <span class="svg-icon svg-icon-1">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -349,12 +349,88 @@
                                         <!--begin::Actions-->
                                         <div class="text-center pt-15">
                                             <button type="reset" class="btn btn-light me-3"
-                                                data-kt-users-modal-action="cancel">Discard</button>
-                                            <a href="javascript:;" onclick="savePrefix()" id="saveBtn" class="btn btn-primary"
+                                                data-kt-users-modal-action="cancel" data-bs-dismiss="modal">Discard</button>
+                                            <a href="javascript::void(0)" onclick="savePrefix()" id="saveBtn" class="btn btn-primary"
                                                 >
                                                 <span class="indicator-label">Submit</span>
                         
                                                 </a>
+                                        </div>
+                                        <!--end::Actions-->
+                                    </form>
+                                    <!--end::Form-->
+                                </div>
+                                <!--end::Modal body-->
+                            </div>
+                            <!--end::Modal content-->
+                        </div>
+                        <!--end::Modal dialog-->
+                    </div>
+                    <!--end::Modal - Add task-->
+
+                    <!--begin::Modal - Add task-->
+                    <div class="modal fade" id="kt_modal_edit_user" tabindex="-1" aria-hidden="true">
+                        <!--begin::Modal dialog-->
+                        <div class="modal-dialog modal-dialog-centered mw-650px">
+                            <!--begin::Modal content-->
+                            <div class="modal-content">
+                                <!--begin::Modal header-->
+                                <div class="modal-header" id="kt_modal_add_user_header">
+                                    <!--begin::Modal title-->
+                                    <h2 class="fw-bolder">Edit Mobile Prefix</h2>
+                                    <!--end::Modal title-->
+                                    <!--begin::Close-->
+                                    <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close" data-bs-dismiss="modal">
+                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                                        <span class="svg-icon svg-icon-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                                    transform="rotate(-45 6 17.3137)" fill="black" />
+                                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                                    fill="black" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </div>
+                                    <!--end::Close-->
+                                </div>
+                                <!--end::Modal header-->
+                                <!--begin::Modal body-->
+                                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                                    <!--begin::Form-->
+                                    <form id="kt_modal_edit_user_form" class="form-edit" action="#">
+                                        <!--begin::Scroll-->
+                                        <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll"
+                                            data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}"
+                                            data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header"
+                                            data-kt-scroll-wrappers="#kt_modal_edit_user_scroll" data-kt-scroll-offset="300px">
+                    
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="fv-row mb-7">
+                                                <!--begin::Label-->
+                                                <label class="required fw-bold fs-6 mb-2">Mobile Prefix</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <input type="number" name="edit-prefix" id="prefixNumber" class="form-control form-control-solid mb-3 mb-lg-0"
+                                                    placeholder="(Ex. 39)" value="" />
+                                                <input type="hidden" name="edit-prefixId" id="edit-prefixId" value="{{@$id}}">
+                                                <!--end::Input-->
+                                                <div id="editPrefixError"></div>
+                                            </div>
+                    
+                    
+                    
+                                        </div>
+                                        <!--end::Scroll-->
+                                        <!--begin::Actions-->
+                                        <div class="text-center pt-15">
+                                            <button type="reset" class="btn btn-light me-3"
+                                                data-kt-users-modal-action="cancel" data-bs-dismiss="modal">Discard</button>
+                                            <a href="javascript::void(0)" onclick="savePrefix1()" id="saveBtn" class="btn btn-primary">
+                                                <span class="indicator-label">Submit</span>
+                    
+                                            </a>
                                         </div>
                                         <!--end::Actions-->
                                     </form>
@@ -374,7 +450,7 @@
             <!--begin::Card body-->
             <div class="card-body pt-0">
                 <!--begin::Table-->
-                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_prefix">
                     <!--begin::Table head-->
 
                     <thead>
@@ -395,8 +471,9 @@
                             @foreach($mobilePrefix as $item)
                             <tr>
                                 <td>{{@$loop->index + 1}}</td>
-                                <td>{{ @$item->prefix }}</td>
-                                <td><a href="{{ route('admin.addUser', ['id' => @$item->id]) }}"><i
+                                <td id="prefixVal" data-item="{{@$item->prefix}}">{{ @$item->prefix }}</td>
+                                <td><a class="editPrefix" href="javascript:;void(0)" data-bs-toggle="modal"
+                            data-bs-target="#kt_modal_edit_user" data-id={{@$item->id}} id="edit-modal" onclick="editPrefix('{{@$item->id}}', this)"><i
                                             class="fa fa-edit fa-lg text-primary" style="font-size:24px;"
                                             title="Edit"></i></a>
                                     <a href="javascript::void(0)" onclick="deletePrefix('{{@$item->id}}')"><i
@@ -422,6 +499,71 @@
 @section('footer')
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"
     integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+
+<script>
+    $('.close').click(function() {
+
+        $('#kt_modal_add_user').modal('hide');
+    })
+    function editPrefix(id, thiss)
+    {
+        var getId   = $(thiss).closest("tr").find('.editPrefix').attr('data-id');
+        var prefix  = $(thiss).closest("tr").find('#prefixVal').attr('data-item');
+        var editVal = $('#prefixNumber').val(prefix);
+        var editPrefix = $('#edit-prefixId').val(id);
+    }
+
+    function savePrefix1()
+    {
+        $('.errorMessage').hide();
+        var flag = 1;
+        var prefix = $("input[name='edit-prefix']").val();
+        var prefixId = $("input[name='edit-prefixId']").val();
+        if(prefixId == ''){
+            prefixId = 0;
+        }
+        var fd = new FormData();
+        fd.append('prefix', prefix);
+        fd.append('prefixId', prefixId);
+        if (prefix == '' || prefix == null) 
+        {
+            flag = 0;
+            $("#editPrefixError").html('<span class="errorMessage" style="color:red;">Mobile Prefix Required</span>');
+        }
+        if(flag == 1) 
+        {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('save_mobilePrefix') }}",
+                type: "POST",
+                data:fd,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(result) {
+                    var data = JSON.parse(result);
+                    if (data.success) {
+                        swal({
+                            title: "Success!",
+                            text: data.message + " :)",
+                            icon: "success",
+                            buttons: 'OK'
+                        }).then(function(isConfirm) {
+                            if (isConfirm) {
+                                window.location.href =  "{{ URL::to(app()->getLocale() . '/admin/mobile-prefix') }}"
+                            }
+                        })
+                    }
+                },
+                error: function(xhr, status, error) {}
+            });
+        }
+    }
+</script>
 <script>
     function savePrefix()
     {
@@ -527,5 +669,5 @@
 @endsection
 
 @section('js')
-<script src="{{URL::asset('assets/admin/js/custom/apps/user-management/users/list/table.js') }}"></script>
+<script src="{{URL::asset('assets/admin/js/custom/apps/user-management/prefix/list/prefix.js') }}"></script>
 @endsection

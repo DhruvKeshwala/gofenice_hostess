@@ -2,122 +2,62 @@
 @section('title', 'Users | Hostess')
 
 @section('content')
-<!--begin::Toolbar-->
 <div class="toolbar" id="kt_toolbar">
-    <!--begin::Container-->
     <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-        <!--begin::Page title-->
         <div data-kt-swapper="true" data-kt-swapper-mode="prepend"
             data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
             class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
-            <!--begin::Title-->
             <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Edit User</h1>
-            <!--end::Title-->
-            <!--begin::Separator-->
             <span class="h-20px border-gray-200 border-start mx-4"></span>
-            <!--end::Separator-->
-            <!--begin::Breadcrumb-->
             <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
-                <!--begin::Item-->
                 <li class="breadcrumb-item text-muted">
                     <a href="{{route('admin.dashboard')}}" class="text-muted text-hover-primary">Dashboard</a>
                 </li>
-                <!--end::Item-->
-                <!--begin::Item-->
                 <li class="breadcrumb-item">
                     <span class="bullet bg-gray-200 w-5px h-2px"></span>
                 </li>
-                <!--end::Item-->
-                <!--begin::Item-->
                 <li class="breadcrumb-item text-muted">
                     <a href="{{route('admin.users')}}" class="text-muted text-hover-primary">Users</a>
                 </li>
-                <!--end::Item-->
-                <!--begin::Item-->
                 <li class="breadcrumb-item">
                     <span class="bullet bg-gray-200 w-5px h-2px"></span>
                 </li>
-                <!--end::Item-->
-                <!--begin::Item-->
                 <li class="breadcrumb-item text-dark">Edit User</li>
-                <!--end::Item-->
             </ul>
-            <!--end::Breadcrumb-->
         </div>
-        <!--end::Page title-->
-        <!--begin::Actions-->
-        <div class="d-flex align-items-center py-1">
-            <!--begin::Button-->
-            {{-- <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app"
-                id="kt_toolbar_primary_button">Create</a> --}}
-            <!--end::Button-->
-        </div>
-        <!--end::Actions-->
     </div>
-    <!--end::Container-->
 </div>
-<!--end::Toolbar-->
 <div class="card mb-5 mb-xl-10">
-    <!--begin::Card header-->
     <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
         data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
-        <!--begin::Card title-->
         <div class="card-title m-0">
             <h3 class="fw-bolder m-0">Edit User</h3>
         </div>
-        <!--end::Card title-->
     </div>
-    <!--begin::Card header-->
-    <!--begin::Content-->
     <div id="kt_account_profile_details" class="collapse show">
-        <!--begin::Form-->
         <form id="kt_account_profile_details_form" class="form">
-            <!--begin::Card body-->
             <div class="card-body border-top p-9">
-                <!--begin::Input group-->
                 <div class="row mb-6">
-                    <!--begin::Label-->
                     <label class="col-lg-4 col-form-label fw-bold fs-6">Profile</label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
                     <div class="col-lg-8">
-                        <!--begin::Image input-->
                         <div class="image-input image-input-outline" data-kt-image-input="true"
                             style="background-image: url({{ URL::asset('upload/user/profile/' . @$user->profilepic)}})">
-                            <!--begin::Preview existing avatar-->
                             <div class="image-input-wrapper w-125px h-125px"
                                 style="background-image: url({{ URL::asset('upload/user/profile/' . @$user->profilepic)}})"></div>
-                            <!--end::Preview existing avatar-->
-                            <!--begin::Label-->
                             <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                                 data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change Profile">
                                 <i class="bi bi-pencil-fill fs-7"></i>
-                                <!--begin::Inputs-->
                                 <input type="file" name="profilepic" id="profilepic" accept=".png, .jpg, .jpeg" />
                                 <input type="hidden" name="avatar_remove" />
-                                <!--end::Inputs-->
                             </label>
-                            <!--end::Label-->
-                            <!--begin::Cancel-->
                             <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                                 data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
                                 <i class="bi bi-x fs-2"></i>
                             </span>
-                            <!--end::Cancel-->
-                            <!--begin::Remove-->
-                           
-                            <!--end::Remove-->
                         </div>
-                        <!--end::Image input-->
-                        <!--begin::Hint-->
                         <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
-                        <!--end::Hint-->
                     </div>
-                    <!--end::Col-->
                 </div>
-                <!--end::Input group-->
-
-                <!--begin::Input group-->
                 <div class="row mb-6">
                     <label class="col-lg-4 col-form-label required fw-bold fs-6">Full Name</label>
                     <div class="col-lg-8">
@@ -136,7 +76,6 @@
                         </div>
                     </div>
                 </div>
-                <!--end::Input group-->
                 <div class="row mb-12">
                     <label class="col-lg-4 col-form-label required fw-bold fs-6">Email</label>
                     <div class="col-lg-8">
@@ -262,23 +201,16 @@
                 <input type="hidden" name="user_type" value="{{@$user->user_type}}">
                 <input type="hidden" name="userId" value="{{@$id}}">
             </div>
-            <!--end::Card body-->
-            <!--begin::Actions-->
             <div class="card-footer d-flex justify-content-end py-6 px-9">
                 @if(@$user->user_type == 'hostess')
                     <a href="{{ route('admin.hostessList') }}" class="btn btn-light btn-active-light-primary me-2">Discard</a>
                 @else
                     <a href="{{ route('admin.users') }}" class="btn btn-light btn-active-light-primary me-2">Discard</a>
                 @endif
-                {{-- <a href="javascript::" onclick="saveProject()"  class="btn btn-primary" id="kt_account_profile_details_submit">Save
-                    Changes</button> --}}
                     <a href="javascript:;" onclick="saveUser()" id="saveBtn" class="btn btn-success">SAVE</a>
             </div>
-            <!--end::Actions-->
         </form>
-        <!--end::Form-->
     </div>
-    <!--end::Content-->
 </div>
 @endsection
 
@@ -289,7 +221,6 @@
     {
         $('.errorMessage').hide();
         var flag = 1;
-        // var categoryName = $("select[name='categoryName']").val();
         var services = $("input[name='services[]']:checked").map(function () {
           return this.value;
         }).get();
@@ -319,7 +250,6 @@
         if(userId == ''){
             userId = 0;
         }
-        // Append data 
         var files = $('#profilepic')[0].files;
         if(files.length > 0)
         {
@@ -411,7 +341,6 @@
                 success: function(result) {
                     var data = JSON.parse(result);
                     if (data.success) {
-                        //enable the button
                         saveBtn.innerHTML           = "SAVE";
                         $('#saveBtn').removeClass('disabled');
                         swal({

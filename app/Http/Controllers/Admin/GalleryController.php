@@ -16,7 +16,7 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $users = User::get();
+        $users = User::where('user_type', 'hostess')->get();
         return view('admin.gallery', compact('users'));
     }
 

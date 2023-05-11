@@ -38,23 +38,23 @@
                                     fill="black" />
                             </svg>
                         </span>
-                        <input type="text" data-kt-user-table-filter="search"
+                        <input type="text" data-kt-transaction-table-filter="search"
                             class="form-control form-control-solid w-250px ps-14" placeholder="Search" />
                     </div>
                 </div>
                 <div class="card-toolbar">
-                    <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                    <div class="d-flex justify-content-end" data-kt-transaction-table-toolbar="base">
                         <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
                             <div class="px-7 py-5">
                                 <div class="fs-5 text-dark fw-bolder">Filter Options</div>
                             </div>
                             <div class="separator border-gray-200"></div>
-                            <div class="px-7 py-5" data-kt-user-table-filter="form">
+                            <div class="px-7 py-5" data-kt-transaction-table-filter="form">
                                 <div class="mb-10">
                                     <label class="form-label fs-6 fw-bold">Role:</label>
                                     <select class="form-select form-select-solid fw-bolder" data-kt-select2="true"
                                         data-placeholder="Select option" data-allow-clear="true"
-                                        data-kt-user-table-filter="role" data-hide-search="true">
+                                        data-kt-transaction-table-filter="role" data-hide-search="true">
                                         <option></option>
                                         <option value="Administrator">Administrator</option>
                                         <option value="Analyst">Analyst</option>
@@ -67,7 +67,7 @@
                                     <label class="form-label fs-6 fw-bold">Two Step Verification:</label>
                                     <select class="form-select form-select-solid fw-bolder" data-kt-select2="true"
                                         data-placeholder="Select option" data-allow-clear="true"
-                                        data-kt-user-table-filter="two-step" data-hide-search="true">
+                                        data-kt-transaction-table-filter="two-step" data-hide-search="true">
                                         <option></option>
                                         <option value="Enabled">Enabled</option>
                                     </select>
@@ -75,19 +75,19 @@
                                 <div class="d-flex justify-content-end">
                                     <button type="reset"
                                         class="btn btn-light btn-active-light-primary fw-bold me-2 px-6"
-                                        data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">Reset</button>
+                                        data-kt-menu-dismiss="true" data-kt-transaction-table-filter="reset">Reset</button>
                                     <button type="submit" class="btn btn-primary fw-bold px-6"
-                                        data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Apply</button>
+                                        data-kt-menu-dismiss="true" data-kt-transaction-table-filter="filter">Apply</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="d-flex justify-content-end align-items-center d-none"
-                        data-kt-user-table-toolbar="selected">
+                        data-kt-transaction-table-toolbar="selected">
                         <div class="fw-bolder me-5">
-                            <span class="me-2" data-kt-user-table-select="selected_count"></span>Selected
+                            <span class="me-2" data-kt-transaction-table-select="selected_count"></span>Selected
                         </div>
-                        <button type="button" class="btn btn-danger" data-kt-user-table-select="delete_selected">Delete
+                        <button type="button" class="btn btn-danger" data-kt-transaction-table-select="delete_selected">Delete
                             Selected</button>
                     </div>
                     <!--end::Group actions-->
