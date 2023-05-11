@@ -85,6 +85,7 @@ class User extends Authenticatable
             get: fn ($value) =>  ["0", "1", "2"][$value],
         );
     }
+
     public function messages()
     {
         return $this->hasMany(Message::class, 'sender_id');

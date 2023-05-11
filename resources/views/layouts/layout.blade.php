@@ -292,9 +292,9 @@
                                     <div class="navigationColMain">
                                         <div class="menuCol">
                                             <ul>
-                                                <li><a href="javascript:void(0)">{{__('messages.Near')}}</a></li>
+                                                <li><a href="{{ route('hostess-search-result') }}">{{__('messages.Near')}}</a></li>
                                                 <li><a href="javascript:void(0)">{{__('messages.How_does_it_work')}}</a></li>
-                                                <li><a href="javascript:void(0)">{{__('messages.are_you_a_hostess_model')}}</a></li>
+                                                <li><a href="{{ route('login') }}">{{__('messages.are_you_a_hostess_model')}}</a></li>
                                                 @if (Auth::id() != null || Auth::id() != '')
                                                     @if(Auth::user()->user_type == 'user')
                                                     <li class="d-lg-none"><a href="{{ route('userChat') }}">{{__('messages.chat')}}</a></li>

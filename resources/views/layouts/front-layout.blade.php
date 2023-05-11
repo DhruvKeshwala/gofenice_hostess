@@ -22,7 +22,6 @@
             display: none;
             position: absolute;
             background-color: #f9f9f9;
-            /* min-width: 50px; */
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
         }
@@ -80,8 +79,6 @@
             display: inline-block;
             font-size: 16px;
             margin-top: 5%;
-            /* margin-left: 3%; */
-            /* margin-right: 5% !important; */
             width: 100% !important;
             cursor: pointer;
         }
@@ -96,8 +93,6 @@
         display: inline-block;
         font-size: 16px;
         margin-top: 5%;
-        /* margin-left: 3%; */
-        /* margin-right: 5% !important; */
         width: 100% !important;
         cursor: pointer;
     }
@@ -112,8 +107,6 @@
         display: inline-block;
         font-size: 16px;
         margin-top: 5%;
-        /* margin-left: 3%; */
-        /* margin-right: 5% !important; */
         width: 100% !important;
         cursor: pointer;
     }
@@ -126,31 +119,20 @@
         padding-top: 5%;
     }
 
-    /* The Modal (background) */
     .modal1 {
         display: none;
-        /* Hidden by default */
         position: fixed;
-        /* Stay in place */
-        z-index: 1;
-        /* Sit on top */
+        z-index: 99999;
         padding-top: 100px;
-        /* Location of the box */
         left: 0;
         top: 0;
         width: 100%;
-        /* Full width */
         height: 100%;
-        /* Full height */
         overflow: auto;
-        /* Enable scroll if needed */
         background-color: rgb(0, 0, 0);
-        /* Fallback color */
         background-color: rgba(0, 0, 0, 0.4);
-        /* Black w/ opacity */
     }
 
-    /* Modal Content */
     .modal-content1 {
         background-color: #fefefe;
         margin-top: 10%!important;
@@ -224,9 +206,9 @@
                                     <div class="navigationColMain">
                                         <div class="menuCol">
                                             <ul>
-                                                <li><a href="javascript:void(0)">{{__('messages.Near')}}</a></li>
+                                                <li><a href="{{ route('hostess-search-result') }}">{{__('messages.Near')}}</a></li>
                                                 <li><a href="javascript:void(0)">{{__('messages.How_does_it_work')}}</a></li>
-                                                <li><a href="javascript:void(0)">{{__('messages.are_you_a_hostess_model')}}</a></li>
+                                                <li><a href="{{ route('login') }}">{{__('messages.are_you_a_hostess_model')}}</a></li>
                                                 @if (Auth::id() != null || Auth::id() != '')
                                                 @if(Auth::user()->user_type == 'user')
                                                 <li class="d-lg-none"><a href="{{ route('userChat') }}">{{__('messages.chat')}}</a></li>

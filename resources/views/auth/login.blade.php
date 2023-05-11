@@ -14,7 +14,7 @@
 <div class="container login-container">
     <main class="form-signin w-100 mx-auto">
         @if(Session::has('success'))
-        <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('success') }}</p>
+        <p class="alert-success {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('success') }}</p>
         @endif
         <div class="row">
         <form name="signup" method="POST" action="{{ route('login') }}" autocomplete="off">

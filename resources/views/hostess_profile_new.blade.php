@@ -115,7 +115,7 @@
                     <span class="col-auto"><img src="{{ URL::asset('assets/user/images/filter-icon.svg') }}"
                             alt="..."></span>
                 </a>
-                <div class="filterLinks">
+                {{-- <div class="filterLinks">
                     <ul class="tabs">
                         <li data-tab="tab-1" class="tab-link current active"><a
                                 href="javascript:void(0)"><span>{{__('messages.All')}}</span></a></li>
@@ -132,7 +132,7 @@
                                     src="{{ URL::asset('assets/user/images/online-icon.svg') }}"
                                     alt="..."><span>{{__('messages.Online Now')}}</span></a></li>
                     </ul>
-                </div>
+                </div> --}}
             </div>
         </div>
         <div id="tab-1" class="profileDetailCol tab-content current">
