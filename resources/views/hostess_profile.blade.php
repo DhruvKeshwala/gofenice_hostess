@@ -489,7 +489,8 @@
                                         {{-- <a href="javascript:;" class="btn btn-success mt-2"
                                             style="float:right" onclick="saveProfile()">Save</a> --}}
                                         <input type="submit" name="save" value="{{ __('messages.Save') }}"
-                                            class="btn btn-danger mt-2" style="float:right">
+                                            class="btn btn-danger mb-4" style="float:right">
+
 
                                     </div>
                                     <input type="hidden" name="form" value="1">
