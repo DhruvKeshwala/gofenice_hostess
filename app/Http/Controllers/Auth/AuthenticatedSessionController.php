@@ -25,14 +25,21 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        
+        // $validated = $request->validate([
+        //     'email' => 'required',
+        //     'password' => 'required',
+        // ],
+        // [
+        //     'email.required' => trans('messages.Email field is required'),
+        //     'password.required' => trans('Password field is required'),
+        // ]);
         $request->authenticate();
         
         $request->session()->regenerate();
        
         if (Auth::user()->type == 1) 
         {
-            return redirect('en/admin/dashboard');
+            return redirect(app()->getLocale() . '/admin/dashboard');
         }
         else if (Auth::user()->type == 0) 
         {

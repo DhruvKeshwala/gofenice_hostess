@@ -15,12 +15,17 @@
             content="Metronic - Bootstrap 5 HTML, VueJS, React, Angular &amp; Laravel Admin Dashboard Theme" />
         <meta property="og:url" content="https://keenthemes.com/metronic" />
         <meta property="og:site_name" content="Keenthemes | Metronic" />
-<link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-<link rel="shortcut icon" href="{{ URL::asset('assets/admin/media/logos/favicon.ico') }}" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
-<link href="{{ URL::asset('assets/admin/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ URL::asset('assets/admin/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-
+        <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
+        <link rel="shortcut icon" href="{{ URL::asset('assets/admin/media/logos/favicon.ico') }}" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+        <link href="{{ URL::asset('assets/admin/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ URL::asset('assets/admin/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+        <style>
+            body {
+                background-color: #ffffff !important;
+            }
+        </style>
+    </head>
 <div id="kt_body" class="bg-body">
     <div class="d-flex flex-column flex-root">
         <div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed"
