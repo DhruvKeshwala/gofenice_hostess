@@ -9,12 +9,14 @@ use App\Models\Message;
 use Session, Hash, Auth;
 use Carbon\Carbon;
 use App\Models\Response;
+use App\Models\ManageCredit;
 
 class UserController extends Controller
 {
     public function edit()
     {
-        return view('profile');
+        $manageCredit = ManageCredit::first();
+        return view('profile', compact('manageCredit'));
     }
 
     public function update(Request $request)
@@ -75,7 +77,7 @@ class UserController extends Controller
                 if (count($existing) <= 0) {
                     $responseDetails->user_id          =  Auth::id();
                     $responseDetails->payment_id       =  $response->id;
-                    $responseDetails->amount           =  $response->amount;
+                    $responseDetails->amount           =  $response->amount/100;
                     $responseDetails->status           =  $response->status;
                     $responseDetails->save();
                     
@@ -101,6 +103,7 @@ class UserController extends Controller
         $user = auth()->user(); 
         if(@$user->id != null || @$user->id != '')
         {
+            $manageCredit = ManageCredit::first();
             $selectedUser = User::where('id',$id)->first();
             
             $messages = Message::where('sender_id', $user->id)->orWhere('receiver_id', $user->id)->get();
@@ -145,7 +148,7 @@ class UserController extends Controller
                     ->where('receiver_id', $authUser->id);
             })->orderBy('id')->get();
 
-            return view('userChat', compact('users', 'selectedUser', 'messages'));
+            return view('userChat', compact('users', 'selectedUser', 'messages', 'manageCredit'));
         }
         else
         {

@@ -30,10 +30,12 @@ class ChatController extends Controller
 
     public function sendMessageToHostess(Request $request)
     {
+        // dd($request->all());
         $auth_id = \Auth::user()->id;
         $messageDetails = [];
         if($request)
         {
+
             $request->only([
                 'sender_id',
                 'receiver_id',
@@ -46,11 +48,16 @@ class ChatController extends Controller
 
             $message = Message::create($messageDetails);
             
+            // minus from user update user table
             $userRemainingcredits = $request->userCredit - $request->hostessCredit;
             User::where('id', $auth_id)->where('user_type', 'user')->update(['credit' => $userRemainingcredits]);
-            return json_encode(['success' => 1, 'message' => 'Message Sent Successfully']);
 
-            // return redirect()->back();
+            // add credits to hostess field user table
+            $hostess       = User::where('id', $request->receiver_id)->first();
+            $earnedCredits = $hostess->hostess_credit + $request->hostessCredit;
+            User::where('id', $request->receiver_id)->update(['hostess_credit' => $earnedCredits]);
+
+            return json_encode(['success' => 1, 'message' => 'Message Sent Successfully']);
         }
     }
 

@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\PrefixController;
+use App\Http\Controllers\Admin\ManageCreditController;
 
 
 
@@ -157,6 +158,9 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('save_prefix', [PrefixController::class, 'store'])->name('save_mobilePrefix');
         Route::post('delete_prefix', [PrefixController::class, 'destroy'])->name('delete_prefix');  
 
+        // Manage Credit
+        Route::get('manage-credit/{id?}', [ManageCreditController::class,'manageCredit'])->name('admin.manageCredit');
+        Route::post('manage-credit', [ManageCreditController::class,'store'])->name('admin.save_manage_credit');
 
         Route::get('logout', function ()
         {

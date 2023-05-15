@@ -52,6 +52,7 @@ class User extends Authenticatable
         'privacyProfile',
         'last_seen',
         'credit',
+        'hostess_credit',
     ];
 
     /**

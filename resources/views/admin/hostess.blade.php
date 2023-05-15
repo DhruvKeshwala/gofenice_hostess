@@ -318,9 +318,10 @@
                             <th width="10%">Image</th>
                             <th width="13%">Name</th>
                             <th width="15%">Email</th>
-                            <th width="20%">Mobile</th>
+                            <th width="15%">Mobile</th>
                             <th width="10%">City</th>
                             <th width="5%">Gender</th>
+                            <th width="5%">Earned Credit</th>
                             <th width="10%">Status</th>
                             <th width="15%">Actions</th>
                         </tr>
@@ -352,6 +353,7 @@
                             <td><a href="tel:{{@$item->mobileno}}">{{ @$item->mobileno}}</a></td>
                             <td>{{ @$item->city }}</td>
                             <td>@if(@$item->gender != null || @$item->gender != '') {{ @$item->gender }} @endif</td>
+                            <td>{{ @$item->hostess_credit }}</td>
                             <td>
                                 <select onchange="changeStatus('{{@$item->id}}', this)" name="status"
                                     class="form-control status">
@@ -368,6 +370,7 @@
 
                                 </select>
                             </td>
+                            
                             <td><a href="{{ route('admin.addUser', ['id' => @$item->id]) }}"><i
                                         class="fa fa-edit fa-lg text-primary" style="font-size:24px;"
                                         title="Edit"></i></a>

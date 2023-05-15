@@ -7,19 +7,21 @@ use App\Models\User;
 use App\Services\UserService;
 use App\Models\Gallery;
 use App\Models\Message;
+use App\Models\ManageCredit;
 use Auth, DB, Session;
-
 class HostessController extends Controller
 {
     public function home()
     {
-        return view('home');
+        $manageCredit = ManageCredit::first();
+        return view('home', compact('manageCredit'));
     }
     public function updateProfile()
     {
         $getUser = User::where('id', Auth::id())->get();
         $gallery = Gallery::where('userId', Auth::id())->orderBy('order', 'asc')->get();
-        return view('hostess_profile', compact('gallery'));
+        $manageCredit = ManageCredit::first();
+        return view('hostess_profile', compact('gallery', 'manageCredit'));
     }
 
     public function storeProfilePic(Request $request)
@@ -183,6 +185,7 @@ class HostessController extends Controller
     public function showHostess($lang, $id = null)
     {
         $images = '';
+        $manageCredit = ManageCredit::first();
         if(Auth::id() != null || Auth::id() != '')
         {
             $auth_id = Auth::user()->id;
@@ -194,20 +197,21 @@ class HostessController extends Controller
             }
             if($user)
                 $images = Gallery::where('userId', $user->id)->get();
-            return view('hostess_profile_new', compact('user', 'id', 'images', 'is_chat_option'));
+            return view('hostess_profile_new', compact('user', 'id', 'images', 'is_chat_option', 'manageCredit'));
         }
         else
         {
             $user = UserService::getUserById($id);
             if($user)
                 $images = Gallery::where('userId', $user->id)->get();
-            return view('hostess_profile_new', compact('user', 'id'));
+            return view('hostess_profile_new', compact('user', 'id', 'manageCredit'));
         }
     }
 
     public function hostessSearchResult()
     {
-        return view('hostess_search_result');
+        $manageCredit = ManageCredit::first();
+        return view('hostess_search_result', compact('manageCredit'));
     }
     
 }

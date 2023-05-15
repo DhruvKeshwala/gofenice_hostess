@@ -200,9 +200,9 @@ return [
     'Work independently and whenever you want, accompanying clients to dinners, events or trips.' => 'Work independently and whenever you want, accompanying clients to dinners, events or trips.',
     'Wostess is not an agency and does not take any commission or percentage.' => 'Wostess is not an agency and does not take any commission or percentage.',
     'Requests?' => 'Requests?',
-    'email' => 'Email',
-    'email' => 'Email',
-    'email' => 'Email',
+    'Buy a pack of' => 'Buy a pack of',
+    'credits for' => 'credits for',
+    'save 20%' => 'save 20%',
     'email' => 'Email',
 
 

@@ -1112,11 +1112,11 @@ window.onclick = function(event) {
         var flag = 1;
         
         var message         = $('#message').val();
-        var hostessCredit   = $("input[name='hostessCredit']").val();
-        var userCredit      = $("input[name='userCredit']").val();
+        var hostessCredit   = parseInt($("input[name='hostessCredit']").val());
+        var userCredit      = parseInt($("input[name='userCredit']").val());
         var receiver_id     = $("input[name='receiver_id']").val();
         var sender_id       = $("input[name='sender_id']").val();
-
+       
         var fd = new FormData();
        
         

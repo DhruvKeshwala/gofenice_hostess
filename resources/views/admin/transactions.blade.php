@@ -455,7 +455,7 @@
                             <th width="2%">#</th>
                             <th width="10%">Payment ID</th>
                             <th width="">Name</th>
-                            {{-- <th width="15%">Amount</th> --}}
+                            <th width="10%">Amount</th>
                             {{-- <th width="20%">Mobile</th> --}}
                             {{-- <th width="5%">Gender</th> --}}
                             <th width="10%">Status</th>
@@ -473,6 +473,7 @@
                             <td>{{ @$loop->index + 1}}</td>
                             <td>{{ @$item->payment_id }}</td>
                             <td>{{ @$item->userName->name . ' ' . @$item->userName->surname }}</td>
+                            <td>{{ @$item->amount }}</td>
                             <td>{{ @$item->status }}</td>
                             <td>{{ @$item->created_at->diffForHumans() }}</td>
                             <td class="text-center"><a href="javascript::void(0)" onclick="deleteTransaction('{{@$item->id}}')"><i
