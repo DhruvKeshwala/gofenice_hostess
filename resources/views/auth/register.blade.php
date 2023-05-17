@@ -165,7 +165,7 @@
             <span for="floatingCredit" style="color: #636161;">
                 {{__('messages.Credit')}}
             </span>
-            <input style="" type="number" class="form-control" id="credit" name="credit" placeholder="{{__('messages.credit')}}"
+            <input style="" type="number" class="form-control" id="credit" name="credit" placeholder="{{__('messages.credit')}}" value="{{ old('credit') }}"
                >
             @if ($errors->has('credit'))
             <span class="text-danger">

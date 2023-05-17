@@ -340,7 +340,7 @@
                                             <div class="form-group">
                                                 <label
                                                     for="exampleFormControlSelect1">{{ __('messages.Languages') }}</label>
-                                                <select class="form-control" id="languages" name="languages[]" multiple>
+                                                <select class="form-control" id="languages" name="languages[]" multiple style="width: 100%;">
                                                     <option value=""></option>
                                                     <option value="Italian" @if(in_array('Italian',$languages)) selected
                                                         @endif>Italian</option>

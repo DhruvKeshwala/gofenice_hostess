@@ -349,21 +349,23 @@
                             <div id="lowCreditModal" class="modal">
 
                                 <!-- Modal content -->
-                                <div class="modal-content mb-20">
-                                    <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..."
-                                        class="logoImg1" height="10%" width="10%">
+                                <div class="modal-content mb-20" style="width: 30% !important;">
+                                    <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..." class="logoImg1" height="10%" width="10%">
                                     <span class="close">&times;</span>
-                                    <b style="margin-left: 10%;margin-left: 23%;color:#FF0000">{{__('messages.You don\'t have enough credits')}}.</b>
-                                    
-                                    <p style="margin-left: 10%;margin-left: 35%;">{{__('messages.Buy your credits now')}}:</p>
+                                    <p style="margin-left: 30%;margin-left: 30%; color:#FF0000;">{{__('messages.You don\'t have enough credits')}}.</p>
+                                    <b style="margin-left: 10%;margin-left: 36%;">{{__('messages.Buy your credits now')}}:</b>
                                     {{-- <form action="{{ route('confirmMsg') }}" method="post"> --}}
                                     {{-- @csrf --}}
-                                    <button class="ModalbuttonPink Modalbutton" onclick="showPaymentModal(3)"><strong>{{__('messages.Buy')}} {{@$user->credit}} {{__('messages.credits (for 3 €) and start the chat')}}</strong></button>
-                                    {{-- <a class="ModalbuttonPink Modalbutton" href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>Buy {{@$user->credit}} credits (for 3 €) and start the chat</strong></a> --}}
+                                    <button class="ModalbuttonPink Modalbutton" onclick="showPaymentModal(3)"><strong>{{__('messages.Buy')}}
+                                            {{@$user->credit}} {{__('messages.credits (for 3 €) and start the chat')}}</strong></button>
+                                    {{-- <a class="ModalbuttonPink Modalbutton" href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>Buy
+                                        {{@$user->credit}} credits (for 3 €) and start the chat</strong></a> --}}
                                     {{-- </form> --}}
-
-                                    <button class="ModalbuttonOrange Modalbutton" onclick="showPaymentModal(80)"><strong>{{__('messages.Buy a pack of 100 credits for €80 (save 20%!)')}}</strong></button>
-                                    {{-- <a class="ModalbuttonOrange Modalbutton"  href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>Buy a pack of 100 credits for €80 (save 20%!)</strong></a> --}}
+                                
+                                    <button class="ModalbuttonOrange Modalbutton"
+                                        onclick="showPaymentModal(80)"><strong>{{__('messages.Buy a pack of 100 credits for €80 (save 20%!)')}}</strong></button>
+                                    {{-- <a class="ModalbuttonOrange Modalbutton"  href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>Buy
+                                        a pack of 100 credits for €80 (save 20%!)</strong></a> --}}
                                 </div>
 
                             </div>
@@ -1124,6 +1126,11 @@ window.onclick = function(event) {
         var receiver_id     = $("input[name='receiver_id']").val();
         var sender_id       = $("input[name='sender_id']").val();
        
+        localStorage.setItem("message_body",message);
+        localStorage.setItem("receiver_hostess_id",receiver_id);
+        localStorage.setItem("hostessCredit",hostessCredit);
+        console.log('localStorage', localStorage.getItem("message_body"));
+        
         var fd = new FormData();
        
         
@@ -1337,6 +1344,7 @@ $(document).ready(function () {
 function showPaymentModal(val) {
     localStorage.setItem("message_body",$('#message').val());
     localStorage.setItem("receiver_hostess_id",$("input[name='receiver_id']").val());
+    
     var credits = 0;
     $("#lowCreditModal").hide();
     if (val == '3') {

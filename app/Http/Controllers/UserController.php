@@ -23,6 +23,7 @@ class UserController extends Controller
     {   
         $request->only([
             'aboutme',
+            'email',
             'birthdate',
             'city',
             'gender',
@@ -44,6 +45,7 @@ class UserController extends Controller
 
 
         $user->aboutme      = $request->aboutme;
+        $user->email        = $request->email;
         $user->birthdate    = $request->birthdate;
         $user->city         = $request->city;
         $user->gender       = $request->gender;
@@ -84,10 +86,15 @@ class UserController extends Controller
                     $messageDetails['sender_id'] = Auth::id();
                     $messageDetails['receiver_id'] = $request->receiver_hostess_id;
                     $messageDetails['message'] = $request->message_body;
-                    Message::create($messageDetails);
+                    if($messageDetails['message'] != null || $messageDetails['message'] != '')
+                        Message::create($messageDetails);
                    
                     $users = User::where('id', Auth::id())->first();
-                    $total_credits = (int)$request->credits + $users-> credit;
+                    // dd($request->hostessCredit);
+                    // if($request->hostessCredit != null || $request->hostessCredit != '')
+                    //     $total_credits = (int)$request->credits + $users-> credit - $request->hostessCredit;
+                    // else
+                       $total_credits = (int)$request->credits + $users-> credit; 
                     $credits = ['credit' => $total_credits];
                     $user = User::where('id', Auth::id())->update($credits);
                 }

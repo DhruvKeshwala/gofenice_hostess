@@ -213,5 +213,10 @@ class HostessController extends Controller
         $manageCredit = ManageCredit::first();
         return view('hostess_search_result', compact('manageCredit'));
     }
+
+    public function howDoesItWork() 
+    {
+        return view('how_does_it_work');
+    }
     
 }

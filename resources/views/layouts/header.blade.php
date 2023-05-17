@@ -626,12 +626,12 @@
             <div id="lowCreditModal1" class="modal1">
             
                 <!-- Modal content -->
-                <div class="modal-content1 mb-20">
+                <div class="modal-content1 mb-20" style="width: 30% !important;">
                     <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..." class="logoImg1" height="10%"
                         width="10%">
                     <span class="close1">&times;</span>
                     {{-- <h3><b style="margin-left: 10%;margin-left: 23%;">You don't have enough credits.</b></h3> --}}
-                    <p style="margin-left: 10%;margin-left: 35%;">{{__('messages.Buy your credits now')}}:</p>
+                    <b style="margin-left: 10%;margin-left: 36%;">{{__('messages.Buy your credits now')}}:</b>
                     {{-- <form action="{{ route('confirmMsg') }}" method="post"> --}}
                     {{-- @csrf --}}
                     {{-- <button class="ModalbuttonPink"><strong>Buy {{@$user->credit}} credits (for 3 €) and start the

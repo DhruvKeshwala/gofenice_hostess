@@ -27,6 +27,7 @@
     var message_body = localStorage.getItem("message_body");
     var receiver_hostess_id = localStorage.getItem("receiver_hostess_id");
     var credits = localStorage.getItem("credits");
+    var hostessCredit = localStorage.getItem("hostessCredit");
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -40,6 +41,7 @@
             message_body:message_body,
             receiver_hostess_id:receiver_hostess_id,
             credits:credits,
+            hostessCredit:hostessCredit,
         },
         success: function(result) {
             window.location.href='../en/user-chat/'+receiver_hostess_id;

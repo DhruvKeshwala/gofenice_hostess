@@ -1,5 +1,5 @@
 @include('layouts.header')
-    <main class="form-signin w-100 mx-auto" style="max-width:400px;">
+    <main class="form-signin w-100 mx-auto" style="max-width:400px;margin-top: 3%;">
         @if(Session::has('success'))
         <p class="alert-success {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('success') }}</p>
         @endif

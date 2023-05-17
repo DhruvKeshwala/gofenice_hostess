@@ -81,7 +81,7 @@ Route::post('sendFreeMessageToHostess', [ChatController::class, 'sendFreeMessage
 Route::get('payment-success', [UserController::class, 'paymentSuccess'])->name('payment-success');
 Route::post('save_response', [UserController::class, 'saveResponse'])->name('save_response');
 Route::get('hostess-search-result', [HostessController::class, 'hostessSearchResult'])->name('hostess-search-result');
-
+Route::get('how-does-it-work', [HostessController::class, 'howDoesItWork'])->name('how-does-it-work');
 Route::get('user-chat/{id?}', [UserController::class, 'userChat'])->name('userChat');
 
 
