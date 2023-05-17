@@ -22,6 +22,7 @@
             display: none;
             position: absolute;
             background-color: #f9f9f9;
+            /* min-width: 50px; */
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
         }
@@ -79,6 +80,8 @@
             display: inline-block;
             font-size: 16px;
             margin-top: 5%;
+            /* margin-left: 3%; */
+            /* margin-right: 5% !important; */
             width: 100% !important;
             cursor: pointer;
         }
@@ -93,6 +96,8 @@
         display: inline-block;
         font-size: 16px;
         margin-top: 5%;
+        /* margin-left: 3%; */
+        /* margin-right: 5% !important; */
         width: 100% !important;
         cursor: pointer;
     }
@@ -107,6 +112,8 @@
         display: inline-block;
         font-size: 16px;
         margin-top: 5%;
+        /* margin-left: 3%; */
+        /* margin-right: 5% !important; */
         width: 100% !important;
         cursor: pointer;
     }
@@ -119,20 +126,31 @@
         padding-top: 5%;
     }
 
+    /* The Modal (background) */
     .modal1 {
         display: none;
+        /* Hidden by default */
         position: fixed;
+        /* Stay in place */
         z-index: 99999;
+        /* Sit on top */
         padding-top: 100px;
+        /* Location of the box */
         left: 0;
         top: 0;
         width: 100%;
+        /* Full width */
         height: 100%;
+        /* Full height */
         overflow: auto;
+        /* Enable scroll if needed */
         background-color: rgb(0, 0, 0);
+        /* Fallback color */
         background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
     }
 
+    /* Modal Content */
     .modal-content1 {
         background-color: #fefefe;
         margin-top: 10%!important;
@@ -207,7 +225,7 @@
                                         <div class="menuCol">
                                             <ul>
                                                 <li><a href="{{ route('hostess-search-result') }}">{{__('messages.Near')}}</a></li>
-                                                <li><a href="javascript:void(0)">{{__('messages.How_does_it_work')}}</a></li>
+                                                <li><a href="{{ route('how-does-it-work') }}">{{__('messages.How_does_it_work')}}</a></li>
                                                 <li><a href="{{ route('login') }}">{{__('messages.are_you_a_hostess_model')}}</a></li>
                                                 @if (Auth::id() != null || Auth::id() != '')
                                                 @if(Auth::user()->user_type == 'user')
@@ -400,9 +418,12 @@
                 {{-- <button class="ModalbuttonPink"><strong>Buy {{@$user->credit}} credits (for 3 €) and start the
                 chat</strong></button> --}}
                 {{-- </form> --}}
+        
                 <input type="hidden" name="no_of_credit" value="{{@$manageCredit->no_of_credit}}">
                 <input type="hidden" name="euro_amount" value="{{@$manageCredit->euro_amount}}">
-                <button class="ModalbuttonOrange" onclick="showPaymentModal(80)"><strong>{{__('messages.Buy a pack of')}} {{@$manageCredit->no_of_credit}} {{__('messages.credits for')}} €{{@$manageCredit->euro_amount}} ({{__('messages.save 20%')}}!)</strong></button>
+                <button class="ModalbuttonOrange" onclick="showPaymentModal({{@$manageCredit->euro_amount}})"><strong>{{__('messages.Buy a pack of')}}
+                        {{@$manageCredit->no_of_credit}} {{__('messages.credits for')}} €{{@$manageCredit->euro_amount}}
+                        ({{__('messages.save 20%')}}!)</strong></button>
         
             </div>
         
@@ -466,20 +487,23 @@
                 // }else{
                 //     $("#credits_count").html(100);
                 // }
+                // $("#credits_amount").html(val);
                 db_no_of_credit = $("input[name='no_of_credit']").val();
                 $("#credits_count").html(db_no_of_credit);
-
+                
                 db_euro_amount = $("input[name='euro_amount']").val();
                 $("#credits_amount").html(db_euro_amount);
-
+                
                 localStorage.setItem("credit_amount",val*100);
+                localStorage.setItem("credits",db_no_of_credit);
+                // alert(localStorage.getItem("credit_amount"));
                 $("#paymentModal").show();
                 
             }
             $(".close-payment-modal").click(function(){
                 $("#paymentModal").hide();
             });
-            localStorage.removeItem("payment_response");
+            // localStorage.removeItem("payment_response");
             // localStorage.setItem("credit_amount",50);
         </script>
     </body>

@@ -339,10 +339,9 @@
                                         </div>
                                     </a>
                                     @else
-                                    <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYodX4PS5R7aKD07Tli-JcxLDvuKv5PZOFZHpuihWbTu63e-riirBBrvu8IqOJz7XjaSQ&usqp=CAU">
+                                    <a href="{{URL::asset('upload/user/profile/default-user.png')}}">
                                         <div class="symbol-label">
-                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYodX4PS5R7aKD07Tli-JcxLDvuKv5PZOFZHpuihWbTu63e-riirBBrvu8IqOJz7XjaSQ&usqp=CAU"
-                                                alt="profile pic" class="w-100">
+                                            <img src="{{URL::asset('upload/user/profile/default-user.png')}}" alt="profile pic" class="w-100">
                                         </div>
                                     </a>
                                     @endif

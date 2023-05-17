@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\MobilePrefix;
+use App\Models\Response;
+use App\Models\Gallery;
 use App\Services\UserService;
+use Hash;
 
 class AdminUserController extends Controller
 {
@@ -31,7 +34,12 @@ class AdminUserController extends Controller
 
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $users   = User::where('role', 'user')->where('user_type', 'user')->count();
+        $hostess = User::where('role', 'user')->where('user_type', 'hostess')->count();
+        $transactions = Response::count();
+        $gallery = Gallery::count();
+        $prefix = MobilePrefix::count();
+        return view('admin.dashboard', compact('users', 'hostess', 'transactions', 'gallery', 'prefix'));
     }
 
     public function adminLogin()
@@ -88,6 +96,7 @@ class AdminUserController extends Controller
             'mobileno',
             'aboutme',
             'birthdate',
+            'credit',
             'gender',
             'city',
         ]);
@@ -112,6 +121,9 @@ class AdminUserController extends Controller
         if($request->birthdate != null || $request->birthdate != '')
             $userDetails['birthdate']   =  $request->birthdate;
 
+        if($request->credit != null || $request->credit != '')
+            $userDetails['credit']   =  $request->credit;
+
         if($request->gender != null || $request->gender != '')
             $userDetails['gender']          =  $request->gender;
         
@@ -126,44 +138,37 @@ class AdminUserController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
     public function destroy(Request $request) 
     {
         $user = User::find($request->id);
         $user->delete();
         return json_encode(['success' => 1, 'message' => 'User has been deleted successfully']);
+    }
+
+    public function changePassword()
+    {
+        return view('admin.changePassword');
+    }
+    public function save_changePassword(Request $request)
+    {
+        //validation
+        $request->validate([
+            'newPassword' => 'required',
+            'confirmPassword' => 'required',
+        ]);
+
+        $request->only([
+            'newPassword',
+            'confirmPassword',
+        ]);
+
+        $data['newPassword']     = $request->newPassword;
+        $data['confirmPassword'] = $request->confrimPassword;
+
+        #Update the new Password
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->newPassword)
+        ]);
+        return json_encode(['success' => 1, 'message' => 'Password Changed Successfully']);
     }
 }

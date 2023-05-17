@@ -583,9 +583,9 @@
                                             </div>
                                         </a>
                                     @else
-                                        <a href="https://t4.ftcdn.net/jpg/04/50/60/51/360_F_450605101_Rc8xz4hnMtuePmpZA1i6RZMwREwcqaZI.jpg">
+                                        <a href="{{URL::asset('upload/user/profile/default-user.png')}}">
                                             <div class="symbol-label">
-                                                <img src="https://t4.ftcdn.net/jpg/04/50/60/51/360_F_450605101_Rc8xz4hnMtuePmpZA1i6RZMwREwcqaZI.jpg" alt="profile pic" class="w-100">
+                                                <img src="{{URL::asset('upload/user/profile/default-user.png')}}" alt="profile pic" class="w-100">
                                             </div>
                                         </a>
                                     @endif

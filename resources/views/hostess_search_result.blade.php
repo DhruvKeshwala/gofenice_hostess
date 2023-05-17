@@ -1,5 +1,10 @@
 @extends('layouts.front-layout')
 @section('content')
+<style>
+    .container {
+        max-width: 96% !important;
+    }
+</style>
 <section>
     <div class="container">
         <div class="topFilterOptions">

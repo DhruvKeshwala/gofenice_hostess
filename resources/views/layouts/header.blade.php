@@ -8,7 +8,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <title>@yield('title')</title>
 
-        <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">        
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
+        
         <!--Bootstrap CSS-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -434,7 +435,7 @@
                                         <div class="menuCol">
                                             <ul>
                                                 <li><a href="{{ route('hostess-search-result') }}">{{__('messages.Near')}}</a></li>
-                                                <li><a href="javascript:void(0)">{{__('messages.How_does_it_work')}}</a></li>
+                                                <li><a href="{{ route('how-does-it-work') }}">{{__('messages.How_does_it_work')}}</a></li>
                                                 {{-- <li><a href="javascript:void(0)">{{__('messages.are_you_a_hostess_model')}}</a></li> --}}
                                                 @if (Auth::id() != null || Auth::id() != '')
                                                 @if(Auth::user()->user_type == 'user')
@@ -639,7 +640,7 @@
             
                     <input type="hidden" name="no_of_credit" value="{{@$manageCredit->no_of_credit}}">
                     <input type="hidden" name="euro_amount" value="{{@$manageCredit->euro_amount}}">
-                    <button class="ModalbuttonOrange" onclick="showPaymentModal(80)"><strong>{{__('messages.Buy a pack of')}}
+                    <button class="ModalbuttonOrange" onclick="showPaymentModal({{@$manageCredit->euro_amount}})"><strong>{{__('messages.Buy a pack of')}}
                             {{@$manageCredit->no_of_credit}} {{__('messages.credits for')}} €{{@$manageCredit->euro_amount}}
                             ({{__('messages.save 20%')}}!)</strong></button>
             
@@ -710,13 +711,12 @@
                             db_euro_amount = $("input[name='euro_amount']").val();
                             $("#credits_amount").html(db_euro_amount);
                             localStorage.setItem("credit_amount",val*100);
+                            localStorage.setItem("credits",db_no_of_credit);
                             $("#paymentModal").show();
                             
                         }
                         $(".close-payment-modal").click(function(){
                             $("#paymentModal").hide();
                         });
-                        localStorage.removeItem("payment_response");
-                        // localStorage.setItem("credit_amount",50);
             </script>
         </header>

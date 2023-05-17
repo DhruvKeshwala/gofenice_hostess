@@ -1,7 +1,5 @@
 @include('layouts.header')
-<main class="w-100 mx-auto text-center" style="max-width: 800px;
-    padding: 15px;
-    background-color: white;">
+<main class="w-100 mx-auto text-center" style="max-width: 32%;padding: 15px;background-color: white;">
     {{-- @dd(Auth::user()) --}}
     @if (Session::has('success'))
     <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('success') }}</p>
@@ -38,7 +36,7 @@
         </div> --}}
         <div class="form-floating">
             <span for="floatingLastNameInput" style="color: #636161; display: block; text-align: left;">
-                {{__('messages.About me')}}
+                {{__('messages.Name')}}
             </span>
             <input style="" type="text" class="form-control" id="floatingLastNameInput" name="aboutme" id="aboutme"
                 value="@if (Auth::user()->aboutme != null || Auth::user()->aboutme != '') {{ Auth::user()->aboutme }} @endif">

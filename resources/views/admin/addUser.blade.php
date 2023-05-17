@@ -124,6 +124,14 @@
                                 value="{{ @$user->birthdate }}" />
                         </div>
                     </div>
+
+                    <div class="row mb-12">
+                        <label class="col-lg-4 col-form-label fw-bold fs-6">Credit</label>
+                        <div class="col-lg-8">
+                            <input type="number" name="credit" id="credit"
+                                class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" value="{{ @$user->credit }}" />
+                        </div>
+                    </div>
                 @endif
                 
                 <div class="row mb-12">
@@ -235,6 +243,10 @@
         var birthdate = $("input[name='birthdate']").val();
         if(birthdate == null || birthdate == 'undefined')
             birthdate = '';
+
+        var credit = $("input[name='credit']").val();
+        if(credit == null || credit == 'undefined')
+            credit = '';
         
         var gender = $("input[name='gender']:checked").val();
         if(gender == null || gender == 'undefined')
@@ -264,6 +276,7 @@
         fd.append('mobileno', mobileno);
         fd.append('aboutme', aboutme);
         fd.append('birthdate', birthdate);
+        fd.append('credit', credit);
         fd.append('gender', gender);
         fd.append('city', city);
         fd.append('userId', userId);

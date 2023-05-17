@@ -162,6 +162,11 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('manage-credit/{id?}', [ManageCreditController::class,'manageCredit'])->name('admin.manageCredit');
         Route::post('manage-credit', [ManageCreditController::class,'store'])->name('admin.save_manage_credit');
 
+        //Change Password
+        Route::get('change-password', [AdminUserController::class, 'changePassword'])->name('admin.changePassword');
+        Route::post('change-password', [AdminUserController::class, 'save_changePassword'])->name('admin.saveChangePassword');
+
+
         Route::get('logout', function ()
         {
             auth()->logout();

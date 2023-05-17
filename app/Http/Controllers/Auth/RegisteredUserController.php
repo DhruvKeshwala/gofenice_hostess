@@ -114,6 +114,7 @@ class RegisteredUserController extends Controller
             if($request->user_type == 'hostess')
             {
                 $userDetails['birthdate'] = $request->birthday_year."-".$request->birthday_month."-".$request->birthday_day;
+                $userDetails['credit']    = $request->credit;
                 $userDetails['type'] = 2;
             }
             else 

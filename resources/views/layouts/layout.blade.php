@@ -12,12 +12,16 @@
         <script src="https://kit.fontawesome.com/61ebb60581.js" crossorigin="anonymous"></script>
         @yield('header')
         <style>
-            /* a.fa-comments {
-            position: relative;
-            font-size: 2em;
-            color: grey;
-            cursor: pointer;
-            } */
+           .signupbtnDark {
+                background-color: var(--black);
+                color: var(--white) !important;
+            }
+            .signupbtn {
+                font-size: 14px;
+                font-weight: 600;
+                border-radius: 5px;
+                padding: 12px 20px;
+            }
             span.fa-comment {
             position: absolute;
             font-size: 0.6em;
@@ -293,8 +297,10 @@
                                         <div class="menuCol">
                                             <ul>
                                                 <li><a href="{{ route('hostess-search-result') }}">{{__('messages.Near')}}</a></li>
-                                                <li><a href="javascript:void(0)">{{__('messages.How_does_it_work')}}</a></li>
-                                                <li><a href="{{ route('login') }}">{{__('messages.are_you_a_hostess_model')}}</a></li>
+                                                <li><a href="{{ route('how-does-it-work') }}">{{__('messages.How_does_it_work')}}</a></li>
+                                                @if (Auth::id() == null || Auth::id() == '')
+                                                    <li><a href="{{ route('login') }}">{{__('messages.are_you_a_hostess_model')}}</a></li>
+                                                @endif
                                                 @if (Auth::id() != null || Auth::id() != '')
                                                     @if(Auth::user()->user_type == 'user')
                                                     <li class="d-lg-none"><a href="{{ route('userChat') }}">{{__('messages.chat')}}</a></li>
@@ -356,18 +362,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-auto">
-                                            <div class="menuToggle">
-                                                <span></span>
-                                                <span></span>
-                                                <span></span>
-                                            </div>
-                                        </div>
+
                                     </div>
                                     <ul class="headerRightCol d-none d-lg-block">
                                         @if (Auth::id() == null || Auth::id() == '')
                                         <li><a href="{{ route('login') }}">{{__('messages.Login')}}</a></li>
-                                        <li><a href="{{ route('register') }}">{{__('messages.Sign up free')}}</a></li>
                                         @else
                                         <li>
                                             <div class="dropdown1">
@@ -433,6 +432,9 @@
                                                     @endforeach
                                                 </div>
                                             </div>
+                                            @if (Auth::id() == null || Auth::id() == '')
+                                            <li><a href="{{ route('register') }}" class="signupbtn signupbtnDark">{{__('messages.Sign up free')}}</a></li>
+                                            @endif
                                         </li>
                                         {{-- <li><a href="{{ route('register') }}" class="btn btnDark">Sign up free</a></li> --}}
                                     </ul>        
@@ -472,7 +474,7 @@
         
                 <input type="hidden" name="no_of_credit" value="{{@$manageCredit->no_of_credit}}">
                 <input type="hidden" name="euro_amount" value="{{@$manageCredit->euro_amount}}">
-                <button class="ModalbuttonOrange" onclick="showPaymentModal(80)"><strong>{{__('messages.Buy a pack of')}}
+                <button class="ModalbuttonOrange" onclick="showPaymentModal({{@$manageCredit->euro_amount}})"><strong>{{__('messages.Buy a pack of')}}
                         {{@$manageCredit->no_of_credit}} {{__('messages.credits for')}} €{{@$manageCredit->euro_amount}}
                         ({{__('messages.save 20%')}}!)</strong></button>
         
@@ -543,14 +545,13 @@
                 db_euro_amount = $("input[name='euro_amount']").val();
                 $("#credits_amount").html(db_euro_amount);
                 localStorage.setItem("credit_amount",val*100);
+                localStorage.setItem("credits",db_no_of_credit);
                 $("#paymentModal").show();
                 
             }
             $(".close-payment-modal").click(function(){
                 $("#paymentModal").hide();
             });
-            localStorage.removeItem("payment_response");
-            // localStorage.setItem("credit_amount",50);
         </script>
     </body>
 

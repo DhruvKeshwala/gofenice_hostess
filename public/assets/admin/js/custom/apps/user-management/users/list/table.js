@@ -124,7 +124,7 @@ var KTUsersList = function() {
                     targets: 0
                 }, {
                     orderable: !1,
-                    targets: 6
+                    targets: 5
                 }]
             })).on("draw", (function() {
                 l(), c(), a()

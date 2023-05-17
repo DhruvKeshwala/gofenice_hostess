@@ -5,6 +5,9 @@
     .jGrowl .changeCount {
     background-color: #4BB543 !important;
     }
+    .container {
+        max-width: 96% !important;
+    }
 </style>
 <script src="https://js.stripe.com/v3/"></script>
 <script src="{{URL::to('../stripe-sample-code/public/checkout.js')}}" defer></script>
@@ -91,7 +94,6 @@
 </style>
 <section>
     <div class="container">
-        
         <div class="topFilterOptions">
             <div class="searchLikeCol">
                 <div class="row g-2 g-lg-3 align-items-center">
@@ -292,6 +294,7 @@
                             <h4 class="lineTitle"><span>{{__('messages.CONTACT')}} {{__('messages.HOSTESS')}} </span>
                             </h4>
                             @if(Auth::id() != null || Auth::id() != '')
+                            @if (!$is_chat_option)
                             <div class="mb-20">
                                 <p class="fwSBold">{{__('messages.Unlock the chat and send a personalized message')}}
                                 </p>
@@ -313,12 +316,16 @@
                                         <div id="messageError"></div>
                                     </form>
                                 </div>
-                                <p><small>{{__('messages.Pay now 3 credits. If the hostess does will be offline for over 72 hours the credits will be refunded to your account.')}}</small>
+                                <p><small>{{__('messages.Pay now') }} {{@$user->credit}} {{__('messages.credits') }}. {{ __('messages.If the hostess does will be offline for over 72 hours the credits will be refunded to your account.')}}</small>
                                 </p>
                                 {{-- <button class="btn sendBtn" id="myBtn">{{__('messages.Invia Adess')}}</button> --}}
                                 <button class="btn sendBtn" onclick="sendMessage()"
                                     id="saveBtn">{{__('messages.Invia Adess')}}</button>
                             </div>
+                            @else
+                            <button class="btn sendBtn direct-chat-btn"
+                                onclick="window.location.href='../user-chat/{{ $id }}'">{{__('messages.chat_now')}}</button>
+                            @endif
 
                             <!-- The Modal Confirm-->
                             <div id="myModal" class="modal">
@@ -346,8 +353,8 @@
                                     <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..."
                                         class="logoImg1" height="10%" width="10%">
                                     <span class="close">&times;</span>
-                                    <h3><b style="margin-left: 10%;margin-left: 23%;">{{__('messages.You don\'t have enough credits')}}.</b>
-                                    </h3>
+                                    <b style="margin-left: 10%;margin-left: 23%;color:#FF0000">{{__('messages.You don\'t have enough credits')}}.</b>
+                                    
                                     <p style="margin-left: 10%;margin-left: 35%;">{{__('messages.Buy your credits now')}}:</p>
                                     {{-- <form action="{{ route('confirmMsg') }}" method="post"> --}}
                                     {{-- @csrf --}}
@@ -1334,7 +1341,7 @@ function showPaymentModal(val) {
     $("#lowCreditModal").hide();
     if (val == '3') {
         $("#credits_count").html(3);
-        $("#credits_amount").html(val);
+        $("#credits_amount").html(val);  
         credits = 3;
     }else{
         $("#credits_count").html(100);
