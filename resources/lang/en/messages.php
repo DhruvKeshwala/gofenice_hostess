@@ -83,7 +83,7 @@ return [
     'Email already exist' => 'Email already exist',
     'City is required' => 'City is required',
     'Services is required' => 'Services is required',
-    'Veify Mobile' => 'Veify Mobile',
+    'Verify Mobile' => 'Verify Mobile',
     'OTP' => 'OTP',
     'Verification Code required' => 'Verification Code required',
     'Verify OTP' => 'Verify OTP',

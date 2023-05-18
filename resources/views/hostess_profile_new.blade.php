@@ -12,6 +12,14 @@
 <script src="https://js.stripe.com/v3/"></script>
 <script src="{{URL::to('../stripe-sample-code/public/checkout.js')}}" defer></script>
 <style>
+    .buyCredits {
+        text-align: center;
+        font-weight: bold;
+    }
+    .credits1 {
+        color:#FF0000;
+        text-align: center;
+    }
     .Modalbutton{
         border: none;
         color: white;
@@ -352,8 +360,8 @@
                                 <div class="modal-content mb-20" style="width: 30% !important;">
                                     <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..." class="logoImg1" height="10%" width="10%">
                                     <span class="close">&times;</span>
-                                    <p style="margin-left: 30%;margin-left: 30%; color:#FF0000;">{{__('messages.You don\'t have enough credits')}}.</p>
-                                    <b style="margin-left: 10%;margin-left: 36%;">{{__('messages.Buy your credits now')}}:</b>
+                                    <p class="credits1">{{__('messages.You don\'t have enough credits')}}.</p>
+                                    <p class="buyCredits">{{__('messages.Buy your credits now')}}:</p>
                                     {{-- <form action="{{ route('confirmMsg') }}" method="post"> --}}
                                     {{-- @csrf --}}
                                     <button class="ModalbuttonPink Modalbutton" onclick="showPaymentModal(3)"><strong>{{__('messages.Buy')}}

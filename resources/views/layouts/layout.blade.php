@@ -12,6 +12,10 @@
         <script src="https://kit.fontawesome.com/61ebb60581.js" crossorigin="anonymous"></script>
         @yield('header')
         <style>
+            .buyCredits {
+            text-align: center;
+            font-weight: bold;
+            }
            .signupbtnDark {
                 background-color: var(--black);
                 color: var(--white) !important;
@@ -465,7 +469,7 @@
                     width="10%">
                 <span class="close1">&times;</span>
                 {{-- <h3><b style="margin-left: 10%;margin-left: 23%;">You don't have enough credits.</b></h3> --}}
-                <p style="margin-left: 10%;margin-left: 35%;">{{__('messages.Buy your credits now')}}:</p>
+                <p class="buyCredits">{{__('messages.Buy your credits now')}}:</p>
                 {{-- <form action="{{ route('confirmMsg') }}" method="post"> --}}
                 {{-- @csrf --}}
                 {{-- <button class="ModalbuttonPink"><strong>Buy {{@$user->credit}} credits (for 3 €) and start the

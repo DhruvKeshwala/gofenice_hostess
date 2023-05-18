@@ -197,7 +197,7 @@
     <div class="row">
 
         <div class="col-md-3">
-            <main class="w-100 mx-auto text-center" style="width: 81% !important;" id="profile"
+            <main class="w-100 mx-auto text-center" style="width: 73% !important;" id="profile"
                 style="max-width: 800px;padding: 5px;background-color: white;">
                 <div class="card" style="width: 18rem;">
                     <form action="{{ route('save_profilePic')}}" method="POST" id="profilePicForm"
@@ -258,7 +258,7 @@
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                             aria-labelledby="pills-home-tab">
                             <main class="w-100 mx-auto " id="remove-margins"
-                                style="max-width: 1500px;padding: 50px;background-color: white; width: 116%!important;">
+                                style="max-width: 1500px;padding: 50px;background-color: white; width: 115%!important;">
 
                                 @if ($message = Session::get('success'))
                                 <div style="color: green;">
@@ -438,7 +438,7 @@
                             {{-- -------------------------------------------------------- --}}
 
                             <main class="w-100 mx-auto mt-5" id="remove-margins"
-                                style="max-width: 1500px;padding: 15px;background-color: white; width: 116%!important;"
+                                style="max-width: 1500px;padding: 15px;background-color: white; width: 115%!important;"
                                 id="gallery-upload-main">
                                 <div class="row" id="imageListId">
 
@@ -536,7 +536,7 @@
                         <div class="tab-pane fade" id="pills-contact" role="tabpanel"
                             aria-labelledby="pills-contact-tab">
                             <main class="w-100 mx-auto " id="remove-margins"
-                                style="max-width: 1500px;padding: 100px;background-color: white; width: 116%!important;">
+                                style="max-width: 1500px;padding: 100px;background-color: white; width: 115%!important;">
                                 <form name="profile" action="{{ route('save_hostess_profile') }}" method="POST">
                                     @csrf
                                     @php

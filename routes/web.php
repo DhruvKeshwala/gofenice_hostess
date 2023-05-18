@@ -88,22 +88,30 @@ Route::get('user-chat/{id?}', [UserController::class, 'userChat'])->name('userCh
 
     Route::get('logout', function ()
     {
-        if(Auth::user()->role == 'user')
+        if(Auth::id() != null || Auth::id() != '')
         {
-            auth()->logout();
-            // Session()->flush();
-            if(app()->getLocale() == 'en')
-                return redirect('/en/login');
-            else if(app()->getLocale() == 'it')
-                return redirect('/it/login');
-            else if(app()->getLocale() == 'sp')
-                return redirect('/sp/login');
+            if(Auth::user()->role == 'user')
+            {
+                auth()->logout();
+                // Session()->flush();
+                if(app()->getLocale() == 'en')
+                    return redirect('/en/login');
+                else if(app()->getLocale() == 'it')
+                    return redirect('/it/login');
+                else if(app()->getLocale() == 'sp')
+                    return redirect('/sp/login');
+            }
+            else if(Auth::user()->role == 'Admin')
+            {
+                auth()->logout();
+                // Session()->flush();
+                return Redirect::to('admin/login');
+            }
+            
         }
-        else if(Auth::user()->role == 'Admin')
+        else 
         {
-            auth()->logout();
-            // Session()->flush();
-            return Redirect::to('admin/login');
+            return redirect(app()->getLocale() . '/login');
         }
 
     })->name('user.logout');

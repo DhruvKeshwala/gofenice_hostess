@@ -34,6 +34,10 @@
 
     </head>
     <style>
+        .buyCredits {
+        text-align: center;
+        font-weight: bold;
+        }
         .dropbtn {
             background-color: #4CAF50;
             color: white;
@@ -631,7 +635,7 @@
                         width="10%">
                     <span class="close1">&times;</span>
                     {{-- <h3><b style="margin-left: 10%;margin-left: 23%;">You don't have enough credits.</b></h3> --}}
-                    <b style="margin-left: 10%;margin-left: 36%;">{{__('messages.Buy your credits now')}}:</b>
+                    <p class="buyCredits">{{__('messages.Buy your credits now')}}:</p>
                     {{-- <form action="{{ route('confirmMsg') }}" method="post"> --}}
                     {{-- @csrf --}}
                     {{-- <button class="ModalbuttonPink"><strong>Buy {{@$user->credit}} credits (for 3 €) and start the

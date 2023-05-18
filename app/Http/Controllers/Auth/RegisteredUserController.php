@@ -197,7 +197,8 @@ class RegisteredUserController extends Controller
         if($request)
         {
             $user = User::where('id', $request->userId)->first();
-            if($request->otp == $user->mobile_verification_code)
+            
+            if($request->otp === $user->mobile_verification_code)
             {
                 User::where('id',$user->id)->update(['mobile_verified_at'=>Carbon::now()->toDateTimeString(), 'status' => 'Active']);
                 //Session::flash('success', 'Phone number verified successfully');

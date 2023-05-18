@@ -83,7 +83,7 @@ return [
     'Email already exist' => 'L\'e-mail esiste già',
     'City is required' => 'La città è obbligatoria',
     'Services is required' => 'I servizi sono richiesti',
-    'Veify Mobile' => 'Verifica cellulare',
+    'Verify Mobile' => 'Verifica cellulare',
     'OTP' => 'OTP',
     'Verification Code required' => 'Codice di verifica richiesto',
     'Verify OTP' => 'Verificare OTP',

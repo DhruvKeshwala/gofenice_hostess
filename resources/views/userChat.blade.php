@@ -5,7 +5,9 @@
 <script src="https://phpstack-957459-3413409.cloudwaysapps.com/stripe-sample-code/public/checkout.js" defer></script>
 <style>
     
-
+    .selectedLang, .langDD a {
+        display: inline-flex;
+    }
     a:hover {
         color: #fff;
     }
@@ -114,7 +116,7 @@
                             @if($users)
                             @foreach($users as $user)
                             <a href="{{ route('userChat', ['id' => @$user['id']]) }}"
-                                class="list-group-item list-group-item-action border-0">
+                                class="list-group-item list-group-item-action border-0 {{ Request::segment(3) == @$user['id'] ? 'active' : ''}}">
                                 {{-- <div class="badge bg-success float-right">5</div> --}}
                                 <div class="d-flex align-items-start">
                                     @if(@$user['profilepic'] != null || @$user['profilepic'] != '')
