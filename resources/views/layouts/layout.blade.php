@@ -472,7 +472,7 @@
         
                 <input type="hidden" name="no_of_credit" value="{{@$manageCredit->no_of_credit}}">
                 <input type="hidden" name="euro_amount" value="{{@$manageCredit->euro_amount}}">
-                <button class="ModalbuttonOrange" onclick="showPaymentModal(80)"><strong>{{__('messages.Buy a pack of')}}
+                <button class="ModalbuttonOrange" onclick="showPaymentModal({{@$manageCredit->euro_amount}})"><strong>{{__('messages.Buy a pack of')}}
                         {{@$manageCredit->no_of_credit}} {{__('messages.credits for')}} €{{@$manageCredit->euro_amount}}
                         ({{__('messages.save 20%')}}!)</strong></button>
         
@@ -531,18 +531,13 @@
                     
             function showPaymentModal(val) {
                 $("#lowCreditModal1").hide();
-                // if (val == '3') {
-                //     $("#credits_count").html(3);
-                // }else{
-                //     $("#credits_count").html(100);
-                // }
-                // $("#credits_amount").html(val);
                 db_no_of_credit = $("input[name='no_of_credit']").val();
                 $("#credits_count").html(db_no_of_credit);
                 
                 db_euro_amount = $("input[name='euro_amount']").val();
                 $("#credits_amount").html(db_euro_amount);
                 localStorage.setItem("credit_amount",val*100);
+                localStorage.setItem("credits",db_no_of_credit);
                 $("#paymentModal").show();
                 
             }
