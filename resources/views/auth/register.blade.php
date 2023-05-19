@@ -161,6 +161,19 @@
             </div>
         </div>
 
+        <div class="form-floating" id="hidecredit">
+            <span for="floatingCredit" style="color: #636161;">
+                {{__('messages.Credit')}}
+            </span>
+            <input style="" type="number" class="form-control" id="credit" name="credit" placeholder="{{__('messages.credit')}}" value="{{ old('credit') }}"
+               >
+            @if ($errors->has('credit'))
+            <span class="text-danger">
+                {{ $errors->first('credit') }}
+            </span>
+            @endif
+        </div>
+
         <div class="form-floating">
             <span for="floatingPassword" style="color: #636161;">
                 {{__('messages.Password')}}
@@ -285,7 +298,9 @@
     if(userType == 'user')
     {
         var element = document.getElementById("hidebirthdate");
+        var credit = document.getElementById("hidecredit");
         element.style.display = "none";
+        credit.style.display = "none";
     } 
     @php
     }
@@ -304,6 +319,9 @@
     function changeStyle() {
         var element = document.getElementById("hidebirthdate");
         element.style.display = "none";
+
+        var credit = document.getElementById("hidecredit");
+        credit.style.display = "none";
     }
 
     function checkUserType(params) {

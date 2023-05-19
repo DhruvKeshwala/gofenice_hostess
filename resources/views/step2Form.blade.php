@@ -65,15 +65,15 @@
             <span for="floatingInput" style="color: #636161;">{{__('messages.Are you a wing hostess or wing man ?')}}</span>
         </div>
         <div class="form-radio">
-            <input class="form-radio-input" type="radio" name="wing_type" checked value="hostess"
+            <input class="form-radio-input" type="radio" name="wing_type" id="hostess" checked value="hostess"
                 @if (is_array(old('wing_type')) && in_array('Extra', old('wing_type'))) checked @endif>
-            <label class="form-radio-label" for="wing_type" style="text-align: left!important;font-size: 12px;">
+            <label class="form-radio-label" for="hostess" style="text-align: left!important;font-size: 12px;">
                 <span class="">{{__('messages.Wing Hostess')}}</span>
             </label>
 
-            <input class="form-radio-input" type="radio" name="wing_type" value="man"
+            <input class="form-radio-input" type="radio" name="wing_type" id="man" value="man"
                 @if (is_array(old('wing_type')) && in_array('Extra', old('wing_type'))) checked @endif>
-            <label class="form-radio-label" for="wing_type" style="text-align: left!important;font-size: 12px;">
+            <label class="form-radio-label" for="man" style="text-align: left!important;font-size: 12px;">
                 <span class="">{{__('messages.Wing Man')}}</span>
             </label>
         </div>

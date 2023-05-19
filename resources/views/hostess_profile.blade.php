@@ -1,68 +1,4 @@
 @include('layouts.header')
-{{-- <script src="https://code.jquery.com/jquery-3.6.4.slim.js"
-    integrity="sha256-dWvV84T6BhzO4vG6gWhsWVKVoa4lVmLnpBOZh/CAHU4=" crossorigin="anonymous"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/dropzone.min.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js"></script>
-<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
-    crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script> --}}
-{{-- <script>
-    var dropzone = new Dropzone('#file-upload', {
-            previewTemplate: document.querySelector('#preview-template').innerHTML,
-            parallelUploads: 3,
-            thumbnailHeight: 150,
-            thumbnailWidth: 150,
-            maxFilesize: 5,
-            filesizeBase: 1500,
-            thumbnail: function (file, dataUrl) {
-                if (file.previewElement) {
-                    file.previewElement.classList.remove("dz-file-preview");
-                    var images = file.previewElement.querySelectorAll("[data-dz-thumbnail]");
-                    for (var i = 0; i < images.length; i++) {
-                        var thumbnailElement = images[i];
-                        thumbnailElement.alt = file.name;
-                        thumbnailElement.src = dataUrl;
-                    }
-                    setTimeout(function () {
-                        file.previewElement.classList.add("dz-image-preview");
-                    }, 1);
-                }
-            }
-        });
-        
-        var minSteps = 6,
-            maxSteps = 60,
-            timeBetweenSteps = 100,
-            bytesPerStep = 100000;
-        dropzone.uploadFiles = function (files) {
-            var self = this;
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                totalSteps = Math.round(Math.min(maxSteps, Math.max(minSteps, file.size / bytesPerStep)));
-                for (var step = 0; step < totalSteps; step++) {
-                    var duration = timeBetweenSteps * (step + 1);
-                    setTimeout(function (file, totalSteps, step) {
-                        return function () {
-                            file.upload = {
-                                progress: 100 * (step + 1) / totalSteps,
-                                total: file.size,
-                                bytesSent: (step + 1) * file.size / totalSteps
-                            };
-                            self.emit('uploadprogress', file, file.upload.progress, file.upload
-                                .bytesSent);
-                            if (file.upload.progress == 100) {
-                                file.status = Dropzone.SUCCESS;
-                                self.emit("success", file, 'success', null);
-                                self.emit("complete", file);
-                                self.processQueue();
-                                window.location.reload();
-                            }
-                        };
-                    }(file, totalSteps, step), duration);
-                }
-            }
-        }
-</script> --}}
 <style>
     .dropzone {
         background: #00000;
@@ -261,7 +197,7 @@
     <div class="row">
 
         <div class="col-md-3">
-            <main class="w-100 mx-auto text-center" id="profile"
+            <main class="w-100 mx-auto text-center" style="width: 73% !important;" id="profile"
                 style="max-width: 800px;padding: 5px;background-color: white;">
                 <div class="card" style="width: 18rem;">
                     <form action="{{ route('save_profilePic')}}" method="POST" id="profilePicForm"
@@ -322,12 +258,10 @@
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                             aria-labelledby="pills-home-tab">
                             <main class="w-100 mx-auto " id="remove-margins"
-                                style="max-width: 1500px;padding: 50px;background-color: white;">
+                                style="max-width: 1500px;padding: 50px;background-color: white; width: 115%!important;">
 
                                 @if ($message = Session::get('success'))
-                                <div class="alert">
-                                    <span class="closebtn"
-                                        onclick="this.parentElement.style.display='none';">&times;</span>
+                                <div style="color: green;">
                                     <strong>{{@$message}}.</strong>
                                 </div>
                                 @endif
@@ -406,7 +340,7 @@
                                             <div class="form-group">
                                                 <label
                                                     for="exampleFormControlSelect1">{{ __('messages.Languages') }}</label>
-                                                <select class="form-control" id="languages" name="languages[]" multiple>
+                                                <select class="form-control" id="languages" name="languages[]" multiple style="width: 100%;">
                                                     <option value=""></option>
                                                     <option value="Italian" @if(in_array('Italian',$languages)) selected
                                                         @endif>Italian</option>
@@ -504,7 +438,7 @@
                             {{-- -------------------------------------------------------- --}}
 
                             <main class="w-100 mx-auto mt-5" id="remove-margins"
-                                style="max-width: 1500px;padding: 15px;background-color: white;"
+                                style="max-width: 1500px;padding: 15px;background-color: white; width: 115%!important;"
                                 id="gallery-upload-main">
                                 <div class="row" id="imageListId">
 
@@ -602,7 +536,7 @@
                         <div class="tab-pane fade" id="pills-contact" role="tabpanel"
                             aria-labelledby="pills-contact-tab">
                             <main class="w-100 mx-auto " id="remove-margins"
-                                style="max-width: 1500px;padding: 100px;background-color: white;">
+                                style="max-width: 1500px;padding: 100px;background-color: white; width: 115%!important;">
                                 <form name="profile" action="{{ route('save_hostess_profile') }}" method="POST">
                                     @csrf
                                     @php

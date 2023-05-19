@@ -283,6 +283,10 @@
                     margin-bottom: 15px !important;
                 }
             }
+
+            .container-fluid {
+                max-width: 96% !important;
+            }
         </style>
         <script>
             $(document).ready(function(){

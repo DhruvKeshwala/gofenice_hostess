@@ -1,5 +1,46 @@
 @extends('layouts.front-layout')
 @section('content')
+<style>
+   .headerCol{
+            padding: 15px 0 !important;
+        }
+        .container-fluid {
+            max-width: 1344px;
+            margin: 0 auto;
+        }
+        .container {
+            max-width: 1344px !important;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0;
+        }
+        @media screen and (max-width: 1465px) {
+            .container {
+                width: 94%;
+            }
+            .headerCol{
+                padding: 15px 0;
+                    width: 94%;
+                    margin: 0 auto;
+                    
+            }
+        }
+        /* .container {
+            max-width: 94%;
+        }
+
+        @media screen and (max-width: 1465px) {
+            .container {
+                width: 94%;
+            }
+            .headerCol{
+                padding: 15px 0;
+                    width: 94%;
+                    margin: 0 auto;
+                    
+            }
+        } */
+</style>
 <section>
     <div class="container">
         <div class="topFilterOptions">

@@ -5,10 +5,21 @@
     .jGrowl .changeCount {
     background-color: #4BB543 !important;
     }
+    .container {
+        max-width: 96% !important;
+    }
 </style>
 <script src="https://js.stripe.com/v3/"></script>
 <script src="{{URL::to('../stripe-sample-code/public/checkout.js')}}" defer></script>
 <style>
+    .buyCredits {
+        text-align: center;
+        font-weight: bold;
+    }
+    .credits1 {
+        color:#FF0000;
+        text-align: center;
+    }
     .Modalbutton{
         border: none;
         color: white;
@@ -91,7 +102,6 @@
 </style>
 <section>
     <div class="container">
-        
         <div class="topFilterOptions">
             <div class="searchLikeCol">
                 <div class="row g-2 g-lg-3 align-items-center">
@@ -292,6 +302,7 @@
                             <h4 class="lineTitle"><span>{{__('messages.CONTACT')}} {{__('messages.HOSTESS')}} </span>
                             </h4>
                             @if(Auth::id() != null || Auth::id() != '')
+                            @if (!$is_chat_option)
                             <div class="mb-20">
                                 <p class="fwSBold">{{__('messages.Unlock the chat and send a personalized message')}}
                                 </p>
@@ -313,12 +324,16 @@
                                         <div id="messageError"></div>
                                     </form>
                                 </div>
-                                <p><small>{{__('messages.Pay now 3 credits. If the hostess does will be offline for over 72 hours the credits will be refunded to your account.')}}</small>
+                                <p><small>{{__('messages.Pay now') }} {{@$user->credit}} {{__('messages.credits') }}. {{ __('messages.If the hostess does will be offline for over 72 hours the credits will be refunded to your account.')}}</small>
                                 </p>
                                 {{-- <button class="btn sendBtn" id="myBtn">{{__('messages.Invia Adess')}}</button> --}}
                                 <button class="btn sendBtn" onclick="sendMessage()"
                                     id="saveBtn">{{__('messages.Invia Adess')}}</button>
                             </div>
+                            @else
+                            <button class="btn sendBtn direct-chat-btn"
+                                onclick="window.location.href='../user-chat/{{ $id }}'">{{__('messages.chat_now')}}</button>
+                            @endif
 
                             <!-- The Modal Confirm-->
                             <div id="myModal" class="modal">
@@ -342,21 +357,23 @@
                             <div id="lowCreditModal" class="modal">
 
                                 <!-- Modal content -->
-                                <div class="modal-content mb-20">
-                                    <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..."
-                                        class="logoImg1" height="10%" width="10%">
+                                <div class="modal-content mb-20" style="width: 30% !important;">
+                                    <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..." class="logoImg1" height="10%" width="10%">
                                     <span class="close">&times;</span>
-                                    <h3><b style="margin-left: 10%;margin-left: 23%;">{{__('messages.You don\'t have enough credits')}}.</b>
-                                    </h3>
-                                    <p style="margin-left: 10%;margin-left: 35%;">{{__('messages.Buy your credits now')}}:</p>
+                                    <p class="credits1">{{__('messages.You don\'t have enough credits')}}.</p>
+                                    <p class="buyCredits">{{__('messages.Buy your credits now')}}:</p>
                                     {{-- <form action="{{ route('confirmMsg') }}" method="post"> --}}
                                     {{-- @csrf --}}
-                                    <button class="ModalbuttonPink Modalbutton" onclick="showPaymentModal(3)"><strong>{{__('messages.Buy')}} {{@$user->credit}} {{__('messages.credits (for 3 €) and start the chat')}}</strong></button>
-                                    {{-- <a class="ModalbuttonPink Modalbutton" href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>Buy {{@$user->credit}} credits (for 3 €) and start the chat</strong></a> --}}
+                                    <button class="ModalbuttonPink Modalbutton" onclick="showPaymentModal(3)"><strong>{{__('messages.Buy')}}
+                                            {{@$user->credit}} {{__('messages.credits (for 3 €) and start the chat')}}</strong></button>
+                                    {{-- <a class="ModalbuttonPink Modalbutton" href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>Buy
+                                        {{@$user->credit}} credits (for 3 €) and start the chat</strong></a> --}}
                                     {{-- </form> --}}
-
-                                    <button class="ModalbuttonOrange Modalbutton" onclick="showPaymentModal(80)"><strong>{{__('messages.Buy a pack of 100 credits for €80 (save 20%!)')}}</strong></button>
-                                    {{-- <a class="ModalbuttonOrange Modalbutton"  href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>Buy a pack of 100 credits for €80 (save 20%!)</strong></a> --}}
+                                
+                                    <button class="ModalbuttonOrange Modalbutton"
+                                        onclick="showPaymentModal(80)"><strong>{{__('messages.Buy a pack of 100 credits for €80 (save 20%!)')}}</strong></button>
+                                    {{-- <a class="ModalbuttonOrange Modalbutton"  href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>Buy
+                                        a pack of 100 credits for €80 (save 20%!)</strong></a> --}}
                                 </div>
 
                             </div>
@@ -1117,6 +1134,11 @@ window.onclick = function(event) {
         var receiver_id     = $("input[name='receiver_id']").val();
         var sender_id       = $("input[name='sender_id']").val();
        
+        localStorage.setItem("message_body",message);
+        localStorage.setItem("receiver_hostess_id",receiver_id);
+        localStorage.setItem("hostessCredit",hostessCredit);
+        console.log('localStorage', localStorage.getItem("message_body"));
+        
         var fd = new FormData();
        
         
@@ -1330,11 +1352,12 @@ $(document).ready(function () {
 function showPaymentModal(val) {
     localStorage.setItem("message_body",$('#message').val());
     localStorage.setItem("receiver_hostess_id",$("input[name='receiver_id']").val());
+    
     var credits = 0;
     $("#lowCreditModal").hide();
     if (val == '3') {
         $("#credits_count").html(3);
-        $("#credits_amount").html(val);
+        $("#credits_amount").html(val);  
         credits = 3;
     }else{
         $("#credits_count").html(100);

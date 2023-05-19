@@ -83,7 +83,7 @@ return [
     'Email already exist' => 'Email already exist',
     'City is required' => 'City is required',
     'Services is required' => 'Services is required',
-    'Veify Mobile' => 'Veify Mobile',
+    'Verify Mobile' => 'Verify Mobile',
     'OTP' => 'OTP',
     'Verification Code required' => 'Verification Code required',
     'Verify OTP' => 'Verify OTP',
@@ -203,7 +203,9 @@ return [
     'Buy a pack of' => 'Buy a pack of',
     'credits for' => 'credits for',
     'save 20%' => 'save 20%',
-    'email' => 'Email',
-
-
+    'Credit' => 'Credit',
+    'Verification Code' => 'Verification Code',
+    'Verify Code' => 'Verify Code',
+    'Pay now'   => 'Pay now',
+    'If the hostess does will be offline for over 72 hours the credits will be refunded to your account.' => 'If the hostess does will be offline for over 72 hours the credits will be refunded to your account.',
 ];

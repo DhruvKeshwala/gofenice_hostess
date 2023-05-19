@@ -5,7 +5,9 @@
 <script src="https://phpstack-957459-3413409.cloudwaysapps.com/stripe-sample-code/public/checkout.js" defer></script>
 <style>
     
-
+    .selectedLang, .langDD a {
+        display: inline-flex;
+    }
     a:hover {
         color: #fff;
     }
@@ -114,7 +116,7 @@
                             @if($users)
                             @foreach($users as $user)
                             <a href="{{ route('userChat', ['id' => @$user['id']]) }}"
-                                class="list-group-item list-group-item-action border-0">
+                                class="list-group-item list-group-item-action border-0 {{ Request::segment(3) == @$user['id'] ? 'active' : ''}}">
                                 {{-- <div class="badge bg-success float-right">5</div> --}}
                                 <div class="d-flex align-items-start">
                                     @if(@$user['profilepic'] != null || @$user['profilepic'] != '')
@@ -314,10 +316,72 @@
                     // });
                     // alert('Yes done..');
                 }
-            },
-            error: function(xhr, status, error) {}
-        });
-    }
+                },
+                error: function(xhr, status, error) {}
+            });
+        }
+    });
+
+    $('#message').keypress(function (e) {
+        var key = e.which;
+        if(key == 13) // the enter key code
+        {
+            var flag = 1;
+            var message = $('#message').val();
+            // var hostessCredit = $("input[name='hostessCredit']").val();
+            // var userCredit = $("input[name='userCredit']").val();
+            var receiver_id = $("input[name='receiver_id']").val();
+            var sender_id = $("input[name='sender_id']").val();
+            var fd = new FormData();
+            
+            fd.append('message', message);
+            // fd.append('hostessCredit', hostessCredit);
+            // fd.append('userCredit', userCredit);
+            fd.append('receiver_id', receiver_id);
+            fd.append('sender_id', sender_id);
+            
+            if (message == '' || message == null)
+            {
+                flag = 0;
+                $("#messageError").html('<span class="errorMessage" style="color:red;">Message is Required</span>');
+            }
+
+            if (flag == 1)
+            {
+                $.ajaxSetup({
+                    headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                        url: "{{ route('sendMessageToHostess') }}",
+                        type: "POST",
+                        data:fd,
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        success: function(result) {
+                        var data = JSON.parse(result);
+                        if (data.success) {
+                            //enable the button
+                            // saveBtn.innerHTML = "SAVE";
+                            // $('#saveBtn').removeClass('disabled');
+                            // Add modal after success
+                            // $("#myModal").hide();
+                            // $.jGrowl("Message sent successfully.", { life: 10000, theme: 'changeCount'});
+                            // location.reload();
+                            $( "#div-reload-messages").load(" #div-reload-messages");
+                            $('#message').val('');
+                            // $("#myModal").show();
+                            // $(".close").click(function(){
+                            // });
+                            // alert('Yes done..');
+                        }
+                        },
+                        error: function(xhr, status, error) {}
+                });
+            }
+        }
     });
 });
 setInterval(function () {

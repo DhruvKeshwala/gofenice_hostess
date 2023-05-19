@@ -1,7 +1,5 @@
 @include('layouts.header')
-<main class="w-100 mx-auto text-center" style="max-width: 800px;
-    padding: 15px;
-    background-color: white;">
+<main class="w-100 mx-auto text-center" style="max-width: 32%;padding: 15px;background-color: white;">
     {{-- @dd(Auth::user()) --}}
     @if (Session::has('success'))
     <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('success') }}</p>
@@ -38,13 +36,25 @@
         </div> --}}
         <div class="form-floating">
             <span for="floatingLastNameInput" style="color: #636161; display: block; text-align: left;">
-                {{__('messages.About me')}}
+                {{__('messages.Name')}}
             </span>
             <input style="" type="text" class="form-control" id="floatingLastNameInput" name="aboutme" id="aboutme"
                 value="@if (Auth::user()->aboutme != null || Auth::user()->aboutme != '') {{ Auth::user()->aboutme }} @endif">
             {{-- <input style="background-color: transparent;border: none;color:black" type="text" class="form-control"
                 id="floatingLastNameInput" placeholder="About me" name="aboutme" id="aboutme"
                 value="@if (Auth::user()->aboutme != null || Auth::user()->aboutme != '') {{ Auth::user()->aboutme }}
+            @endif">
+            <label for="floatingLastNameInput" style="color: #636161;">About me</label> --}}
+        </div>
+        <div class="form-floating">
+            <span for="floatingLastNameInput" style="color: #636161; display: block; text-align: left;">
+                {{__('messages.Email')}}
+            </span>
+            <input style="" type="text" class="form-control" id="floatingLastNameInput" name="email" id="email"
+                value="@if (Auth::user()->email != null || Auth::user()->email != '') {{ Auth::user()->email }} @endif">
+            {{-- <input style="background-color: transparent;border: none;color:black" type="text" class="form-control"
+                        id="floatingLastNameInput" placeholder="About me" name="aboutme" id="aboutme"
+                        value="@if (Auth::user()->aboutme != null || Auth::user()->aboutme != '') {{ Auth::user()->aboutme }}
             @endif">
             <label for="floatingLastNameInput" style="color: #636161;">About me</label> --}}
         </div>
@@ -78,12 +88,12 @@
             <fieldset style="background-color: transparent;border: none;color:black">
                 {{-- <legend>Gender</legend> --}}
                 <div class="row" style="">
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <label><input type="radio" name="gender" value="Male" @if (Auth::user()->gender != null ||
                             Auth::user()->gender != '') @if (Auth::user()->gender == 'Male') checked @endif
                             @endif> {{__('messages.Male')}}</label><br />
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <label><input type="radio" name="gender" value="Female" @if (Auth::user()->gender != null ||
                             Auth::user()->gender != '') @if (Auth::user()->gender == 'Female') checked @endif
                             @endif> {{__('messages.Female')}}</label><br />

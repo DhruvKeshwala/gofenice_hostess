@@ -8,7 +8,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <title>@yield('title')</title>
 
-        <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">        
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
+        
         <!--Bootstrap CSS-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -33,6 +34,10 @@
 
     </head>
     <style>
+        .buyCredits {
+        text-align: center;
+        font-weight: bold;
+        }
         .dropbtn {
             background-color: #4CAF50;
             color: white;
@@ -434,7 +439,7 @@
                                         <div class="menuCol">
                                             <ul>
                                                 <li><a href="{{ route('hostess-search-result') }}">{{__('messages.Near')}}</a></li>
-                                                <li><a href="javascript:void(0)">{{__('messages.How_does_it_work')}}</a></li>
+                                                <li><a href="{{ route('how-does-it-work') }}">{{__('messages.How_does_it_work')}}</a></li>
                                                 {{-- <li><a href="javascript:void(0)">{{__('messages.are_you_a_hostess_model')}}</a></li> --}}
                                                 @if (Auth::id() != null || Auth::id() != '')
                                                 @if(Auth::user()->user_type == 'user')
@@ -625,12 +630,12 @@
             <div id="lowCreditModal1" class="modal1">
             
                 <!-- Modal content -->
-                <div class="modal-content1 mb-20">
+                <div class="modal-content1 mb-20" style="width: 30% !important;">
                     <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..." class="logoImg1" height="10%"
                         width="10%">
                     <span class="close1">&times;</span>
                     {{-- <h3><b style="margin-left: 10%;margin-left: 23%;">You don't have enough credits.</b></h3> --}}
-                    <p style="margin-left: 10%;margin-left: 35%;">{{__('messages.Buy your credits now')}}:</p>
+                    <p class="buyCredits">{{__('messages.Buy your credits now')}}:</p>
                     {{-- <form action="{{ route('confirmMsg') }}" method="post"> --}}
                     {{-- @csrf --}}
                     {{-- <button class="ModalbuttonPink"><strong>Buy {{@$user->credit}} credits (for 3 €) and start the
@@ -706,13 +711,11 @@
 
                             localStorage.setItem("credit_amount",val*100);
                             localStorage.setItem("credits",db_no_of_credit);
-            s                $("#paymentModal").show();
+                            $("#paymentModal").show();
                             
                         }
                         $(".close-payment-modal").click(function(){
                             $("#paymentModal").hide();
                         });
-                        localStorage.removeItem("payment_response");
-                        // localStorage.setItem("credit_amount",50);
             </script>
         </header>

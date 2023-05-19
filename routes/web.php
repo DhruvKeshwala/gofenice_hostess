@@ -81,29 +81,37 @@ Route::post('sendFreeMessageToHostess', [ChatController::class, 'sendFreeMessage
 Route::get('payment-success', [UserController::class, 'paymentSuccess'])->name('payment-success');
 Route::post('save_response', [UserController::class, 'saveResponse'])->name('save_response');
 Route::get('hostess-search-result', [HostessController::class, 'hostessSearchResult'])->name('hostess-search-result');
-
+Route::get('how-does-it-work', [HostessController::class, 'howDoesItWork'])->name('how-does-it-work');
 Route::get('user-chat/{id?}', [UserController::class, 'userChat'])->name('userChat');
 
 
 
     Route::get('logout', function ()
     {
-        if(Auth::user()->role == 'user')
+        if(Auth::id() != null || Auth::id() != '')
         {
-            auth()->logout();
-            // Session()->flush();
-            if(app()->getLocale() == 'en')
-                return redirect('/en/login');
-            else if(app()->getLocale() == 'it')
-                return redirect('/it/login');
-            else if(app()->getLocale() == 'sp')
-                return redirect('/sp/login');
+            if(Auth::user()->role == 'user')
+            {
+                auth()->logout();
+                // Session()->flush();
+                if(app()->getLocale() == 'en')
+                    return redirect('/en/login');
+                else if(app()->getLocale() == 'it')
+                    return redirect('/it/login');
+                else if(app()->getLocale() == 'sp')
+                    return redirect('/sp/login');
+            }
+            else if(Auth::user()->role == 'Admin')
+            {
+                auth()->logout();
+                // Session()->flush();
+                return Redirect::to('admin/login');
+            }
+            
         }
-        else if(Auth::user()->role == 'Admin')
+        else 
         {
-            auth()->logout();
-            // Session()->flush();
-            return Redirect::to('admin/login');
+            return redirect(app()->getLocale() . '/login');
         }
 
     })->name('user.logout');
@@ -161,6 +169,11 @@ Route::group(['prefix' => 'admin'], function () {
         // Manage Credit
         Route::get('manage-credit/{id?}', [ManageCreditController::class,'manageCredit'])->name('admin.manageCredit');
         Route::post('manage-credit', [ManageCreditController::class,'store'])->name('admin.save_manage_credit');
+
+        //Change Password
+        Route::get('change-password', [AdminUserController::class, 'changePassword'])->name('admin.changePassword');
+        Route::post('change-password', [AdminUserController::class, 'save_changePassword'])->name('admin.saveChangePassword');
+
 
         Route::get('logout', function ()
         {

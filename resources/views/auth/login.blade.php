@@ -37,7 +37,8 @@
                     class="form-control" id="email" name="email"  value="{{ old('email')}}">
                 
                 @if ($errors->has('email'))
-                <span class="text-danger">{{ $errors->first('email') }}</span>
+                <span
+                    class="text-danger">{{ $errors->first('email') == 'validation.required' ? __('messages.email_required') : __('messages.auth_failed') }}</span>
                 @endif
             </div>
             <div class="form-floating">
@@ -49,7 +50,7 @@
                 
                 <input type="hidden" name="role" value="User">
                 @if ($errors->has('password'))
-                <span class="text-danger">{{ $errors->first('password') }}</span>
+                <span class="text-danger">{{ __('messages.password_required') }}</span>
                 @endif
             </div>
             
