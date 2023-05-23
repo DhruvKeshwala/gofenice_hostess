@@ -30,7 +30,7 @@
         <link rel="stylesheet" href="{{ URL::asset('css/style_header.css') }}">
         <script src="https://js.stripe.com/v3/"></script>
         <script src="{{URL::to('../stripe-sample-code/public/checkout.js')}}" defer></script>
-
+        
 
     </head>
     <style>
@@ -696,8 +696,7 @@
                     <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..." class="logoImg1"
                         height="10%" width="10%">
                     <span class="close-payment-modal">&times;</span>
-                    <h5><b>{{__('messages.You are buying')}} <span id="credits_count"></span> {{__('messages.credits')}}
-                            : </b> </h5>
+                    <h5><b>{{__('messages.You are buying')}} <span id="credits_count"></span> {{__('messages.credits')}} : </b> </h5>
                     <h5><b>{{__('messages.Total')}} : €<span id="credits_amount"></span></b></h5>
                     {{-- payment form --}}
                     <form id="payment-form">

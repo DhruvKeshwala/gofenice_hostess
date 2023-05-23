@@ -20,7 +20,7 @@ class AdminUserController extends Controller
      */
     public function index()
     {
-        $users = User::where('role', 'user')->where('user_type', 'user')->get();
+        $users = User::where('role', 'user')->where('user_type', 'user')->orderBy('id', 'desc')->get();
         return view('admin.users', compact('users'));
     }
 
