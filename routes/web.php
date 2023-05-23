@@ -17,9 +17,6 @@ use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\PrefixController;
 use App\Http\Controllers\Admin\ManageCreditController;
 
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes

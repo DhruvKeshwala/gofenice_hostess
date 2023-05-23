@@ -9,7 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-
+use Session;
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -25,6 +25,19 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        // if($request)
+        // {
+        //     $getUser = User::where('email', $request->email)->first();
+        //     // dd($getUser);
+        //     if($getUser != null || $getUser != '')
+        //     {
+        //         if($getUser->email_verified_at != null || $getUser->email_verified_at != '')
+        //         {
+        //             Session()->flush();
+        //             return redirect(app()->getLocale() . 'login');
+        //         }
+        //     }
+        // }
         // $validated = $request->validate([
         //     'email' => 'required',
         //     'password' => 'required',
@@ -43,12 +56,41 @@ class AuthenticatedSessionController extends Controller
         }
         else if (Auth::user()->type == 0) 
         {
-            // return redirect()->route('profile.edit');
-            return redirect()->route('home');
+            if(Auth::user()->email_verified_at == null || Auth::user()->email_verified_at == '' )
+            {
+                Auth::logout();
+                Session::flash('error', trans('messages.Email not verified.'));
+                return redirect(app()->getLocale() . '/login');
+            }
+            else if(Auth::user()->status == 'Pending' || Auth::user()->status == 'Approval' || Auth::user()->status == 'Suspended' || Auth::user()->status == 'Banned')
+            {
+                Auth::logout();
+                Session::flash('error', trans('messages.User Inactive.'));
+                return redirect(app()->getLocale() . '/login');
+            }
+            else 
+            {
+                return redirect()->route('home');
+            }
         }
         else
         {
-            return redirect()->route('hostess_profile');
+            if(Auth::user()->email_verified_at == null || Auth::user()->email_verified_at == '' )
+            {
+                Auth::logout();
+                Session::flash('error', trans('messages.Email not verified.'));
+                return redirect(app()->getLocale() . '/login');
+            }
+            else if(Auth::user()->status == 'Pending' || Auth::user()->status == 'Approval' || Auth::user()->status == 'Suspended' || Auth::user()->status == 'Banned')
+            {
+                Auth::logout();
+                Session::flash('error', trans('messages.User Inactive.'));
+                return redirect(app()->getLocale() . '/login');
+            }
+            else
+            {
+                return redirect()->route('hostess_profile');
+            }
         }
        
         // if(Auth::user()->role == 'Admin')

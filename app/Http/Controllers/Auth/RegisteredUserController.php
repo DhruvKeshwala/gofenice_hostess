@@ -114,24 +114,32 @@ class RegisteredUserController extends Controller
             if($request->user_type == 'hostess')
             {
                 $userDetails['birthdate'] = $request->birthday_year."-".$request->birthday_month."-".$request->birthday_day;
-                $userDetails['credit']    = $request->credit;
+                if($request->credit == null || $request->credit == '')
+                    $userDetails['credit']    = 0;
+                else
+                    $userDetails['credit']    = $request->credit;
                 $userDetails['type'] = 2;
             }
             else 
             {
-                $userDetails['type'] = 0;
+                $userDetails['type']      = 0;
+                $userDetails['credit']    = 0;
             }
             $userDetails['user_type'] = $request->user_type;
             $result = User::create($userDetails);
-            Session::flash('success', 'Verification Code has been sent on your numbers +' .  $userDetails['mobilenoprefix'] . $userDetails['mobileno']); 
+            Session::flash('success', trans('messages.Verification Code has been sent on your mail')); 
             if($request->user_type == 'hostess'){
                 return redirect()->to(app()->getLocale() . '/step2Form/'.$result->id);
+                // return redirect()->to(app()->getLocale() . '/emailForm/'.$result->id);
+
             }
             else{
-                return redirect()->to(app()->getLocale() . '/otpForm/'.$result->id);
+                // return redirect()->to(app()->getLocale() . '/otpForm/'.$result->id);
+                return redirect()->to(app()->getLocale() . '/emailForm/'.$result->id);
+
             }
         }
-        Session::flash('success', trans('messages.Something went wrong!!')); 
+        Session::flash('error', trans('messages.Something went wrong!!')); 
         return redirect()->back();
     }
 
@@ -168,10 +176,10 @@ class RegisteredUserController extends Controller
                 ]);
             }
             $user = User::where('id', $userId)->first();
-            Session::flash('success', 'Verification Code has been sent on your numbers +' .  $user->mobilenoprefix . $user->mobileno); 
-            return redirect()->to(app()->getLocale() . '/otpForm/'.$userId);
+            Session::flash('success', trans('messages.Verification Code has been sent on your mail')); 
+            return redirect()->to(app()->getLocale() . '/emailForm/'.$userId);
         }
-        Session::flash('success', trans('messages.Something went wrong!!')); 
+        Session::flash('error', trans('messages.Something went wrong!!')); 
         return redirect()->back();
     }
 
@@ -192,7 +200,7 @@ class RegisteredUserController extends Controller
             'otp' => 'required', 
         ],
         [
-            'otp.required' => 'Verification Code required',        
+            'otp.required' => trans('messages.Verification Code required'),        
         ]);
         if($request)
         {
@@ -226,21 +234,21 @@ class RegisteredUserController extends Controller
             'otpEmail' => 'required', 
         ],
         [
-            'otpEmail.required' => 'Email Verification Code required',        
+            'otpEmail.required' => trans('messages.Email Verification Code required'),        
         ]);
         if($request)
         {
             $user = User::where('id', $request->userId)->first();
-            if($request->otpEmail == $user->email_verification_code)
+            if($request->otpEmail === $user->email_verification_code)
             {
                 User::where('id',$user->id)->update(['email_verified_at'=>Carbon::now()->toDateTimeString()]);
-                Session::flash('success', 'Email verified successfully');
-                return redirect('login');
+                Session::flash('success', trans('messages.Email verified successfully'));
+                return redirect(app()->getLocale() . '/login');
             }
             else
             {
-                Session::flash('success', 'Invalid Email Verification Code please enter valid code');
-                return redirect('login');
+                Session::flash('error', trans('messages.Invalid Email Verification Code please enter valid code'));
+                return redirect()->back();
             }
         }
     }

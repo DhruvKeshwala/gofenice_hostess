@@ -113,27 +113,28 @@
                                     </div>
                                 </div>
                             </div>
+                            {{-- sidebar user chat list --}}
                             @if($users)
-                            @foreach($users as $user)
-                            <a href="{{ route('userChat', ['id' => @$user['id']]) }}"
-                                class="list-group-item list-group-item-action border-0 {{ Request::segment(3) == @$user['id'] ? 'active' : ''}}">
-                                {{-- <div class="badge bg-success float-right">5</div> --}}
-                                <div class="d-flex align-items-start">
-                                    @if(@$user['profilepic'] != null || @$user['profilepic'] != '')
-                                    <img src="{{ URL::asset('upload/user/profile/' . @$user['profilepic']) }}"
-                                        class="rounded-circle mr-1" alt="Profile Picture" width="40" height="40">
-                                    @else
-                                    <img src="{{ URL::asset('upload/user/profile/default.png') }}"
-                                        class="rounded-circle mr-1" alt="Profile Picture" width="40" height="40">
-                                    @endif
-                                    <div class="flex-grow-1 ml-3">
-                                        {{ @$user['name'] }}
-                                        <div class="small"><span class="fas fa-circle chat-online"></span>
-                                            {{__('messages.Online')}}</div>
+                                @foreach($users as $user)
+                                <a href="{{ route('userChat', ['id' => @$user['id']]) }}"
+                                    class="list-group-item list-group-item-action border-0 {{ Request::segment(3) == @$user['id'] ? 'active' : ''}}">
+                                    {{-- <div class="badge bg-success float-right">5</div> --}}
+                                    <div class="d-flex align-items-start">
+                                        @if(@$user['profilepic'] != null || @$user['profilepic'] != '')
+                                        <img src="{{ URL::asset('upload/user/profile/' . @$user['profilepic']) }}"
+                                            class="rounded-circle mr-1" alt="Profile Picture" width="40" height="40">
+                                        @else
+                                        <img src="{{ URL::asset('upload/user/profile/default.png') }}"
+                                            class="rounded-circle mr-1" alt="Profile Picture" width="40" height="40">
+                                        @endif
+                                        <div class="flex-grow-1 ml-3">
+                                            {{ @$user['name'] }}
+                                            <div class="small"><span class="fas fa-circle chat-online"></span>
+                                                {{__('messages.Online')}}</div>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                            @endforeach
+                                </a>
+                                @endforeach
                             @endif
                             <hr class="d-block d-lg-none mt-1 mb-0">
                         </div>
@@ -141,16 +142,30 @@
                             <div class="py-2 px-4 border-bottom d-none d-lg-block">
                                 <div class="d-flex align-items-center py-1">
                                     <div class="position-relative">
-                                        @if(@$selectedUser->profilepic != null || @$selectedUser->profilepic != '')
-                                        <img src="{{ URL::asset('upload/user/profile/' . @$selectedUser->profilepic) }}"
-                                            class="rounded-circle mr-1" alt="No Img" width="40" height="40">
+                                        @if($selectedUser != null || $selectedUser != '')
+                                            @if(@$selectedUser->profilepic != null || @$selectedUser->profilepic != '')
+                                            <img src="{{ URL::asset('upload/user/profile/' . @$selectedUser->profilepic) }}"
+                                                class="rounded-circle mr-1" alt="No Img" width="40" height="40">
+                                            @else
+                                            <img src="{{ URL::asset('upload/user/profile/default.png') }}"
+                                                class="rounded-circle mr-1" alt="No Img" width="40" height="40">
+                                            @endif
                                         @else
-                                        <img src="{{ URL::asset('upload/user/profile/default.png') }}"
-                                            class="rounded-circle mr-1" alt="No Img" width="40" height="40">
+                                            @if(@$users[0]['profilepic'] != null || @$users[0]['profilepic'] != '')
+                                           <img src="{{ URL::asset('upload/user/profile/' . @$users[0]['profilepic']) }}"
+                                                class="rounded-circle mr-1" alt="No Img" width="40" height="40"> 
+                                            @else
+                                            <img src="{{ URL::asset('upload/user/profile/default.png') }}" class="rounded-circle mr-1" alt="No Img"
+                                                width="40" height="40">
+                                            @endif
                                         @endif
                                     </div>
                                     <div class="flex-grow-1 pl-3">
-                                        <strong>{{ @$selectedUser->name }}</strong>
+                                        @if($selectedUser != null || $selectedUser != '')
+                                            <strong>{{ @$selectedUser->name }}</strong>
+                                        @else
+                                            <strong>{{ @$users[0]['name'] }}</strong>
+                                        @endif
                                         {{-- <div class="text-muted small"><em>Typing...</em></div> --}}
                                     </div>
                                     {{-- <div>
@@ -186,46 +201,51 @@
 
                                     @if(@$messages)
                                     <div id="div-reload-messages">
+                                        {{-- @dd(@$selectedUser->id) --}}
                                         @foreach($messages as $message)
-                                        @if(@$selectedUser->id == @$message->receiver_id)
-                                        <div class="chat-message-right pb-4">
-                                            <div>
-                                                @if(@Auth::user()->profilepic != null || @Auth::user()->profilepic !=
-                                                '')
-                                                <img src="{{ URL::asset('upload/user/profile/' . @Auth::user()->profilepic) }}"
-                                                    class="rounded-circle mr-1" alt="No Img" width="40" height="40">
-                                                @else
-                                                <img src="{{ URL::asset('upload/user/profile/default.png') }}"
-                                                    class="rounded-circle mr-1" alt="No Img" width="40" height="40">
+                                            @if(@$selectedUser != null || @$selectedUser != '')
+                                                @if(@$message->message != null || @$message->message != '')
+                                                    @if(@$selectedUser->id == @$message->receiver_id)
+                                                        <div class="chat-message-right pb-4">
+                                                            <div>
+                                                                @if(@Auth::user()->profilepic != null || @Auth::user()->profilepic !=
+                                                                '')
+                                                                <img src="{{ URL::asset('upload/user/profile/' . @Auth::user()->profilepic) }}"
+                                                                    class="rounded-circle mr-1" alt="No Img" width="40" height="40">
+                                                                @else
+                                                                <img src="{{ URL::asset('upload/user/profile/default.png') }}"
+                                                                    class="rounded-circle mr-1" alt="No Img" width="40" height="40">
+                                                                @endif
+                                                                <div class="text-muted small text-nowrap mt-2">
+                                                                    {{@$message->created_at->diffForHumans()}}</div>
+                                                            </div>
+                                                            <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                                                <div class="font-weight-bold mb-1">{{__('messages.You')}}</div>
+                                                                {{@$message->message}}
+                                                            </div>
+                                                        </div>
+                                                    @else
+                                                    <div class="chat-message-left pb-4">
+                                                        <div>
+                                                            @if(@$selectedUser->profilepic != null || @$selectedUser->profilepic !=
+                                                            '')
+                                                            <img src="{{ URL::asset('upload/user/profile/' . @$selectedUser->profilepic) }}"
+                                                                class="rounded-circle mr-1" alt="No Img" width="40" height="40">
+                                                            @else
+                                                            <img src="{{ URL::asset('upload/user/profile/default.png') }}"
+                                                                class="rounded-circle mr-1" alt="No Img" width="40" height="40">
+                                                            @endif
+                                                            <div class="text-muted small text-nowrap mt-2">
+                                                                {{@$message->created_at->diffForHumans()}}</div>
+                                                        </div>
+                                                        <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+                                                            <div class="font-weight-bold mb-1">{{@$selectedUser->name}}</div>
+                                                            {{@$message->message}}
+                                                        </div>
+                                                    </div>
+                                                    @endif
                                                 @endif
-                                                <div class="text-muted small text-nowrap mt-2">
-                                                    {{@$message->created_at->diffForHumans()}}</div>
-                                            </div>
-                                            <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-                                                <div class="font-weight-bold mb-1">{{__('messages.You')}}</div>
-                                                {{@$message->message}}
-                                            </div>
-                                        </div>
-                                        @else
-                                        <div class="chat-message-left pb-4">
-                                            <div>
-                                                @if(@$selectedUser->profilepic != null || @$selectedUser->profilepic !=
-                                                '')
-                                                <img src="{{ URL::asset('upload/user/profile/' . @$selectedUser->profilepic) }}"
-                                                    class="rounded-circle mr-1" alt="No Img" width="40" height="40">
-                                                @else
-                                                <img src="{{ URL::asset('upload/user/profile/default.png') }}"
-                                                    class="rounded-circle mr-1" alt="No Img" width="40" height="40">
-                                                @endif
-                                                <div class="text-muted small text-nowrap mt-2">
-                                                    {{@$message->created_at->diffForHumans()}}</div>
-                                            </div>
-                                            <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
-                                                <div class="font-weight-bold mb-1">{{@$selectedUser->name}}</div>
-                                                {{@$message->message}}
-                                            </div>
-                                        </div>
-                                        @endif
+                                            @endif
                                         @endforeach
                                     </div>
                                     @endif

@@ -88,7 +88,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
 </script>
-
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsGn3gopDM_1z9fmtGcJ-KrXEzLPBSOCA&callback=initMap&libraries=places&v=weekly"
+    defer></script>
 </body>
 
 </html>
@@ -109,5 +111,14 @@
 
     function openFileChoosePopup() {
         document.getElementById('profilepic').click();
+    }
+
+    var options = {
+        types: ['(cities)'],
+        componentRestrictions: {country: "{{ app()->getLocale() == 'en' ? 'uk' : (app()->getLocale() == 'it' ? 'it' : 'es') }}"}
+    };
+    function initMap(){
+        var input = document.getElementById('city');
+        const autocomplete = new google.maps.places.Autocomplete(input,options);
     }
 </script>

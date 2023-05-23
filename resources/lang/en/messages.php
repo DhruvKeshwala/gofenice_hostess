@@ -208,4 +208,13 @@ return [
     'Verify Code' => 'Verify Code',
     'Pay now'   => 'Pay now',
     'If the hostess does will be offline for over 72 hours the credits will be refunded to your account.' => 'If the hostess does will be offline for over 72 hours the credits will be refunded to your account.',
+    'Verification Code has been sent on your mail' => 'Verification Code has been sent on your mail',
+    'Email Verification Code required' => 'Email Verification Code required',
+    'Invalid Email Verification Code please enter valid code' => 'Invalid Email Verification Code please enter valid code',
+    'Email Verification' => 'Email Verification',
+    'We have sent email verification code on your mail account' => 'We have sent email verification code on your mail account',
+    'Already have an account?' => 'Already have an account?',
+    'Email verified successfully' => 'Email verified successfully',
+    'Email not verified.' => 'Email not verified.',
+    'User Inactive.' => 'User Inactive.',
 ];

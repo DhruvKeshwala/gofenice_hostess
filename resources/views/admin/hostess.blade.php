@@ -352,7 +352,7 @@
                             <td><a href="tel:{{@$item->mobileno}}">{{ @$item->mobileno}}</a></td>
                             <td>{{ @$item->city }}</td>
                             <td>@if(@$item->gender != null || @$item->gender != '') {{ @$item->gender }} @endif</td>
-                            <td>{{ @$item->hostess_credit }}</td>
+                            <td>{{ @$item->hostess_credit == null ? 0 : @$item->hostess_credit }}</td>
                             <td>
                                 <select onchange="changeStatus('{{@$item->id}}', this)" name="status"
                                     class="form-control status">

@@ -1,7 +1,7 @@
 @extends('layouts.front-layout')
 @section('content')
 <style>
-   .headerCol{
+   /* .headerCol{
             padding: 15px 0 !important;
         }
         .container-fluid {
@@ -24,8 +24,8 @@
                     margin: 0 auto;
                     
             }
-        }
-        /* .container {
+        } */
+        .container {
             max-width: 94%;
         }
 
@@ -39,7 +39,7 @@
                     margin: 0 auto;
                     
             }
-        } */
+        }
 </style>
 <section>
     <div class="container">

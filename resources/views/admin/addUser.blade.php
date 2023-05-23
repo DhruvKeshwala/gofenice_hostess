@@ -139,10 +139,10 @@
                     <div class="col-lg-8">
                         <div class="row">
                             <div class="col-lg-6 fv-row">
-                                <label><input type="radio" name="gender" value="Male" @if(@$user->gender == 'Male') checked @endif> Male</label><br />
+                                <label><input type="radio" name="gender" value="Male" class="form-check-input" @if(@$user->gender == 'Male') checked @endif> Male</label><br />
                             </div>
                             <div class="col-lg-6 fv-row">
-                                <label><input type="radio" name="gender" value="Female" @if(@$user->gender == 'Female') checked @endif> Female</label><br />
+                                <label><input type="radio" name="gender" value="Female" class="form-check-input" @if(@$user->gender == 'Female') checked @endif> Female</label><br />
                             </div>
                         </div>
                     </div>

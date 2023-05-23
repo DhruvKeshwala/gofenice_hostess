@@ -38,13 +38,15 @@
             <span for="floatingLastNameInput" style="color: #636161; display: block; text-align: left;">
                 {{__('messages.Name')}}
             </span>
+            <input style="" type="text" class="form-control" id="floatingLastNameInput" name="name" id="name"
+                value="@if (Auth::user()->name != null || Auth::user()->name != '') {{ Auth::user()->name }} @endif">
+        </div>
+        <div class="form-floating">
+            <span for="floatingLastNameInput" style="color: #636161; display: block; text-align: left;">
+                {{__('messages.About me')}}
+            </span>
             <input style="" type="text" class="form-control" id="floatingLastNameInput" name="aboutme" id="aboutme"
                 value="@if (Auth::user()->aboutme != null || Auth::user()->aboutme != '') {{ Auth::user()->aboutme }} @endif">
-            {{-- <input style="background-color: transparent;border: none;color:black" type="text" class="form-control"
-                id="floatingLastNameInput" placeholder="About me" name="aboutme" id="aboutme"
-                value="@if (Auth::user()->aboutme != null || Auth::user()->aboutme != '') {{ Auth::user()->aboutme }}
-            @endif">
-            <label for="floatingLastNameInput" style="color: #636161;">About me</label> --}}
         </div>
         <div class="form-floating">
             <span for="floatingLastNameInput" style="color: #636161; display: block; text-align: left;">
@@ -122,6 +124,7 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsGn3gopDM_1z9fmtGcJ-KrXEzLPBSOCA&callback=initMap&libraries=places&v=weekly"
     defer></script>
 <script>
+    
     function previewFile() {
         // var preview = document.querySelector('img');
         var preview = document.getElementById('profile-image1');
@@ -141,9 +144,10 @@
             $('#profilepic').click();
         });
     });
+    
     var options = {
         types: ['(cities)'],
-        //componentRestrictions: {country: "us"}
+        componentRestrictions: {country: "{{ app()->getLocale() == 'en' ? 'uk' : (app()->getLocale() == 'it' ? 'it' : 'es') }}"}
     };
     function initMap(){
         var input = document.getElementById('city');

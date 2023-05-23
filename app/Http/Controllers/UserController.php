@@ -22,6 +22,7 @@ class UserController extends Controller
     public function update(Request $request)
     {   
         $request->only([
+            'name',
             'aboutme',
             'email',
             'birthdate',
@@ -39,18 +40,22 @@ class UserController extends Controller
 
             $user->update([
                 'profilepic' => $fileName,
-                'status'     => 'Pending'
             ]);
         }
 
-
+        $user->name         = $request->name;
         $user->aboutme      = $request->aboutme;
         $user->email        = $request->email;
         $user->birthdate    = $request->birthdate;
         $user->city         = $request->city;
         $user->gender       = $request->gender;
+        $user->status       = 'Pending';
         $user->updated_at   = now();
         $user->save();
+
+       
+       
+
         // $user->update([
         //     'aboutme'   => $request->aboutme,
         //     'birthdate' => $request->birthdate,
@@ -83,20 +88,26 @@ class UserController extends Controller
                     $responseDetails->status           =  $response->status;
                     $responseDetails->save();
                     
-                    $messageDetails['sender_id'] = Auth::id();
-                    $messageDetails['receiver_id'] = $request->receiver_hostess_id;
-                    $messageDetails['message'] = $request->message_body;
-                    if($messageDetails['message'] != null || $messageDetails['message'] != '')
+                    if($request->is_popup == 0)
+                    {
+                        $messageDetails['sender_id'] = Auth::id();
+                        $messageDetails['receiver_id'] = $request->receiver_hostess_id;
+                        $messageDetails['message'] = $request->message_body;
+                        // if($messageDetails['message'] == null || $messageDetails['message'] == '')
+                        // {
                         Message::create($messageDetails);
-                   
+                        // }
+                    }
+
                     $users = User::where('id', Auth::id())->first();
                     // dd($request->hostessCredit);
                     // if($request->hostessCredit != null || $request->hostessCredit != '')
                     //     $total_credits = (int)$request->credits + $users-> credit - $request->hostessCredit;
                     // else
-                       $total_credits = (int)$request->credits + $users-> credit; 
+                    
+                    $total_credits = (int)$request->credits + $users->credit - $request->hostessCredit;
                     $credits = ['credit' => $total_credits];
-                    $user = User::where('id', Auth::id())->update($credits);
+                    User::where('id', Auth::id())->update($credits);
                 }
 
                 return json_encode(['success' => 1, 'message' => 'Your Payment done successfully..!']);

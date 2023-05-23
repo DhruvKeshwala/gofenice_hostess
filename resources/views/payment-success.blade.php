@@ -14,7 +14,6 @@
                 {{-- <a href="{{ route('profile.edit') }}" class="signupbtn signupbtnDark back-button">Back</a> --}}
                 {{-- <span>Response : </span>
                 <div id="demo"></div> --}}
-                <div id="demo"></div>
             </div>
         </main>
     </div>
@@ -23,11 +22,12 @@
     // console.log('response', localStorage.getItem("payment_response"));
     // console.log('response1', localStorage.getItem("payment_response1"));
     // console.log('paymentIntent', localStorage.getItem("paymentIntent"));
-    document.querySelector("#demo").textContent = localStorage.getItem("payment_response");
+    // document.querySelector("#demo").textContent = localStorage.getItem("payment_response");
     var message_body = localStorage.getItem("message_body");
     var receiver_hostess_id = localStorage.getItem("receiver_hostess_id");
     var credits = localStorage.getItem("credits");
     var hostessCredit = localStorage.getItem("hostessCredit");
+    var is_popup = localStorage.getItem('is_popup');
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -42,9 +42,19 @@
             receiver_hostess_id:receiver_hostess_id,
             credits:credits,
             hostessCredit:hostessCredit,
+            is_popup:is_popup,
         },
         success: function(result) {
-            window.location.href='../en/user-chat/'+receiver_hostess_id;
+            if(is_popup == 1)
+            {
+                window.location.href = '../en/home';
+                // localStorage.removeItem("is_popup");
+            }
+            else
+            {
+                window.location.href='../en/user-chat/'+receiver_hostess_id;
+                // localStorage.removeItem("is_popup");
+            }
         },
         error: function(xhr, status, error) {}
     });

@@ -1,4 +1,5 @@
 <?php
+
 require_once '../vendor/autoload.php';
 require_once '../secrets.php';
 
@@ -20,7 +21,7 @@ try {
     $jsonObj = json_decode($jsonStr);
     // Create a PaymentIntent with amount and currency
     $paymentIntent = \Stripe\PaymentIntent::create([
-        'amount' => $jsonObj->items[0]->amount,
+        'amount' => calculateOrderAmount($jsonObj->items),
         'currency' => 'inr',
         'automatic_payment_methods' => [
             'enabled' => true,

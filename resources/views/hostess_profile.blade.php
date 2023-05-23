@@ -380,8 +380,8 @@
                                                         selected @endif>Italian</option>
                                                     <option value="English" @if(Auth::user()->nationality == 'English')
                                                         selected @endif>English</option>
-                                                    <option value="French" @if(Auth::user()->nationality == 'French')
-                                                        selected @endif>French</option>
+                                                    <option value="Spain" @if(Auth::user()->nationality == 'Spain')
+                                                        selected @endif>Spain</option>
 
                                                 </select>
                                             </div>
@@ -786,7 +786,7 @@ multiple:true,
     }
     var options = {
         types: ['(cities)'],
-        //componentRestrictions: {country: "us"}
+        componentRestrictions: {country: "{{ app()->getLocale() == 'en' ? 'uk' : (app()->getLocale() == 'it' ? 'it' : 'es') }}"}
     };
     function initMap(){
         var input = document.getElementById('city');

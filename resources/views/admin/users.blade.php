@@ -596,7 +596,7 @@
                             <td><a href="mailto:{{@$item->email}}">{{@$item->email}}</a></td>
                             <td><a href="tel:{{@$item->mobileno}}">{{ @$item->mobileno}}</a></td>
                             <td>@if(@$item->gender != null || @$item->gender != '') {{ @$item->gender }} @endif</td>
-                            <td>{{ @$item->credit }}</td>
+                            <td>{{ @$item->credit == null ? 0 : @$item->credit }}</td>
                             <td>
                                 <select onchange="changeStatus('{{@$item->id}}', this)" name="status" class="form-control status">
                                     <option value="Active" @if(@$item->status == 'Active') selected @endif>Active</option>

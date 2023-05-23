@@ -8,13 +8,24 @@
     justify-content: space-evenly;
 }
 
+.success {
+    color: green;
+}
+
+.error {
+    color:red;
+}
+
 </style>
 
 @section('title', 'Sign in | Hostess')
 <div class="container login-container">
     <main class="form-signin w-100 mx-auto">
         @if(Session::has('success'))
-        <p class="alert-success {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('success') }}</p>
+        <p class="success">{{ Session::get('success') }}</p>
+        @endif
+        @if(Session::has('error'))
+        <p class="error">{{ Session::get('error') }}</p>
         @endif
         <div class="row">
         <form name="signup" method="POST" action="{{ route('login') }}" autocomplete="off">
