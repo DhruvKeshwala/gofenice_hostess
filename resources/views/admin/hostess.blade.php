@@ -400,6 +400,10 @@
                     icon: "warning",
                     buttons: ['No,cancel it','Yes'],
                     }).then(function(isConfirm) {
+                    if(isConfirm == null)
+                    {
+                        location.href = "{{ url(app()->getLocale() . '/admin/hostess') }}";
+                    }
                     if (isConfirm) {
                     $.ajaxSetup({
                     headers: {

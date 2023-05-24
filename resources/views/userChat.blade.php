@@ -85,9 +85,17 @@
     .content.chat-section {
         padding-top: 20px;
     }
-    @media (min-width: 1400px){
+    @media (min-width: 1477px){
         .container {
-            max-width: 1344px !important;
+            max-width: 1352px !important;
+            /* background: #e4606d; */
+        }
+    }
+
+    @media (min-width: 1900px){
+        .container {
+            max-width: 1800px !important;
+            /* background: #abd; */
         }
     }
 
@@ -96,7 +104,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <section>
-    <div class="container">
+    {{-- <div class="container"> --}}
         <main class="content chat-section">
             <div class="container p-0">
 
@@ -274,16 +282,18 @@
             </div>
         </main>
 
-    </div>
-
-
+    {{-- </div> --}}
 
 </section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script>
     $(document).ready(function () {
-    
+        var URLsegment = '{{Request::segment(3)}}';
+        if(URLsegment == '')
+        {
+            window.location.href = "{{ URL::to(app()->getLocale() . '/user-chat/' . $users[0]['id']) }}"
+        }
     $('#sendMessageToHostess').click(function(){
     var flag = 1;
     var message = $('#message').val();

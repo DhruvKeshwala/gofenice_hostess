@@ -38,24 +38,24 @@
             <span for="floatingLastNameInput" style="color: #636161; display: block; text-align: left;">
                 {{__('messages.Name')}}
             </span>
-            <input style="" type="text" class="form-control" id="floatingLastNameInput" name="name" id="name"
+            <input style="" type="text" class="form-control" name="name" id="name"
                 value="@if (Auth::user()->name != null || Auth::user()->name != '') {{ Auth::user()->name }} @endif">
         </div>
         <div class="form-floating">
             <span for="floatingLastNameInput" style="color: #636161; display: block; text-align: left;">
                 {{__('messages.About me')}}
             </span>
-            <input style="" type="text" class="form-control" id="floatingLastNameInput" name="aboutme" id="aboutme"
+            <input style="" type="text" class="form-control" name="aboutme" id="aboutme"
                 value="@if (Auth::user()->aboutme != null || Auth::user()->aboutme != '') {{ Auth::user()->aboutme }} @endif">
         </div>
         <div class="form-floating">
             <span for="floatingLastNameInput" style="color: #636161; display: block; text-align: left;">
                 {{__('messages.Email')}}
             </span>
-            <input style="" type="text" class="form-control" id="floatingLastNameInput" name="email" id="email"
+            <input style="" type="text" class="form-control" name="email" id="email"
                 value="@if (Auth::user()->email != null || Auth::user()->email != '') {{ Auth::user()->email }} @endif">
             {{-- <input style="background-color: transparent;border: none;color:black" type="text" class="form-control"
-                        id="floatingLastNameInput" placeholder="About me" name="aboutme" id="aboutme"
+                     placeholder="About me" name="aboutme" id="aboutme"
                         value="@if (Auth::user()->aboutme != null || Auth::user()->aboutme != '') {{ Auth::user()->aboutme }}
             @endif">
             <label for="floatingLastNameInput" style="color: #636161;">About me</label> --}}
@@ -64,10 +64,10 @@
             <span for="floatingLastNameInput" style="color: #636161; display: block; text-align: left;">
                 {{__('messages.Year of Birth')}}
             </span>
-            <input style="" type="date" class="form-control" id="floatingLastNameInput" name="birthdate" id="birthdate"
+            <input style="" type="date" class="date-pick form-control" name="birthdate" id="birthdate"
                 value="{{ Auth::user()->birthdate }}">
             {{-- <input style="background-color: transparent;border: none;color:black" type="date" class="form-control"
-                id="floatingLastNameInput" placeholder="About me" name="birthdate" id="birthdate"
+             placeholder="About me" name="birthdate" id="birthdate"
                 value="{{ Auth::user()->birthdate }}">
             <label for="floatingLastNameInput" style="color: #636161;">Year of Birth</label> --}}
         </div>
