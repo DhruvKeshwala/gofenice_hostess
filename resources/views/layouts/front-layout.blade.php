@@ -491,10 +491,8 @@
                 <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..." class="logoImg1" height="10%"
                     width="10%">
                 <span class="close-payment-modal">&times;</span>
-                <h3><b style="margin-left: 10%;margin-left: 23%;">{{__('messages.You are buying')}} <span
-                            id="credits_count"></span> {{__('messages.credits')}} : </b> </h3>
-                <h3><b style="margin-left: 10%;margin-left: 23%;">{{__('messages.Total')}} : €<span
-                            id="credits_amount"></span></b></h3>
+                <h3><b>{{__('messages.You are buying')}} <span id="credits_count"></span> {{__('messages.credits')}} : </b> </h3>
+                <h3><b>{{__('messages.Total')}} : €<span id="credits_amount"></span></b></h3>
                 {{-- payment form --}}
                 <form id="payment-form">
                     @csrf
