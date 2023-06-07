@@ -211,8 +211,8 @@ class RegisteredUserController extends Controller
                 User::where('id',$user->id)->update(['mobile_verified_at'=>Carbon::now()->toDateTimeString(), 'status' => 'Active']);
                 //Session::flash('success', 'Phone number verified successfully');
                 //return redirect()->to('emailForm/'.$user->id);
-                Session::flash('success', trans('messages.Signup Completed'));
-		        return redirect(app()->getLocale() . '/login');
+                Session::flash('success', trans('messages.Phone number verified successfully, Reset your password '));
+		        return redirect(app()->getLocale() . '/reset-password/' . $user->id);
             }
             else
             {
@@ -251,5 +251,45 @@ class RegisteredUserController extends Controller
                 return redirect()->back();
             }
         }
+    }
+
+    public function resetPassword()
+    {
+        return view('reset-password');
+    }
+
+    public function saveResetPassword(Request $request)
+    {
+        $validated = $request->validate([
+            'newPassword' => 'required', 
+            'confirmPassword' => 'required', 
+
+        ],
+        [
+            'newPassword.required' => trans('messages.New Password required'),
+            'confirmPassword.required' => trans('messages.Confirm Password required'),        
+
+        ]);
+        if($request)
+        {
+            $newPassword = $request->newPassword;
+            $confirmPassword = $request->confirmPassword;
+            if($confirmPassword != $newPassword)
+            {
+                Session::flash('error', trans('messages.Password Mismatched Please Enter Valid Confirm Password'));
+            }
+            else
+            {
+                if($request->userId != null || $request->userId != '')
+                {
+                    User::whereId($request->userId)->update([
+                        'password' => Hash::make($request->confirmPassword)
+                    ]);
+                    Session::flash('success', trans('messages.Password Changed Successfully'));
+                    return redirect(app()->getLocale() . '/login');
+                }
+            }
+        }
+        return redirect()->back();
     }
 }

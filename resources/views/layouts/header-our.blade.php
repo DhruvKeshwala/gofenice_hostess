@@ -522,10 +522,13 @@
                                                 @endphp
                                                 @foreach (config('app.available_locales') as $locale)
                                                 <span class="selectedLang">
-                                                    <x-nav-link
-                                                        :href="route(\Illuminate\Support\Facades\Route::currentRouteName(),['locale' => $locale,Request::segment(3)])"
+                                                    <x-nav-link :href="route(
+                                                                                                    \Illuminate\Support\Facades\Route::currentRouteName(),
+                                                                                                    ['locale' => $locale],
+                                                                                                )"
                                                         :active="app()->getLocale() == $locale">
-                                                        <img src="{{ URL::asset('assets/images/' . @$i . '.png') }}" height="70px" width="70px" />
+                                                        <img src="{{ URL::asset('assets/images/' . @$i . '.png') }}"
+                                                            height="70px" width="70px" />
                                                     </x-nav-link>
                                                 </span>
                                                 @php
@@ -629,10 +632,12 @@
                                     @endphp
                                     @foreach (config('app.available_locales') as $locale)
                                     <span class="selectedLang">
-                                        <x-nav-link
-                                            :href="route(\Illuminate\Support\Facades\Route::currentRouteName(),['locale' => $locale,Request::segment(3)])"
-                                            :active="app()->getLocale() == $locale">
-                                            <img src="{{ URL::asset('assets/images/' . @$i . '.png') }}" height="70px" width="70px" />
+                                        <x-nav-link :href="route(
+                                                            \Illuminate\Support\Facades\Route::currentRouteName(),
+                                                            ['locale' => $locale],
+                                                        )" :active="app()->getLocale() == $locale">
+                                            <img src="{{ URL::asset('assets/images/' . @$i . '.png') }}" height="70px"
+                                                width="70px" />
                                         </x-nav-link>
                                     </span>
                                     @php
@@ -739,17 +744,12 @@
             
                         function showPaymentModal(val) {
                             $("#lowCreditModal1").hide();
-                            // if (val == '3') {
-                            //     $("#credits_count").html(3);
-                            // }else{
-                            //     $("#credits_count").html(100);
-                            // }
-                            // $("#credits_amount").html(val);
                             db_no_of_credit = $("input[name='no_of_credit']").val();
                             $("#credits_count").html(db_no_of_credit);
                             
                             db_euro_amount = $("input[name='euro_amount']").val();
                             $("#credits_amount").html(db_euro_amount);
+
                             localStorage.setItem("credit_amount",val*100);
                             localStorage.setItem("credits",db_no_of_credit);
                             localStorage.setItem("is_popup",1);

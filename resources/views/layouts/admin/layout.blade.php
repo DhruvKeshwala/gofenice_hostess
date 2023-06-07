@@ -52,7 +52,7 @@ License: For each use you must have a valid license purchased only from above li
 					<!--begin::Brand-->
 					<div class="aside-logo flex-column-auto" id="kt_aside_logo">
 						<!--begin::Logo-->
-						<a href="#">
+						<a href="{{ route('admin.dashboard') }}">
 							<h1 style="color: #c98e49;">Hostess</h1>
 							{{-- <img alt="Logo" src="{{URL::asset('assets/admin/media/logos/logo-1-dark.svg') }}" class="h-25px logo" /> --}}
 						</a>
@@ -285,7 +285,7 @@ License: For each use you must have a valid license purchased only from above li
 							<!--end::Aside mobile toggle-->
 							<!--begin::Mobile logo-->
 							<div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-								<a href="#">
+								<a href="{{ route('admin.dashboard') }}">
 									<h1 style="color: #c98e49;">Hostess</h1>
 									{{-- <img alt="Logo" src="{{URL::asset('assets/admin/media/logos/logo-1-dark.svg') }}" class="h-25px logo" /> --}}
 								</a>

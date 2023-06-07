@@ -53,24 +53,11 @@
     }
 </style>
 <main class="form-signin w-100 mx-auto">
-
-    {{-- <form class="mx-auto w-adj-form" name="signup" method="post" action="{{ route('store.forgot-password') }}"
-        autocomplete="off"> --}}
-    <form name="otpForm" class="mx-auto w-adj-form" method="post" action="{{route('user.verifyOtp')}}" autocomplete="off">
+    
+    <form class="mx-auto w-adj-form" name="signup" method="post" action="{{ route('user.saveResetPassword') }}"
+        autocomplete="off">
         @csrf
-        <h1 style="color:black;text-align: left;font-weight:bold;" class="h3 mb-3 fw-normal">{{ __('messages.Verify Mobile') }}
-        </h1>
-        {{-- @if(isset($errors) && $errors->any())
-        <div id="errorExplanation" class="errorExplanation text-danger">
-            <h2 class="hide">Error</h2>
-            <ul>
-                @if ($errors->has('mobileno'))
-                <li>Mobile Required</li>
-                @endif
-                {{print_r($errors)}}
-            </ul>
-        </div>
-        @endif --}}
+        <h2 class="signup_heading">{{ __('messages.Reset Password') }}</h2>
         @if(Session::has('success'))
         <p style="color: green;">{{ Session::get('success') }}</p>
         @endif
@@ -89,8 +76,11 @@
         <div id="errorExplanation" class="errorExplanation text-danger">
             <h2 class="hide">Error</h2>
             <ul>
-                @if ($errors->has('otp'))
-                <li>{{ __('messages.Verification Code required') }}</li>
+                @if ($errors->has('newPassword'))
+                <li>{{ __('messages.New Password Required') }}</li>
+                @endif
+                @if ($errors->has('confirmPassword'))
+                <li>{{ __('messages.Confirm Password Required') }}</li>
                 @endif
                 {{-- {{print_r($errors)}} --}}
             </ul>
@@ -100,20 +90,29 @@
             <div class="row">
                 <div class="col-lg-12 col-sm-12">
                     <span for="floatingPassword" class="span-label">
-                        @if($errors->has('otp'))<i class="fa fa-exclamation-triangle text-danger"></i>@endif
-                        {{__('messages.Verification Code')}}
+                        @if($errors->has('newPassword'))<i class="fa fa-exclamation-triangle text-danger"></i>@endif
+                        {{__('messages.New Password')}}
                     </span>
-                    <input style="" type="text" class="form-control" id="name" name="otp" placeholder=""
-                        value="{{ old('otp')}}">
-                    {{-- @if ($errors->has('otp'))
-                        <span class="text-danger">{{ __('messages.Verification Code required') }}</span>
-                    @endif --}}
+                    <input style="" type="password" class="form-control" id="newPassword" name="newPassword" placeholder="{{__('messages.New Password')}}"
+                        value="">
+                </div>
+            </div>
+        </div>
+        <div class="form-floating">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12">
+                    <span for="floatingPassword" class="span-label">
+                        @if($errors->has('confirmPassword'))<i class="fa fa-exclamation-triangle text-danger"></i>@endif
+                        {{__('messages.Confirm Password')}}
+                    </span>
+                    <input style="" type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="{{__('messages.Confirm Password')}}"
+                        value="">
                     <input type="hidden" name="userId" value="{{Request::segment(3)}}">
                 </div>
             </div>
         </div>
         <div class="form-btns">
-            <input type="submit" name="commit" value="{{ __('messages.Verify Code') }}" class="button form-sub"
+            <input type="submit" name="commit" value="{{ __('messages.Save') }}" class="button form-sub"
                 fdprocessedid="jimd4s">
         </div>
         <p style="color: #636161;text-align:center;" class="mt-5 mb-3">{{__('messages.New User?')}}&nbsp;<a

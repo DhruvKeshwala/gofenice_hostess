@@ -74,6 +74,7 @@ class UserController extends Controller
 
     public function saveResponse(Request $request)
     {
+        // dd($request->all());
         if($request)
         {
             $responseDetails = new Response();
@@ -108,6 +109,15 @@ class UserController extends Controller
                     $total_credits = (int)$request->credits + $users->credit - $request->hostessCredit;
                     $credits = ['credit' => $total_credits];
                     User::where('id', Auth::id())->update($credits);
+
+                    if($request->receiver_hostess_id != null || $request->receiver_hostess_id != '')
+                    {
+                        // Add credit to hostess
+                        $hostess = User::where('id', $request->receiver_hostess_id)->first();
+                        $total_credits = (int)$request->hostessCredit + $hostess->hostess_credit;
+                        $credits = ['hostess_credit' => $total_credits];
+                        User::where('id', $request->receiver_hostess_id)->update($credits);
+                    }
                 }
 
                 return json_encode(['success' => 1, 'message' => 'Your Payment done successfully..!']);

@@ -40,6 +40,9 @@ class ChatController extends Controller
                 'sender_id',
                 'receiver_id',
                 'message',
+                'alreadyPurchased',
+                'userCredit',
+                'hostessCredit',
             ]);
 
             $messageDetails['sender_id'] = $request->sender_id;
@@ -48,21 +51,30 @@ class ChatController extends Controller
 
             $message = Message::create($messageDetails);
             
-            // minus from user update user table
-            $userRemainingcredits = $request->userCredit - $request->hostessCredit;
-            User::where('id', $auth_id)->where('user_type', 'user')->update(['credit' => $userRemainingcredits]);
+            if($request->alreadyPurchased == 1)
+            {
+                return json_encode(['success' => 1, 'message' => 'Message Sent Successfully']);
+            }
+            else
+            {
 
-            // add credits to hostess field user table
-            $hostess       = User::where('id', $request->receiver_id)->first();
-            $earnedCredits = $hostess->hostess_credit + $request->hostessCredit;
-            User::where('id', $request->receiver_id)->update(['hostess_credit' => $earnedCredits]);
+                // minus from user update user table
+                $userRemainingcredits = $request->userCredit - $request->hostessCredit;
+                User::where('id', $auth_id)->where('user_type', 'user')->update(['credit' => $userRemainingcredits]);
 
-            return json_encode(['success' => 1, 'message' => 'Message Sent Successfully']);
+                // add credits to hostess field user table
+                $hostess       = User::where('id', $request->receiver_id)->first();
+                $earnedCredits = $hostess->hostess_credit + $request->hostessCredit;
+                User::where('id', $request->receiver_id)->update(['hostess_credit' => $earnedCredits]);
+
+                return json_encode(['success' => 1, 'message' => 'Message Sent Successfully']);
+            }
         }
     }
 
     public function sendFreeMessageToHostess(Request $request)
     {
+        // dd($request->all());
         $messageDetails = [];
         if($request)
         {
