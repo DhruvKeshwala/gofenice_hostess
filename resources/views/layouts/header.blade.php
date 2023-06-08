@@ -30,7 +30,7 @@
         <link rel="stylesheet" href="{{ URL::asset('css/style_header.css') }}">
         <script src="https://js.stripe.com/v3/"></script>
         <script src="{{URL::to('../stripe-sample-code/public/checkout.js')}}" defer></script>
-        
+
 
     </head>
     <style>
@@ -522,13 +522,10 @@
                                                 @endphp
                                                 @foreach (config('app.available_locales') as $locale)
                                                 <span class="selectedLang">
-                                                    <x-nav-link :href="route(
-                                                                                                    \Illuminate\Support\Facades\Route::currentRouteName(),
-                                                                                                    ['locale' => $locale],
-                                                                                                )"
+                                                    <x-nav-link
+                                                        :href="route(\Illuminate\Support\Facades\Route::currentRouteName(),['locale' => $locale,Request::segment(3)])"
                                                         :active="app()->getLocale() == $locale">
-                                                        <img src="{{ URL::asset('assets/images/' . @$i . '.png') }}"
-                                                            height="70px" width="70px" />
+                                                        <img src="{{ URL::asset('assets/images/' . @$i . '.png') }}" height="70px" width="70px" />
                                                     </x-nav-link>
                                                 </span>
                                                 @php
@@ -632,12 +629,10 @@
                                     @endphp
                                     @foreach (config('app.available_locales') as $locale)
                                     <span class="selectedLang">
-                                        <x-nav-link :href="route(
-                                                            \Illuminate\Support\Facades\Route::currentRouteName(),
-                                                            ['locale' => $locale],
-                                                        )" :active="app()->getLocale() == $locale">
-                                            <img src="{{ URL::asset('assets/images/' . @$i . '.png') }}" height="70px"
-                                                width="70px" />
+                                        <x-nav-link
+                                            :href="route(\Illuminate\Support\Facades\Route::currentRouteName(),['locale' => $locale,Request::segment(3)])"
+                                            :active="app()->getLocale() == $locale">
+                                            <img src="{{ URL::asset('assets/images/' . @$i . '.png') }}" height="70px" width="70px" />
                                         </x-nav-link>
                                     </span>
                                     @php
@@ -696,7 +691,8 @@
                     <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..." class="logoImg1"
                         height="10%" width="10%">
                     <span class="close-payment-modal">&times;</span>
-                    <h5><b>{{__('messages.You are buying')}} <span id="credits_count"></span> {{__('messages.credits')}} : </b> </h5>
+                    <h5><b>{{__('messages.You are buying')}} <span id="credits_count"></span> {{__('messages.credits')}}
+                            : </b> </h5>
                     <h5><b>{{__('messages.Total')}} : €<span id="credits_amount"></span></b></h5>
                     {{-- payment form --}}
                     <form id="payment-form">
@@ -734,7 +730,6 @@
                                 localStorage.removeItem("is_popup");
                                 localStorage.removeItem("hostessCredit");
                                 localStorage.removeItem("receiver_hostess_id");
-                                localStorage.removeItem("payment_response");
                                 $("#lowCreditModal1").show();
                                 $(".close1").click(function(){
                                     $("#lowCreditModal1").hide();
@@ -744,12 +739,17 @@
             
                         function showPaymentModal(val) {
                             $("#lowCreditModal1").hide();
+                            // if (val == '3') {
+                            //     $("#credits_count").html(3);
+                            // }else{
+                            //     $("#credits_count").html(100);
+                            // }
+                            // $("#credits_amount").html(val);
                             db_no_of_credit = $("input[name='no_of_credit']").val();
                             $("#credits_count").html(db_no_of_credit);
                             
                             db_euro_amount = $("input[name='euro_amount']").val();
                             $("#credits_amount").html(db_euro_amount);
-
                             localStorage.setItem("credit_amount",val*100);
                             localStorage.setItem("credits",db_no_of_credit);
                             localStorage.setItem("is_popup",1);

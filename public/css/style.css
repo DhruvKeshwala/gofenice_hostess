@@ -905,7 +905,23 @@ ul {
     width: 8px;
     margin-left: 5px;
 }
+.active-status {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #00ff00; 
+  margin-right: 5px; 
+}
 
+.away {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #e27c00; 
+  margin-right: 5px; 
+}
 
 
 .tab-content{
@@ -918,6 +934,21 @@ ul {
 
 .filterLinks .current a::before {
     opacity: 1;
+}
+
+.empty-msg{
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  color: black;
+  text-align: center;
+}
+
+div#tab-1 {
+  padding-top: 0px;
+  margin-left: -10px;
 }
 
 /*******************************/

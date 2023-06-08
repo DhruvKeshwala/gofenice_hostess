@@ -84,15 +84,15 @@
         fd.append('euro_amount', euro_amount);
         fd.append('manageCreditId', manageCreditId);
 
-        if (no_of_credit == '' || no_of_credit == null) 
+        if (no_of_credit == '' || no_of_credit == null || no_of_credit == 0) 
         {
             flag = 0;
             $("#no_of_creditError").html('<span class="errorMessage" style="color:red;">Number of Credit Required</span>');
         }
-        if (euro_amount == '' || euro_amount == null)
+        if (euro_amount == '' || euro_amount == null || euro_amount == 0)
         {
-        flag = 0;
-        $("#euro_amountError").html('<span class="errorMessage" style="color:red;">Amount Required</span>');
+            flag = 0;
+            $("#euro_amountError").html('<span class="errorMessage" style="color:red;">Amount Required</span>');
         }
      
         if(flag == 1) 

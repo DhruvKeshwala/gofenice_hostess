@@ -48,12 +48,16 @@
             if(is_popup == 1)
             {
                 window.location.href = '../en/home';
-                // localStorage.removeItem("is_popup");
+                // localStorage.removeItem("hostessCredit");
+                // localStorage.removeItem("receiver_hostess_id");
+                // localStorage.removeItem("payment_response");
             }
             else
             {
                 window.location.href='../en/user-chat/'+receiver_hostess_id;
-                // localStorage.removeItem("is_popup");
+                // localStorage.removeItem("hostessCredit");
+                // localStorage.removeItem("receiver_hostess_id");
+                // localStorage.removeItem("payment_response");
             }
         },
         error: function(xhr, status, error) {}

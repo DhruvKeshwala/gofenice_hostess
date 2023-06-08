@@ -19,7 +19,7 @@ class UserAccess
        if(auth()->user()->type == $userType){
             return $next($request);
         }
-          
-        return response()->json(['Permission Denied.']);
+        return redirect(route('home'));
+        // return response()->json(['Permission Denied.']);
     }
 }

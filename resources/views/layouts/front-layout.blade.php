@@ -491,7 +491,8 @@
                 <img src="{{ URL::asset('assets/user/images/logo@3x.png') }}" alt="..." class="logoImg1" height="10%"
                     width="10%">
                 <span class="close-payment-modal">&times;</span>
-                <h3><b>{{__('messages.You are buying')}} <span id="credits_count"></span> {{__('messages.credits')}} : </b> </h3>
+                <h3><b>{{__('messages.You are buying')}} <span id="credits_count"></span> {{__('messages.credits')}} :
+                    </b> </h3>
                 <h3><b>{{__('messages.Total')}} : €<span id="credits_amount"></span></b></h3>
                 {{-- payment form --}}
                 <form id="payment-form">
@@ -574,7 +575,6 @@
                     localStorage.removeItem("is_popup");
                     localStorage.removeItem("hostessCredit");
                     localStorage.removeItem("receiver_hostess_id");
-                    localStorage.removeItem("payment_response");
                     $("#lowCreditModal1").show();
                     $(".close1").click(function(){
                         $("#lowCreditModal1").hide();

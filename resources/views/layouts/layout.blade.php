@@ -506,9 +506,9 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         {{-- For Message display --}}
-        <link rel="stylesheet" type="text/css"
-            href="//cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.8/jquery.jgrowl.min.css" />
+        <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.8/jquery.jgrowl.min.css" />
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.8/jquery.jgrowl.min.js"></script>
+        
         {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> --}}
         @yield('footer')
         <!-- The Modal Buy Credit Modal-->
@@ -584,7 +584,6 @@
                     localStorage.removeItem("is_popup");
                     localStorage.removeItem("hostessCredit");
                     localStorage.removeItem("receiver_hostess_id");
-                    localStorage.removeItem("payment_response");
                     $("#lowCreditModal1").show();
                     $(".close1").click(function(){
                         $("#lowCreditModal1").hide();

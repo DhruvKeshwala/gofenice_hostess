@@ -79,7 +79,7 @@ async function checkStatus() {
   const { paymentIntent }  = await stripe.retrievePaymentIntent(clientSecret);
   // Set Item
   localStorage.setItem("payment_response", JSON.stringify(paymentIntent));
-
+  // alert(localStorage.getItem("payment_response"));
   switch (paymentIntent.status) {
     case "succeeded":
       showMessage("Payment succeeded!");

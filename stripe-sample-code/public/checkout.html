@@ -28,6 +28,7 @@
 <script>
 setTimeout(function(){
 var payment_response = localStorage.getItem("payment_response");
+// alert(payment_response);
   var data = JSON.parse(payment_response);
   if(data.status == 'succeeded'){
 window.location.href = "http://localhost/gofenice_hostess/public/en/payment-success";
