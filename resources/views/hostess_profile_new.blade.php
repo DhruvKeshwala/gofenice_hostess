@@ -12,6 +12,7 @@
 </style>
 <script src="https://js.stripe.com/v3/"></script>
 <script src="{{URL::to('../stripe-sample-code/public/checkout.js')}}" defer></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
     .sendMessageText {
         text-align: center;
@@ -390,7 +391,10 @@
                                 {{-- </form> --}}
 
                                 <button class="ModalbuttonOrange Modalbutton"
-                                    onclick="showPaymentModal1(100, 80)"><strong>{{__('messages.Buy a pack of 100 credits for €80 (save 20%!)')}}</strong></button>
+                                    onclick="showPaymentModal1({{@$manageCredit->no_of_credit}}, {{@$manageCredit->euro_amount}})"><strong>{{__('messages.Buy a pack of')}}
+                                        {{@$manageCredit->no_of_credit}} {{__('messages.credits for')}}
+                                        €{{@$manageCredit->euro_amount}}
+                                        ({{__('messages.save 20%')}}!)</strong></button>
                                 {{-- <a class="ModalbuttonOrange Modalbutton"  href="{{URL::to('../stripe-sample-code/public/checkout.html')}}"><strong>Buy
                                     a pack of 100 credits for €80 (save 20%!)</strong></a> --}}
                             </div>
@@ -450,16 +454,23 @@
                             <span><img src="{{ URL::asset('assets/user/images/angle-right.svg') }}" alt="..."></span>
                             </a>
                         </div> --}}
+                        {{-- @dd($count_free_message_sent) --}}
+                        @if ($count_free_message_sent == 0)
                         <div class="msgInput">
-                            <input type="freeMsgBtn" id="freeMsgBtn" class="btn btn_outline"
-                                placeholder="{{ __('messages.Hello, congratulations can we chat?') }}"
-                                style="width: 100%">
-                            <div id="freeMessageError"></div>
+                            <a href="javascript:;void(0)" style="width: 100%" id="freeMsgBtn" class="btn btn_outline"
+                                >{{ __('messages.Hello, congratulations can we chat?') }}
+                            </a>
+                            {{-- <div id="freeMessageError"></div> --}}
+                            <br>
+                            <button class="btn sendBtn" id="freeMsgSendButton">{{__('messages.Free Message')}}</button>
+
+
                             {{-- <span></span>
                                         <span><img src="{{ URL::asset('assets/user/images/angle-right.svg') }}"
                             alt="..."></span> --}}
                             {{-- </a> --}}
                         </div>
+                        @endif
                     </div>
                     @else
                     <h4><a style="color:#3B71CA;" href="{{ route('register') }}"
@@ -1163,7 +1174,6 @@ window.onclick = function(event) {
         localStorage.setItem("message_body",message);
         localStorage.setItem("receiver_hostess_id",receiver_id);
         localStorage.setItem("hostessCredit",hostessCredit);
-        console.log('localStorage', localStorage.getItem("message_body"));
 
         var fd = new FormData();
        
@@ -1177,7 +1187,7 @@ window.onclick = function(event) {
         if (message == '' || message == null) 
         {
             flag = 0;
-            $("#messageError").html('<span class="errorMessage" style="color:red;">Message is Required</span>');
+            $("#messageError").html('<span class="errorMessage" style="color:red;">{{ __("messages.Message Required") }}</span>');
         }
 
         if(userCredit < hostessCredit)
@@ -1267,6 +1277,57 @@ $(document).ready(function () {
         });
     });
 
+    $('#freeMsgSendButton').click(function(){
+        $('.errorMessage').hide();
+            var flag = 1;
+            var message = $('#freeMsgBtn').text();
+            // var hostessCredit = $("input[name='hostessCredit']").val();
+            // var userCredit = $("input[name='userCredit']").val();
+            var receiver_id = $("input[name='receiver_id']").val();
+            var sender_id = $("input[name='sender_id']").val();
+            
+            // if (message == '' || message == null)
+            // {
+            //     flag = 0;
+            //     $("#freeMessageError").html('<span class="errorMessage" style="color:red;">{{ __("messages.Message Required") }}</span>');
+            // }
+        
+            var fd = new FormData();
+            
+            fd.append('message', message);
+            // fd.append('hostessCredit', hostessCredit);
+            // fd.append('userCredit', userCredit);
+            fd.append('receiver_id', receiver_id);
+            fd.append('sender_id', sender_id);
+            
+            if (flag == 1)
+            {
+        
+                $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+                });
+                $.ajax({
+                url: "{{ route('sendFreeMessageToHostess') }}",
+                type: "POST",
+                data:fd,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(result) {
+                var data = JSON.parse(result);
+                    if (data.success) {
+                        swal("Success!", "{{ __('messages.Message sent successfully') }} :)", "success");
+                        $('#freeMsgBtn').val('');
+                        $("#tab-1").load(location.href + " #tab-1");
+                    }
+                },
+                error: function(xhr, status, error) {}
+                });
+            }
+    });
+
     $('#freeMsgBtn').keypress(function (e) {
         var key = e.which;
         if(key == 13)  // the enter key code
@@ -1282,7 +1343,7 @@ $(document).ready(function () {
             if (message == '' || message == null)
             {
                 flag = 0;
-                $("#freeMessageError").html('<span class="errorMessage" style="color:red;">Message is Required</span>');
+                $("#freeMessageError").html('<span class="errorMessage" style="color:red;">{{ __("messages.Message Required") }}</span>');
             }
         
             var fd = new FormData();
@@ -1311,7 +1372,7 @@ $(document).ready(function () {
                 success: function(result) {
                 var data = JSON.parse(result);
                     if (data.success) {
-                        $.jGrowl("Your free message sent successfully.", { life: 10000, theme: 'changeCount'});
+                        swal("Success!", "{{ __('messages.Message sent successfully') }} :)", "success");
                         $('#freeMsgBtn').val('');
                     }
                 },
@@ -1371,6 +1432,7 @@ $(document).ready(function () {
     // });
 });
 function showPaymentModal1(credit, val) {
+    localStorage.removeItem("payment_response");
     var hostessCredit = localStorage.getItem("hostessCredit");
     if(credit < hostessCredit)
     {
@@ -1390,17 +1452,17 @@ function showPaymentModal1(credit, val) {
     //     $("#credits_amount").html(val);
     //     credits = 100;
     // }
-    if(credit == '100')
-    {
-        $("#credits_count").html(100);
-        $("#credits_amount").html(val);
-        credits = credit;
-    }
-    else {
+    // if(credit == '100')
+    // {
+    //     $("#credits_count").html(100);
+    //     $("#credits_amount").html(val);
+    //     credits = credit;
+    // }
+    // else {
         $("#credits_count").html(credit);
         $("#credits_amount").html(val);  
         credits = credit;
-    }
+    // }
     localStorage.setItem("credits",credits);
     $("#credits_amount").html(val);
     localStorage.setItem("credit_amount",val*100);
@@ -1409,7 +1471,6 @@ function showPaymentModal1(credit, val) {
 }
 $(".close-payment-modal").click(function(){
     $("#paymentModal").hide();
-    localStorage.removeItem("payment_response");
 });
 // localStorage.removeItem("payment_response");
 // localStorage.setItem("credit_amount",50);

@@ -217,4 +217,22 @@ return [
     'Email verified successfully' => 'Email verified successfully',
     'Email not verified.' => 'Email not verified.',
     'User Inactive.' => 'User Inactive.',
+    'Free Message'  => 'Free Message',
+    'Message Required'  => 'Message Required',
+    'Message sent successfully' => 'Message sent successfully',
+
+
+    'Forgot password?'  => 'Forgot Password?',
+    'Forgot password'  => 'Forgot Password',
+    'Mobile'            => 'Mobile',
+    'Send OTP'          => 'Send OTP',
+    'Mobile number is not registered!!' => 'Mobile number is not registered!!',
+    'Verification Code has been sent on your number'    => 'Verification Code has been sent on your number',
+    'Reset Password'    => 'Reset Password',
+    'Phone number verified successfully, Reset your password '   => 'Phone number verified successfully, Reset your password ',
+    'New Password'  => 'New Password',
+    'New Password Required' => 'New Password Required',
+    'Confirm Password Required' => 'Confirm Password Required',
+    'Password Changed Successfully' => 'Password Changed Successfully',
+    'Mobile Required'   => 'Mobile Required',
 ];

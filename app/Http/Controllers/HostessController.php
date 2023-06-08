@@ -195,9 +195,11 @@ class HostessController extends Controller
             if (count($conversion)) {
                 $is_chat_option = true;
             }
+            $is_freeMessage_sent =  Message::where('sender_id', $auth_id)->where('receiver_id', $id)->where('free_message',1)->get();
+            $count_free_message_sent = $is_freeMessage_sent->count();
             if($user)
                 $images = Gallery::where('userId', $user->id)->get();
-            return view('hostess_profile_new', compact('user', 'id', 'images', 'is_chat_option', 'manageCredit'));
+            return view('hostess_profile_new', compact('user', 'id', 'images', 'is_chat_option', 'manageCredit', 'count_free_message_sent'));
         }
         else
         {

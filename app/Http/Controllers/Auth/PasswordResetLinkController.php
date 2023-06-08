@@ -7,6 +7,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\View\View;
+use App\Models\User;
+use Session;
 
 class PasswordResetLinkController extends Controller
 {
@@ -15,7 +17,7 @@ class PasswordResetLinkController extends Controller
      */
     public function create(): View
     {
-        return view('auth.forgot-password');
+        return view('forgot-password');
     }
 
     /**
@@ -25,20 +27,30 @@ class PasswordResetLinkController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'email' => ['required', 'email'],
+        // dd($request->all());
+        $validated = $request->validate([
+            'mobileno' => 'required',
+        ],
+        [
+            'mobileno.required' => 'Phone field is required',
         ]);
-
-        // We will send the password reset link to this user. Once we have attempted
-        // to send the link, we will examine the response then see the message we
-        // need to show to the user. Finally, we'll send out a proper response.
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
-
-        return $status == Password::RESET_LINK_SENT
-                    ? back()->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                            ->withErrors(['email' => __($status)]);
+        if($request)
+        {
+            $userDetails['mobileno'] = $request->mobileno;
+            $userDetails['mobile_verification_code'] = '0000'; //otp phone
+           
+            $getUser    = User::where('mobileno', $request->mobileno)->first();
+            
+            if($getUser != null || $getUser != '')
+            {
+                $updateUser = User::where('mobileno', $request->mobileno)->update($userDetails);
+               
+                Session::flash('success', trans('messages.Verification Code has been sent on your number')); 
+                return redirect()->to(app()->getLocale() . '/otpForm/'.$getUser->id);
+            }
+        }
+        Session::flash('error', trans('messages.Mobile number is not registered!!')); 
+        return redirect()->back();
     }
+    
 }

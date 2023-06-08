@@ -69,6 +69,7 @@
             <button type="submit" style="background-color: #ED4B60;border-radius:30px;color:#ffffff!important;" class="w-100 btn mt-2" name="submit"><b>{{ __('messages.Sign in') }}</b></button>
             <p style="color: #636161;text-align:center;" class="mt-2 mb-3">{{ __('messages.New User?') }}&nbsp;<a href="{{ route('register')}}"
                     style="color: #ED4B60;">{{ __('messages.Sign up') }}</a></p>
+            <a href="{{route('user.forgot-password')}}">Forgot password</a>
         </form>
         
     </main>
