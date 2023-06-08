@@ -290,9 +290,10 @@
 <script>
     $(document).ready(function () {
         var URLsegment = '{{Request::segment(3)}}';
-        if(URLsegment == '')
+        var msgCount = '{{ $msgCount }}' ;
+        if(URLsegment == '' && msgCount > 0 )
         {
-            window.location.href = "{{ URL::to(app()->getLocale() . '/user-chat/' . $users[0]['id']) }}"
+            window.location.href = "{{ URL::to(app()->getLocale() . '/user-chat/' . @$users[0]['id']) }}"
         }
     $('#sendMessageToHostess').click(function(){
     var flag = 1;

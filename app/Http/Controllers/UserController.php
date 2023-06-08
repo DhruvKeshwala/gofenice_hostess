@@ -166,7 +166,8 @@ class UserController extends Controller
                     ->where('receiver_id', $authUser->id);
             })->orderBy('id')->get();
 
-            return view('userChat', compact('users', 'selectedUser', 'messages', 'manageCredit'));
+            $msgCount = count($messages);
+            return view('userChat', compact('users', 'selectedUser', 'messages','manageCredit', 'msgCount'));
         }
         else
         {
